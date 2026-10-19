@@ -1,0 +1,1517 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#101015"><title>18:17 | 마지막으로 연결된 휴대폰</title>
+<meta name="description" content="가상의 서울역 좀비 재난 휴대폰 시뮬레이션">
+<link id="originalIOS" rel="stylesheet" href="https://myjust1t1a.github.io/ganadimin/style.css?v=202610171118">
+<style id="extraCSS">/* 원본 iOS 형식을 유지하면서 가상의 X/커뮤니티 앱만 확장 */
+#statusbar .battery i{width:12%!important;background:#ff5555!important}
+.z-lockalerts{position:absolute;top:332px;left:22px;right:22px;display:flex;flex-direction:column;gap:8px;max-height:calc(100% - 500px);overflow-y:auto;scrollbar-width:none;pointer-events:none;text-align:left}
+.z-lockalerts .z-alert{border-radius:14px;padding:11px 13px;background:rgba(245,245,249,.30);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 2px rgba(0,0,0,.13);color:#fff}
+.z-alert-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;margin-bottom:5px;opacity:.88}
+.z-alert-top b{font-weight:700}.z-alert-body{font-size:12.6px;line-height:1.42;letter-spacing:-.02em;word-break:keep-all}
+.z-alert-danger{border-left:3px solid #ff655c}
+@media(max-height:730px){.z-lockalerts{top:285px;max-height:calc(100% - 430px)}.z-lockalerts .z-alert:last-child{display:none}}
+.z-modal{position:absolute;inset:0;background:#fff;z-index:2;display:flex;flex-direction:column;padding-top:49px;color:#111;isolation:isolate;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:14px;letter-spacing:-.02em;animation:zcome .23s ease-out}
+@keyframes zcome{from{opacity:.4;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.z-modal.x-theme{background:#000;color:#f4f4f5}
+.z-modal .z-header{height:54px;flex-shrink:0;border-bottom:1px solid #e4e4e7;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px}
+.z-modal.x-theme .z-header{border-color:#242429}
+.z-header .z-logo{font-size:27px;font-weight:800;line-height:1}.z-header .z-heading{font-size:18px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.z-header .z-small{font-size:11px;color:#8a8a90;text-align:right;line-height:1.4}
+.z-header button{border:0;background:none;color:inherit;min-height:34px;min-width:32px;font-size:24px;cursor:pointer}
+.z-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-bottom:95px}
+.z-scroll::-webkit-scrollbar{display:none}
+.z-tabbar{height:48px;display:flex;flex-shrink:0;border-bottom:1px solid #e5e5e9}
+.x-theme .z-tabbar{border-color:#242428}
+.z-tabbar button{color:#808085;flex:1;position:relative;font-size:13px;font-weight:650}
+.z-tabbar button.active{color:inherit}
+.z-tabbar button.active:after{content:'';position:absolute;bottom:0;left:24%;right:24%;height:3px;border-radius:2px;background:#1d9bf0}
+.z-modal:not(.x-theme) .z-tabbar button.active:after{background:#2970d6}
+.z-pill{display:inline-block;background:#ad2525;color:#fff;font-size:10px;border-radius:4px;padding:2px 5px;vertical-align:middle;letter-spacing:0}
+.z-hint{color:#8c8c90;font-size:11px;padding:12px 16px;line-height:1.5}
+.z-post{border-bottom:1px solid #e6e6e9;padding:16px 13px;cursor:pointer}
+.x-theme .z-post{border-color:#202026}
+.z-author{display:flex;align-items:center;gap:9px}
+.z-avatar{height:40px;width:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;background:#34343a;color:#fff;flex-shrink:0}
+.z-author-info{flex:1;min-width:0;font-size:13px}
+.z-author-info strong{display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font-size:13px}
+.z-author-info small{display:block;color:#888993;margin-top:2px;font-size:11px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.z-post-content{font-size:14px;line-height:1.58;margin:10px 0 12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.z-post-media{height:100px;border-radius:13px;background:linear-gradient(135deg,#242734,#761f27);border:1px solid #43434a;display:flex;align-items:center;gap:12px;justify-content:center;color:#f4dad8;font-weight:700;font-size:12px;margin:8px 0}
+.z-actions{display:flex;justify-content:space-between;color:#86868e;font-size:11px;gap:9px}
+.z-actions button{color:inherit;display:flex;gap:4px;align-items:center;font-size:11px;flex:1;white-space:nowrap}
+.z-actions button.marked{color:#e85786}
+.z-trend{padding:16px;border-bottom:1px solid #27272e;cursor:pointer}.z-trend small{display:block;color:#7b7c85;font-size:11px;margin-bottom:4px}.z-trend strong{display:block;font-size:15px}.z-trend em{display:block;color:#85858d;font-size:11px;margin-top:5px;font-style:normal}
+.z-searchbox{margin:11px 13px;background:#232328;border-radius:23px;display:flex;align-items:center;padding:11px 15px;gap:8px;color:#909099;font-size:13px}
+.z-searchbox input{background:none;border:none;outline:none;color:#fff;min-width:0;flex:1;font:inherit}
+.z-section{padding:18px 16px 9px;font-size:19px;font-weight:750}
+.z-board-top{background:#f5f6fa;padding:10px 13px;color:#666;font-size:12px;border-bottom:1px solid #e2e5ee;line-height:1.6}
+.z-board-row{display:flex;gap:11px;align-items:flex-start;border-bottom:1px solid #ededf1;padding:13px 14px;cursor:pointer}
+.z-board-row .z-num{font-size:12px;color:#92949a;width:29px;flex-shrink:0;text-align:center;padding-top:3px}
+.z-board-row .z-rowmain{min-width:0;flex:1}.z-board-row .z-rowtitle{font-weight:650;font-size:13.5px;line-height:1.45;word-break:break-word}
+.z-board-row .z-rowtitle em{color:#467ac6;font-style:normal;font-size:12px}.z-rowmeta{color:#9a9ba2;font-size:11px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.z-board-label{padding:8px 13px;background:#e8eefb;color:#2564bd;font-size:13px;font-weight:800}
+.z-detail{padding:17px 15px}.z-detail h2{font-size:18px;line-height:1.5;margin:0 0 10px}.z-detail .z-bodytext{white-space:pre-wrap;font-size:14px;line-height:1.85;padding:18px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;word-break:keep-all}
+.z-reply{padding:13px 15px;border-bottom:1px solid #ececf0}.z-reply b{font-size:12px;color:#4e5877}.z-reply p{white-space:pre-wrap;line-height:1.5;font-size:13px;margin:6px 0}.z-reply small{font-size:11px;color:#98989e}
+.z-compose{height:53px;display:flex;align-items:center;gap:8px;padding:0 12px;border-top:1px solid #e0e0e5;flex-shrink:0;background:#fff;margin-bottom:18px}
+.x-theme .z-compose{background:#000;border-color:#303038}
+.z-compose input{border-radius:21px;border:1px solid #ddd;padding:10px 12px;flex:1;min-width:0;outline:none;font-size:13px;color:#141414}.x-theme .z-compose input{background:#1d1d23;border-color:#303039;color:#fff}
+.z-compose button{color:#1d8bd1;font-size:13px;font-weight:750;padding:8px;white-space:nowrap}
+.z-feature{background:#f8e9e9;border-left:4px solid #d72c2c;padding:14px;margin:14px;border-radius:6px;line-height:1.6;font-size:13px}
+.z-offline{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:70px 25px;text-align:center;color:#8a8a93}.z-offline strong{color:inherit;font-size:18px}
+.z-toast{position:absolute;bottom:70px;left:20px;right:20px;background:rgba(35,35,42,.93);color:#fff;border-radius:12px;padding:12px 14px;font-size:12px;line-height:1.4;text-align:center;z-index:20}
+.z-overlay-back{position:absolute;top:50px;left:10px;border:0;background:none;font-size:22px;color:inherit;padding:4px 8px;z-index:4}
+
+/* V6: X actions with SVG shapes matching the familiar mobile action row. */
+.z-actions{gap:2px;align-items:center;justify-content:space-between}
+.z-actions button{border:0;background:none;color:#81818c;min-width:0;flex:0 1 auto;display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 1px;white-space:nowrap}
+.z-actions button.marked[data-heart]{color:#f91880}.z-actions button.marked[data-rt]{color:#00ba7c}.z-actions button.marked[data-bookmark]{color:#1d9bf0}
+.z-x-icon{display:inline-block;width:16px;height:16px;flex-shrink:0}
+.z-post-content{font-size:14px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;margin:9px 0 12px}
+.z-avatar{background-image:linear-gradient(135deg,#b55b87,#304e65)}
+/* V6: Instagram custom overlay with tappable/auto-advancing stories */
+.zi-shell{position:absolute;inset:0;z-index:56;display:flex;flex-direction:column;padding-top:48px;background:#fff;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;font-size:14px;overflow:hidden}
+.zi-scroll{flex:1;overflow-y:auto;min-height:0;padding-bottom:60px;scrollbar-width:none}
+.zi-scroll::-webkit-scrollbar{display:none}
+.zi-head{height:49px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #eaeaea;background:#fff;flex-shrink:0}
+.zi-head strong{font-size:22px;font-family:Georgia,serif;font-style:italic;letter-spacing:-1px}.zi-head button{border:none;background:none;font-size:21px;color:#151515}
+.zi-story-rail{display:flex;gap:12px;align-items:start;padding:14px 12px 17px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid #f3f3f3}
+.zi-story-tap{border:0;background:none;padding:0;min-width:67px;width:67px;color:#111;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10px}
+.zi-story-ring{height:62px;width:62px;border-radius:50%;padding:3px;display:block;background:linear-gradient(30deg,#fbd268,#fd584c,#c92eb2,#715aff)}
+.zi-story-ring i{display:flex;align-items:center;justify-content:center;background:#fff;color:#252525;border-radius:50%;height:100%;font-style:normal;font-weight:780;font-size:21px;border:2px solid #fff}
+.zi-story-tap .zi-nick{width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.zi-post{border-bottom:1px solid #eee;padding-bottom:15px}.zi-posthead{display:flex;align-items:center;padding:11px 13px;gap:10px;font-size:13px;font-weight:700}.zi-posthead .zi-avatar{width:33px;height:33px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(30deg,#fbd268,#fd584c,#c92eb2);color:white}.zi-posthead small{display:block;font-weight:400;color:#888;margin-top:2px}
+.zi-post-art{height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:white;padding:25px;text-align:center}
+.zi-post-art .symbol{font-size:58px}.zi-post-art .desc{font-weight:650;font-size:14px;line-height:1.55}
+.zi-postfoot{padding:10px 13px;font-size:12px;line-height:1.55}.zi-footicons{display:flex;justify-content:space-between;font-size:23px;margin-bottom:7px}.zi-dm-title{font-size:18px;font-weight:750;padding:17px 14px 10px}.zi-dm{display:flex;gap:10px;align-items:center;padding:11px 14px;border-top:1px solid #f1f1f1}.zi-dm-avatar{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:#d8b7c0;color:#fff;font-weight:800}.zi-dm div:last-child{min-width:0}.zi-dm b{font-size:13px}.zi-dm p{font-size:12px;color:#888;margin:3px 0 0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+.zi-stager{position:absolute;inset:0;z-index:57;background:#050505;color:#fff;display:flex;flex-direction:column;padding-top:0;overflow:hidden}
+.zi-progress{display:flex;gap:4px;position:absolute;z-index:3;top:52px;left:11px;right:11px;height:3px}
+.zi-progress span{flex:1;background:#ffffff54;border-radius:6px;overflow:hidden}.zi-progress span.past{background:#fff}.zi-progress span.now i{display:block;background:#fff;height:100%;width:0;animation:zi-fill 5.2s linear forwards}
+@keyframes zi-fill{from{width:0}to{width:100%}}
+.zi-story-top{position:absolute;top:67px;left:13px;right:13px;display:flex;align-items:center;gap:9px;z-index:3}.zi-story-top .zi-face{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:17px;font-weight:800;background:#9774aa}.zi-story-top strong{font-size:13px}.zi-story-top small{display:block;font-size:11px;color:#ddd;margin-top:3px}.zi-story-top button{margin-left:auto;border:0;background:none;color:white;font-size:27px;padding:4px 7px}
+.zi-story-card{flex:1;margin:0;display:flex;justify-content:center;align-items:center;text-align:center;padding:115px 24px 95px;position:relative}
+.zi-card-center{position:relative;z-index:1;max-width:340px;pointer-events:none;transform:rotate(-1deg)}
+.zi-card-top{font-size:13px;font-weight:750;opacity:.75;margin-bottom:15px}.zi-card-title{font-size:clamp(25px,7vw,39px);font-weight:900;letter-spacing:-1.7px;line-height:1.23;white-space:pre-wrap;text-shadow:0 4px 15px #0005}
+.zi-card-text{margin-top:18px;font-size:clamp(15px,4vw,21px);font-weight:650;line-height:1.55;white-space:pre-wrap;text-shadow:0 3px 14px #0005}
+.zi-card-decor{position:absolute;inset:0;opacity:.15;background-image:radial-gradient(circle at 10% 25%,#ffffff66 0 10%,transparent 26%),radial-gradient(circle at 90% 80%,#ffffff55 0 6%,transparent 35%)}
+.zi-touch-prev,.zi-touch-next{position:absolute;top:0;bottom:0;z-index:2;border:0;background:none;width:36%;touch-action:manipulation}.zi-touch-prev{left:0}.zi-touch-next{right:0}
+.zi-story-footer{position:absolute;bottom:49px;left:18px;right:18px;height:41px;border:1px solid #fff9;color:#fff;font-size:12px;border-radius:30px;padding:11px 16px;z-index:3;pointer-events:none}
+
+/* v7: distinct Instagram story aesthetics for six accounts */
+.call-ui.flicker-static{animation:z119-flicker .18s linear 6}
+@keyframes z119-flicker{0%,100%{filter:none}50%{filter:contrast(2.3) grayscale(1)}}
+.zi-story-card .zi-card-center{transition:transform .25s ease;max-width:min(88%,365px)}
+.zi-story-sticker{position:absolute;z-index:1;font-size:clamp(37px,12vw,76px);font-weight:900;opacity:.62;right:8%;top:17%;transform:rotate(11deg);text-shadow:0 5px 23px #0004;pointer-events:none}
+.zi-theme-diary .zi-card-center{font-family:'Apple SD Gothic Neo','Nanum Gothic',sans-serif;transform:rotate(-5deg);text-align:left;align-self:flex-end;margin-bottom:16%}
+.zi-theme-diary .zi-card-title{font-size:clamp(29px,9vw,48px);letter-spacing:-2px;line-height:1.12;font-weight:850}
+.zi-theme-diary .zi-card-text{font-size:clamp(17px,5vw,25px);line-height:1.35}
+.zi-theme-pop .zi-card-center{transform:rotate(6deg);text-align:center;font-family:'Arial Rounded MT Bold','Apple SD Gothic Neo',sans-serif;align-self:flex-start;margin-top:18%}
+.zi-theme-pop .zi-card-title{font-size:clamp(38px,12vw,60px);font-weight:950;letter-spacing:-3px;line-height:1}
+.zi-theme-pop .zi-card-text{font-size:clamp(13px,4.5vw,21px);font-weight:850}
+.zi-theme-notebook .zi-card-center{background:#fff4;padding:16px 12px;transform:rotate(-2deg);font-family:Georgia,'AppleMyungjo',serif;text-align:left;align-self:flex-start;margin-top:24%;border-left:4px solid #fff8}
+.zi-theme-notebook .zi-card-title{font-size:clamp(25px,8vw,39px);font-weight:780;letter-spacing:0}
+.zi-theme-notebook .zi-card-text{font-size:clamp(15px,4.1vw,20px);font-weight:500;line-height:1.85}
+.zi-theme-broadcast .zi-card-center{transform:none;align-self:flex-end;text-align:left;margin-bottom:17%;border-top:3px solid #f33;padding-top:17px;font-family:'Apple SD Gothic Neo',Arial,sans-serif}
+.zi-theme-broadcast .zi-card-title{font-size:clamp(30px,10vw,51px);font-weight:950;line-height:1.1}
+.zi-theme-broadcast .zi-card-text{font-size:clamp(15px,4.2vw,22px);font-weight:550}
+.zi-theme-broadcast .zi-card-top{background:#ed2447;display:inline-block;padding:5px 9px;opacity:1;border-radius:3px;font-weight:950}
+.zi-theme-aesthetic .zi-card-center{transform:rotate(2deg);text-align:right;align-self:flex-start;margin-top:23%;font-family:Georgia,'AppleMyungjo',serif}
+.zi-theme-aesthetic .zi-card-title{font-size:clamp(28px,8.5vw,42px);font-weight:650;letter-spacing:.5px}
+.zi-theme-aesthetic .zi-card-text{font-size:clamp(16px,4vw,21px);font-weight:450;line-height:1.8}
+.zi-theme-fragment .zi-card-center{text-align:left;align-self:flex-end;margin-bottom:20%;transform:rotate(-4deg);font-family:system-ui,'Apple SD Gothic Neo',sans-serif}
+.zi-theme-fragment .zi-card-title{font-size:clamp(32px,11vw,56px);font-weight:950;letter-spacing:-2.5px}
+.zi-theme-fragment .zi-card-text{font-size:clamp(18px,5vw,24px);font-weight:800;line-height:1.28}
+.zi-v1 .zi-card-center{align-self:center!important;text-align:center!important;transform:rotate(2deg) scale(.96)!important;margin:0!important}
+.zi-v2 .zi-card-center{align-self:flex-end!important;text-align:right!important;transform:rotate(-3deg)!important;margin-bottom:15%!important}
+.zi-v1 .zi-story-sticker{top:68%;right:16%;transform:rotate(-12deg)}
+.zi-v2 .zi-story-sticker{top:16%;left:14%;right:auto;transform:rotate(-14deg)}
+.zi-distress .zi-card-title{text-shadow:2px 2px 0 #cf203755,0 7px 18px #000a}
+.zi-distress.zi-theme-fragment .zi-card-center{animation:zi-fear 1.5s ease-in-out infinite}
+@keyframes zi-fear{0%,90%,100%{filter:none}93%{filter:blur(.5px);transform:translateX(-2px) rotate(-3deg)}96%{filter:blur(.3px);transform:translateX(2px) rotate(-4deg)}}
+.ex-oneway{flex-shrink:0;text-align:center;padding:16px 16px max(32px,env(safe-area-inset-bottom));font-size:12px;color:#7a7c84;background:#f3f4f7;border-top:1px solid #dedee3}
+.chat-scene .ex-oneway{padding:14px 12px 30px}
+</style><style id="addonCSS">/* Extensions only. The original layout, fonts, widgets, messages and icons remain governed by its original stylesheet. */
+.ex-options{position:absolute;bottom:87px;left:8px;right:8px;z-index:4;display:flex;flex-direction:column;gap:5px;max-height:190px;overflow-y:auto;padding:8px;background:linear-gradient(180deg,transparent,rgba(178,199,217,.94) 18%);border-radius:18px;scrollbar-width:none}
+.screen.white.ex-choice-room .ex-options{background:linear-gradient(180deg,transparent,rgba(248,248,250,.98) 18%)}
+.ex-options .ex-choice{background:#fffefaeb;border:1px solid #ffffffb5;border-radius:14px;padding:9px 11px;min-height:37px;font-family:inherit;font-size:12px;font-weight:530;color:#1e2530;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;line-height:1.3;box-shadow:0 2px 5px #0000000e}
+.ex-options .ex-choice:active{background:#fce964}.ex-options .ex-choice span{font-size:15px;color:#2484d8}
+.ex-connect-note{color:#5c6471;text-align:center;background:#ffffffe5;border-radius:14px;padding:12px;font-size:12px}
+.ex-choice-room .kmsgs{padding-bottom:320px!important}.ex-choice-room .imsg{padding-bottom:340px!important}
+/* iPhone style: notification stack stays near the top, not over the whole home screen */
+.ex-disaster-stack{position:absolute;top:max(58px,env(safe-area-inset-top) + 16px);left:9px;right:9px;z-index:46;pointer-events:none;max-height:170px;min-height:0;display:block;overflow:visible}
+.ex-disaster-popup{position:relative;display:block;width:100%;border:0;border-radius:19px;background:rgba(239,241,245,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 7px 28px #0005;padding:10px 13px 12px;text-align:left;color:#151619;font:inherit;font-size:12.5px;line-height:1.36;pointer-events:auto;touch-action:pan-y;opacity:0;transform:translateY(-80px);transition:transform .28s cubic-bezier(.2,.75,.25,1),opacity .26s;overflow:hidden}
+.ex-disaster-popup.active{opacity:1;transform:translateY(0)}
+.ex-disaster-popup:not(:first-child){margin-top:-41px;transform:scale(.96) translateY(0);opacity:.92;z-index:-1;pointer-events:none}
+.ex-pop-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}.ex-pop-top b{font-weight:700;font-size:12px;min-width:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ex-pop-top small{font-size:10px;color:#888d95}
+.ex-pop-symbol{width:23px;height:23px;border-radius:6px;background:#ff453a;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:900;flex-shrink:0}.ex-pop-symbol.kakao{background:#fee500;color:#3c1e1e}.ex-pop-symbol.call{background:#30c968}.ex-pop-symbol.news{background:#ae2836}.ex-pop-symbol.sms{background:#37c965}.ex-pop-text{margin-left:31px;word-break:keep-all}
+.ex-group-line{align-items:flex-start!important;gap:6px!important;padding-left:5px;padding-right:5px;margin:8px 0}
+.ex-group-line .ex-group-avatar{width:34px;height:34px;flex:0 0 34px;display:block;overflow:hidden;border-radius:13px;background:#dce6f0;margin-top:2px;box-shadow:0 1px 1px #0002}
+.ex-group-line .ex-profile{width:100%;height:100%;display:block;object-fit:cover}
+.ex-group-wrap{display:flex;flex-direction:column;gap:4px;min-width:0;max-width:calc(100% - 50px);align-items:flex-start}
+.ex-group-name{font-size:11.5px;font-weight:540;line-height:1.35;color:#384754;margin-left:2px}
+.ex-group-line .kb{display:block;max-width:100%!important;white-space:pre-wrap;line-height:1.44}
+.ex-group-line .kmeta{align-self:flex-end;line-height:1.2;font-size:10px}
+.ex-group-line.ex-continued{margin-top:1px}
+.ex-group-line.ex-continued .ex-group-avatar{visibility:hidden}
+.ex-group-line.ex-continued .ex-group-name{display:none}
+.ex-connect-note button{display:block;width:100%;border:1px solid #d6dee8;border-radius:12px;background:#fff;padding:11px 9px;color:#147ce5;font-weight:700;font-size:12px;margin-top:7px}
+.ex-options{bottom:78px;max-height:177px}.ex-choice-room .kmsgs{padding-bottom:320px!important}
+.ex-sms-flag{position:absolute;left:50%;transform:translateX(-50%);top:106px;z-index:6;font-size:10px;background:#eeeeefa8;border-radius:12px;padding:4px 9px;color:#6b6b73;white-space:nowrap}
+@media(max-width:390px){.ex-options .ex-choice{padding:8px 10px;font-size:11.8px}.ex-disaster-popup{padding:10px 12px}}
+.ex-mail-screen{position:absolute;inset:0;z-index:55;background:#f7f7fb;color:#19191d;padding:48px 0 0;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;overflow:hidden}.ex-mail-nav{height:50px;background:#fffdfdf0;display:flex;align-items:center;justify-content:space-between;padding:0 13px;flex-shrink:0;border-bottom:1px solid #ececf0}.ex-mail-nav button{background:transparent;color:#007aff;border:0;padding:8px;font:inherit;font-size:15px}.ex-mail-nav b{font-size:15px}.ex-mail-nav span{color:#007aff}.ex-mail-scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;background:#fff;padding-bottom:60px}.ex-mail-title{padding:20px 20px 10px;background:#f7f7fb}.ex-mail-title small{font-size:12px;color:#86868b}.ex-mail-title h1{font-size:30px;margin:2px 0 1px;letter-spacing:-.04em}.ex-mail-title span{font-size:12px;color:#8e8e93}.ex-mail-row{display:flex;align-items:flex-start;gap:9px;padding:14px 17px;border:0;border-bottom:1px solid #eaeaec;background:#fff;width:100%;text-align:left;color:#17171b;font:inherit}.ex-mail-row>div{min-width:0;flex:1}.ex-mail-rowtop{display:flex;align-items:center;justify-content:space-between;gap:6px}.ex-mail-rowtop b{font-size:15px}.ex-mail-rowtop time{font-size:11px;color:#86868b;flex:none}.ex-mail-row strong{font-size:13px;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin:4px 0}.ex-mail-row p{font-size:12px;color:#8b8b91;margin:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.ex-mail-chev{color:#a8a8af;padding-top:16px}.ex-mail-dot{width:7px;height:7px;background:#0a84ff;border-radius:50%;flex:none;margin-top:8px}.ex-mail-bottom{height:62px;padding:10px 30px 20px;background:#f9f9fb;display:flex;justify-content:space-between;color:#007aff;font-size:22px;border-top:1px solid #e6e6e9}.ex-mail-bottom i{font-style:normal}.ex-mail-detail{background:#fff;padding:20px 19px;min-height:100%}.ex-mail-detail h1{font-size:22px;line-height:1.42;margin:6px 0 18px;letter-spacing:-.03em}.ex-mail-author{padding-bottom:18px;border-bottom:1px solid #ebebef;display:flex;flex-direction:column;gap:4px}.ex-mail-author b{font-size:15px}.ex-mail-author small{color:#8c8c94}.ex-mail-body{padding:22px 0 70px;font-size:14px;line-height:1.85;white-space:pre-wrap;word-break:keep-all}.ex-mail-body p{margin:0 0 20px}.ex-mail-body blockquote{border-left:3px solid #d7d7dc;background:#f8f8fa;padding:12px;margin:22px 0;font-size:12px;color:#777}
+</style></head>
+<body>
+  <main id="story" class="story"></main>
+  <div id="phoneLayer" class="phone-layer" aria-hidden="true">
+    <div class="backdrop" data-close></div>
+    <div id="device" class="device">
+      <div class="statusbar" id="statusbar">
+        <span class="sb-time" id="sbTime">18:17</span>
+        <span class="sb-icons">
+          <svg viewBox="0 0 18 12" width="17" height="11"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+          <svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .4 10.4 10.4 0 0 0 .8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.7 6.7 0 0 0 8 4a6.7 6.7 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg>
+          <span class="battery"><i></i></span>
+        </span>
+      </div>
+      <div id="screens" class="screens"></div>
+      <div id="banner" class="banner"></div>
+      <button class="homebar" id="homebar" aria-label="홈으로"><i></i></button>
+    </div>
+    <button class="close-phone" data-close aria-label="휴대폰 닫기">✕</button>
+  </div>
+
+<script>/* 플레이어의 선택에 따라 각 대화의 후속 기록이 달라지는 픽션 */
+window.ZOMBIE_CHOICES = {
+  '민서 ❤️': {
+    stages:[
+      {options:[
+        {label:'민서야 어디야? 내가 갈게',send:'민서야 어디야? 내가 갈게',replies:['시청역 9번 출구 뒷골목 빌딩 2층','근데 절대 지금 오지 마','아래층에서 누가 계단 난간 넘으면서 뛰어올라와'],next:1},
+        {label:'괜찮아? 다친 데 없어?',send:'괜찮아? 다친 데 없어?',replies:['아까 넘어져서 손바닥 까졌어','근데 그건 괜찮아','여기 사람 잡아서 물어뜯는 거 봤어. 나 너무 무서워'],next:1},
+        {label:'사랑해. 꼭 살아 있어',send:'민서야 사랑해. 꼭 살아 있어',replies:['나도 사랑해','이런 말 지금 하니까 너무 무섭잖아','잠깐만. 밖에서 또 누가 뛰어와'],next:2}
+      ]},
+      {options:[
+        {label:'문 잠그고 가만히 있어',send:'문 잠갔지? 불 끄고 가만히 있어',replies:['응 잠갔어','문손잡이 돌아간다','제발 그냥 지나가라'],next:2},
+        {label:'내가 계단으로 올라갈게',send:'내가 네 건물까지 가볼게',replies:['안 돼 진짜 오지 마','방금 밖에서 소리 질렀던 사람 뛰어가는 거 봤어','뛰는 속도가 사람이 아니야'],next:2},
+        {label:'119에 전화해 봐',send:'119는 연결돼? 한 번 더 걸어봐',replies:['아까 6번 걸었어','연결음만 나다가 끊겨','지금 문 두드리는 소리 너무 가까워'],next:2}
+      ]},
+      {options:[
+        {label:'내 목소리 들려? 답장해',send:'민서야 대답해 줘. 제발',replies:['도현아','', '...'],end:'마지막 접속 18:21 · 전송은 되었지만 읽지 않음'},
+        {label:'숨소리도 내지 마',send:'민서야 숨만 쉬어. 소리 내지 마',replies:['ㅇ','문 열리는 소리', '도현아 사'],end:'네트워크 연결이 끊어졌습니다 · 메시지 1 미확인'},
+        {label:'사랑해. 기다리고 있을게',send:'사랑해. 계속 기다리고 있을게',replies:['나도','진짜 많이 사랑해'],end:'상대방의 마지막 메시지 18:20 · 이후 응답 없음'}
+      ]}
+    ]
+  },
+  '지우 (회사)': {
+    stages:[
+      {options:[
+        {label:'지우야 지금 어디야?',send:'지우야 지금 어디야',replies:['4호선 내려가는 비상계단 옆','아까 거기서 사람이 위에서 뛰어내려왔어','지금은 직원 통로로 들어왔음'],next:1},
+        {label:'그쪽은 괜찮아?',send:'거기 괜찮아? 다친 사람 없어?',replies:['아니 진짜 미치겠음','사람들 물어뜯으면서 서로 밀어','나 혼자 여기 갇혔어'],next:1},
+        {label:'내가 있는 편의점으로 와',send:'나 편의점 맞은편 기둥 뒤야. 여기로 와',replies:['거기 개찰구 쪽이지?','야 절대 밖으로 나오지 마','너 있는 쪽으로 걔네 내려감'],next:1}
+      ]},
+      {options:[
+        {label:'문 안쪽에서 버텨',send:'일단 그 문 잠그고 버텨',replies:['문 잠갔어','근데 밑에서 누가 철문을 미친 듯이 치고 있음'],next:2},
+        {label:'뛰지 말고 나와',send:'조용히 나올 수 있어?',replies:['밖에 발소리 들리는데','안 나갈게. 그냥 기다릴게'],next:2},
+        {label:'우리팀 단톡에 위치 보내',send:'단톡에 네 위치만 남겨 줘',replies:['전송이 안 됨','하... 통신 망했나봐'],next:2}
+      ]},
+      {options:[
+        {label:'지우야 제발 대답해',send:'지우야 아직 거기 있냐',replies:['잠깐','누가 이쪽 문 여는 소리 남'],end:'읽음 표시가 사라졌습니다 · 추가 메시지 없음'},
+        {label:'사람한테 들키면 안 돼',send:'핸드폰 소리 꺼. 절대 움직이지 마',replies:['응'],end:'마지막 활동 18:22 · 더 이상 연결되지 않음'},
+        {label:'내가 데리러 갈게',send:'기다려 내가 찾으러 갈게',replies:['오지 마 도현아','진짜 오지 마'],end:'상대방에게 전송되지 않았습니다'}
+      ]}
+    ]
+  },
+  '엄마': {
+    stages:[
+      {options:[
+        {label:'엄마 나 무사해. 집에 있어',send:'엄마 나 무사해. 절대 밖에 나오지 마',replies:['아이고 다행이다','엄마는 문 다 잠갔어','너는 다친 데 없니'],next:1},
+        {label:'아빠한테 연락 왔어?',send:'엄마 아빠 아직 연락 없어?',replies:['아직 안 받으셔','차를 어디에 뒀는지도 몰라','너라도 무사해야 하는데'],next:1},
+        {label:'나 지금 너무 무서워',send:'엄마 나 너무 무서워',replies:['우리 도현이','괜찮아 엄마가 기다릴게','어디든 숨고 움직이지 마'],next:1}
+      ]},
+      {options:[
+        {label:'아빠 오면 문 열지 마',send:'아빠라도 확인 없이 문 열지 마',replies:['응 알겠어','아빠 오면 전화부터 하라고 할게'],end:'엄마 · 온라인'},
+        {label:'나중에 꼭 연락할게',send:'엄마 배터리 얼마 안 남았어 나중에 연락할게',replies:['아껴 써','사랑한다 아들','엄마는 여기 있을게'],end:'엄마 · 온라인'},
+        {label:'하린이한테 연락해 줘',send:'하린이는 학교에 있다니까 연락해 줘',replies:['알겠어','둘 다 꼭 살아야 한다'],end:'엄마 · 온라인'}
+      ]}
+    ]
+  },
+  '하린 (동생)': {
+    stages:[
+      {options:[
+        {label:'하린아 도서관에서 나오지 마',send:'하린아 절대 나오지 마',replies:['알았어 ㅠ','근데 복도에서 사람들이 막 달려다녀','우리 문 계속 두드림'],next:1},
+        {label:'안에 몇 명 있어?',send:'너희 몇 명이야? 문은 잠갔어?',replies:['열두 명 정도','사서 선생님이 셔터까지 내렸어'],next:1},
+        {label:'사랑해, 동생아',send:'하린아 사랑해. 꼭 살아 있어',replies:['오빠 왜 갑자기 그럼 ㅠㅠ','나도 사랑해','엄마한테도 꼭 연락해'],next:1}
+      ]},
+      {options:[
+        {label:'폰 무음 해 놔',send:'진동도 끄고 화면 밝기 낮춰',replies:['응 했어','일단 기다릴게'],end:'하린 · 마지막 접속 18:23'},
+        {label:'선생님 말씀만 들어',send:'선생님 지시대로 하고 혼자 움직이지 마',replies:['응','오빠도 다치지 마'],end:'하린 · 마지막 접속 18:23'},
+        {label:'오빠가 꼭 갈게',send:'끝나면 오빠가 데리러 갈게',replies:['진짜?','꼭 와야 돼'],end:'하린 · 마지막 접속 18:23'}
+      ]}
+    ]
+  },
+  '우리팀 단톡 (11)': {
+    stages:[
+      {options:[
+        {label:'지금 서울역 B2에 갇혔어요',send:'저 지금 서울역 B2에 갇혔어요',replies:['정 팀장: 도현 씨 거기서 움직이지 마세요','민영: 119에 전화했는데 연결 안 됨','민영: 지우 아까까진 답했는데 지금 전화 안 받아'],next:1},
+        {label:'회사 안쪽 안전한가요?',send:'회사 안에 계신 분들 안전해요?',replies:['정 팀장: 3층까지는 문 잠갔습니다','성민: 복도에서 뛰는 소리 계속 납니다','민영: 제발 누가 통신 돼요?'],next:1},
+        {label:'지우랑 연락되는 사람?',send:'지우랑 지금 연락되는 분?',replies:['민영: 아까 비상계단 쪽이라고 했어요','정 팀장: 개인 연락 최대한 줄여주세요'],next:1}
+      ]},
+      {options:[
+        {label:'문은 절대 열지 마세요',send:'밖에서 도움 요청해도 문 열지 마세요',replies:['정 팀장: 네. 전 직원 출입 금지입니다','성민: 근데 2층에서 소리 들려요'],end:'단체방 · 네트워크 연결 불안정'},
+        {label:'경비실에 전화해 주세요',send:'경비실에 전화 부탁드립니다',replies:['민영: 경비실 연결 안 돼요','정 팀장: 최종 확인 중입니다'],end:'단체방 · 네트워크 연결 불안정'},
+        {label:'제가 잠시 이동할게요',send:'저 편의점 안으로 이동해 보겠습니다',replies:['성민: 그쪽 셔터 안 닫혔대요 가지 마세요','민영: 도현 씨 제발 조심하세요'],end:'단체방 · 네트워크 연결 불안정'}
+      ]}
+    ]
+  },
+  '가족 👨‍👩‍👧': {stages:[
+    {options:[
+      {label:'엄마, 아빠 지금 어디야?',send:'엄마 아빠 지금 어디야? 연락 왔어?',replies:['엄마: 아직 안 받는다. 너 먼저 안전한 데 있어','하린: 아빠 지금 연락 안돼'],next:1},
+      {label:'다들 문 열지 마세요',send:'다들 문 잠가. 확인 안 된 사람은 들이지 마',replies:['엄마: 응 안 열게. 너는 지금 어디야','하린: 우리 도서관도 잠갔어'],next:1},
+      {label:'나 서울역 지하에 갇혔어',send:'나 서울역 지하에 갇혔어',replies:['엄마: 도현아 제발 나오지 마','하린: 오빠 ㅠㅠ','엄마: 네가 연락이 되는 것만도 다행이다'],next:1}
+    ]},
+    {options:[
+      {label:'나중에 꼭 전화할게',send:'폰 배터리 얼마 없어. 또 연락할게',replies:['엄마: 사랑한다. 숨을 데부터 찾아','하린: 오빠 무조건 살아야 돼'],end:'가족 단톡 · 마지막 수신 18:24'},
+      {label:'아빠 마지막 위치 확인해 줘',send:'아빠 마지막 위치만 확인해 줘',replies:['하린: 마지막 카톡은 차 두고 걸어간대','엄마: 지금은 전화도 안 받아'],end:'가족 단톡 · 이후 아빠 메시지 없음'},
+      {label:'나는 괜찮으니까 걱정 마',send:'나 괜찮아. 너희 둘은 실내에 있어',replies:['엄마: 괜찮다는 말 믿을게','하린: 오빠 조심해'],end:'가족 단톡 · 마지막 접속 불명'}
+    ]}
+  ]},
+  '아빠': {stages:[
+    {options:[
+      {label:'아빠 지금 어디야?',send:'아빠 어디세요? 엄마가 걱정해요',replies:['시청 넘어가는 길','차 막혀서 걸어간다','도현이 너는 들어가 있어'],next:1},
+      {label:'밖에서 뛰는 사람들 조심해',send:'아빠 밖에서 사람 쫓아오는 거 조심하세요',replies:['봤다','지금 편의점 골목으로 돌아간다','도로에 사람들 너무 많아'],next:1},
+      {label:'엄마한테 먼저 전화해 줘',send:'엄마가 아빠 찾으니까 전화 한번만 해주세요',replies:['알겠다','전화 계속 끊긴다'],next:1}
+    ]},
+    {options:[
+      {label:'무슨 소리 들려?',send:'아빠 무슨 소리 들려요? 괜찮아요?',replies:['잠깐만','뒤에서 누가 쫓아오는'],end:'마지막 메시지 전송 실패 · 아빠와 연결되지 않음'},
+      {label:'근처 가게 안으로 들어가요',send:'가까운 가게 안으로 들어가서 문 잠가요',replies:['응','뛰는 소리 들려서'],end:'아빠 · 마지막 온라인 18:19'},
+      {label:'사랑해 아빠',send:'아빠 사랑해. 꼭 집에 와요',replies:['알았다 아들','너도 버텨라'],end:'아빠 · 이후 연락 없음'}
+    ]}
+  ]},
+  '서울역 근처 사람들 (27)': {stages:[
+    {options:[
+      {label:'B2 편의점 근처에 사람 있어요?',send:'B2 편의점 맞은편에 있습니다. 근처에 계신 분?',replies:['익명: 저도 아래에 있어요','ㅇㅇ: 거기 개찰구 쪽으로는 가지마세요','관리자: 자세한 현재 위치는 공개하지 마세요'],next:1},
+      {label:'안 열린 출구 아시는 분?',send:'지하 출구 중에 열려 있는 곳 있나요?',replies:['ㅇㅇ: 지금 열린다는 글 다 확인 안된 거임','익명: 셔터 닫히는 소리만 계속 남'],next:1},
+      {label:'누가 사람들 물어뜯는 거 봤어요?',send:'사람들이 갑자기 달려들고 물어뜯는 거 직접 본 분?',replies:['승객A: 봤어요. 바로 앞에서 봄','익명: 진짜 영화처럼 뛰어와요. 서 있지 마세요'],next:1}
+    ]},
+    {options:[
+      {label:'저 구조 요청해 볼게요',send:'119에 다시 연락해 보겠습니다',replies:['익명: 119 지금 안 받아요','관리자: 이동 중 메시지 보지 말고 주변 먼저 확인하세요'],end:'오픈채팅 · 통신 연결 지연'},
+      {label:'셔터 쪽은 피해요',send:'편의점 셔터 쪽은 위험하니까 다들 피하세요',replies:['ㅇㅇ: 안에서 두드리는 소리 들림','익명: 저 다른 쪽으로 돌아갈게요'],end:'오픈채팅 · 몇몇 사용자가 나갔습니다'},
+      {label:'모두 무사하세요',send:'다들 무사하시길 바랍니다. 제발',replies:['익명: 님도 살아서 나가세요','ㅇㅇ: 제발 다들 버티셈'],end:'오픈채팅 · 마지막 동기화 실패'}
+    ]}
+  ]},
+  '다은': {stages:[
+    {options:[
+      {label:'다은아 어디 다쳤어?',send:'다은아 어디 다쳤어? 피가 많이 나?',replies:['팔이야','누가 나 잡았는데 아직도 너무 아파','병원에 전화해도 안 받아'],next:1},
+      {label:'실내로 들어가',send:'일단 잠글 수 있는 데로 들어가',replies:['건물 안이야','근데 사람들이 안 들여보내려고 해','내 팔 보고 다 도망감'],next:1},
+      {label:'119부터 걸어 봐',send:'119는 걸어봤어? 압박해서 지혈하고 있어',replies:['여섯 번 걸었어','계속 끊겨','도현아 나 진짜 무서워'],next:1}
+    ]},
+    {options:[
+      {label:'출혈부터 막아',send:'깨끗한 천으로 누르고 있어. 포기하지 마',replies:['알겠어','잠깐만 휴대폰 떨어뜨렸어'],end:'다은 · 전송 지연 · 더 이상 응답 없음'},
+      {label:'내가 사람들한테 알려볼게',send:'내가 근처 구조 요청 찾아볼게',replies:['고마워','근데 너무 졸려'],end:'다은 · 마지막 접속 18:25'},
+      {label:'제발 정신 차려',send:'다은아 정신 차려. 내 메시지 읽어',replies:['읽고 있어','...'],end:'다은 · 이후 메시지 없음'}
+    ]}
+  ]}
+
+};
+
+/* 좀비 재난 인터랙티브 픽션 — 원본 사이트와 동일한 iOS UI 엔진용 콘텐츠 */
+window.STORY = {
+  title: '18:17 · 마지막으로 연결된 휴대폰',
+  paragraphs: [
+    '2026년 10월 19일, 월요일. 오후 6시 17분. 서울역 지하상가 B2층.',
+    '',
+    '처음 비명이 들린 건 5시 58분이었다. 그때까지만 해도 누군가 지하철 계단에서 넘어졌다고 생각했다. 3분 뒤 역사 방송은 "승객 여러분, 침착하게 이동해 주십시오"를 두 번 반복하다 끊겼다.',
+    '에스컬레이터가 멈췄고, 누군가 떨어뜨린 커피가 바닥을 타고 흘렀다. 건너편 편의점 셔터는 반쯤 내려온 채였다. 철문 너머로 무언가 몸을 부딪치는 소리가 규칙적으로 들렸다.',
+    '휴대전화 진동이 멈추지 않는다. 직장 동료, 연인, 가족, 처음 보는 번호. 재난문자와 속보는 서로 다른 말을 하고 있다. 인터넷에는 영상이 쏟아지고 있지만 방금 본 게시글이 10초 뒤에 사라진다.',
+    '당신은 김도현, 29세. 서울역 근처 회사에서 퇴근하던 평범한 직장인이다. 왼쪽 발목은 인파에 밟혀 붓기 시작했고, 배터리는 12%. 마지막으로 지우와 통화한 건 18분 전이다.',
+    '',
+    '어둠 속에서 화면이 한 번 더 켜진다. [[휴대폰을 확인한다.]]'
+  ]
+};
+const KDATE = '2026년 10월 19일 월요일';
+const room = (items) => [{date:KDATE}, ...items.map(([time,text,me])=>({time,text, ...(me?{me:true}:{})}))];
+window.PHONE = {
+  time:'18:17:40', today:'2026-10-19', owner:'김도현', passcode:'',
+  incomingCall: { from:'민서 ❤️',afterMinutes:0.28,ringSeconds:32,lineStart:700,hangUpAfter:650,
+    lines:[
+      {text:'도현아, 들려? 나 지금 계단 뒤에 숨어 있어.',ms:3200},
+      {who:'me',text:'민서야? 어디야? 전화가 왜 계속 안 됐어?',ms:3300},
+      {text:'종각 아니고... 시청역 쪽으로 왔는데 사람들이... 잠깐만.',ms:3200},
+      {text:'쉿. 쉿 제발...',ms:2300},
+      {who:'me',text:'여보세요? 민서야!',ms:2200},
+      {text:'누가 문을...',noise:true,cut:true,cutAfter:1300,endLabel:'연결이 끊어졌습니다'}
+    ] },
+  voicemail:[
+    {from:'지우 (회사)', date:'오늘 18:05',length:'0:13',new:true, transcript:['도현아. 나 계단 내려갔는데 위에도 있더라.','사람들이 막 밀어. 너 아까 그 편의점 앞이지?','거기서 움직이지 마, 내가... 아, 잠깐만!']},
+    {from:'엄마',date:'오늘 17:52',length:'0:21',new:true,transcript:['도현아 엄마다. 아까 뉴스에서 서울 쪽 위험하다는데...','엄마는 집에 들어왔어. 아빠도 곧 올 거래.','꼭 전화 받아. 무서운 영상들 보지 말고, 알았지?']},
+    {from:'민서 ❤️',date:'오늘 17:48',length:'0:09',new:true,transcript:['도현아 전화 좀 받아줘.','지금 종각이... 잠깐, 저 사람 왜 저래?']},
+    {from:'아빠',date:'오늘 17:29',length:'0:07',transcript:['별일 아니지? 길 엄청 막힌다. 도착하면 연락해라.']},
+    {from:'민서 ❤️',date:'어제 23:12',length:'0:08',transcript:['내일 퇴근하고 떡볶이 먹자. 늦지 마. 사랑해.']}
+  ],
+  keypadNumber:'119',speedDial:{'1':'엄마','2':'민서 ❤️'},
+  callScripts:{ answerRate:0.05,
+    '민서 ❤️':{answer:0.08,lines:[{text:'...여보세요? ...도현아...',ms:2300},{text:'지금 내 목소리 들려?',ms:2700},{text:'...아 안돼, 오지마!',cut:true,noise:true,cutAfter:1500}]},
+    '엄마':{answer:0.35,lines:[{text:'도현아? 살아 있니? 대답 좀 해봐.',ms:3100},{who:'me',text:'엄마, 나 서울역에 있어. 안으로 들어가고 문 잠가.',ms:3200},{text:'알았어. 너도 꼭 집에 와야 돼. 알았지?',ms:3400}]},
+    '아빠':{answer:0.1,lines:[{text:'도로가 다 막혔다. 차 두고 걸어가는 중이다.',ms:3100},{who:'me',text:'아빠 그냥 집으로 돌아가!',ms:2400},{text:'...어? 저기 왜 차들이...',noise:true,cut:true}]},
+    '지우 (회사)':{answer:0.1,lines:[{text:'도현아! 나 4호선 승강장 쪽이야.',ms:2800},{text:'출구 막혔어. 제발 내려오지 마.',ms:2500},{text:'야 야 야!!',cut:true}]},
+    '119':{answer:0,lines:[]},'112':{answer:0,lines:[]},'기본':{answer:0,lines:[]}
+  },
+  iconRound:[], icons:{calendar:'',photos:'',camera:'',clock:'',notes:'',mail:'',weather:'',insta:'',blockblast:'',mines:'',maps:'',phone:'',chrome:'',messages:'',kakao:''},
+  homeMusic:{title:'퇴근길 플레이리스트',artist:'재생이 중단됨 · 오프라인',cover:'',link:''},
+  lockWidgets:{dday:{label:'집에 돌아가기',md:'10-19'}, music:'연결 끊김',alarm:'07:00'},
+  badges:{phone:18,mail:76,messages:11,kakao:99},
+  avatars:{'민서 ❤️':'','엄마':'','지우 (회사)':'','하린':'','우리팀 단톡':'','고등학교 친구들':'','회사 3층 생존자들':''},
+  calls:[
+    {name:'민서 ❤️',kind:'휴대전화',dir:'in',missed:true,count:6,when:'18:15'},
+    {name:'지우 (회사)',kind:'휴대전화',dir:'in',missed:true,count:3,when:'18:12'},
+    {name:'엄마',kind:'휴대전화',dir:'in',missed:true,count:4,when:'18:11'},
+    {name:'119',kind:'휴대전화',dir:'out',when:'18:10'},
+    {name:'민서 ❤️',kind:'휴대전화',dir:'out',when:'18:09'},
+    {name:'하린 (동생)',kind:'휴대전화',dir:'in',missed:true,when:'18:06'},
+    {name:'112',kind:'휴대전화',dir:'out',when:'18:02'},
+    {name:'아빠',kind:'휴대전화',dir:'in',missed:true,count:2,when:'17:58'},
+    {name:'지우 (회사)',kind:'휴대전화',dir:'out',when:'17:56'},
+    {name:'민서 ❤️',kind:'휴대전화',dir:'in',missed:true,count:2,when:'17:51'},
+    {name:'엄마',kind:'휴대전화',dir:'in',when:'17:43'},
+    {name:'정 팀장',kind:'휴대전화',dir:'in',missed:true,when:'17:39'},
+    {name:'지우 (회사)',kind:'휴대전화',dir:'in',when:'17:34'},
+    {name:'민서 ❤️',kind:'휴대전화',dir:'out',when:'17:18'},
+    {name:'010-72**-1940',kind:'휴대전화',dir:'in',missed:true,when:'17:04'},
+    {name:'엄마',kind:'휴대전화',dir:'out',when:'어제'}
+  ],
+  chrome:{tabs:38,
+    shortcuts:[
+      {label:'긴급속보',letter:'속',color:'#d92830'},{label:'실시간',letter:'⚡',color:'#c1352b'},
+      {label:'X 실트',letter:'𝕏',color:'#111'},{label:'커뮤니티',letter:'갤',color:'#286ee6'},
+      {label:'지하철',letter:'🚇',color:'#3e7e9a'},{label:'지도',letter:'지',color:'#389e7b'},
+      {label:'검색',letter:'G',color:'#5689ef'},{label:'기상청',letter:'☀',color:'#389dcc'}
+    ],
+    searches:[
+      '서울역 지금 상황', '서울역 4호선 출구 막힘', '서울역 사람들 갑자기 달려듦', '종로 이상행동 영상 원본',
+      '좀비 진짜 있는거냐', '긴급재난문자 서울역 대피', '시청역 지하 연결 통로',
+      '119 통화 연결 안됨', '서울 오늘 뉴스 속보', '편의점 셔터 안 열림',
+      '서울역에서 수원 가는 법', '종각 민서 마지막 목격', '물린 뒤 갑자기 사람 쫓아옴', '서울역 CCTV'
+    ],
+    feed:[
+      {type:'news',source:'KBC 뉴스24',time:'방금 전 · 18:16',tone:'#d62828',title:'[긴급] 서울 전역 지하철 운행 순차 중단… 서울역·시청역 다수 출구 통제',body:[
+        '10월 19일 오후 6시 16분 기준, 수도권 주요 지하철역에서 운행 중단과 출입 제한 조치가 이어지고 있다. 서울역 일대에서 폭력적 이상행동 신고가 집중되며 승객들의 자력 대피가 진행 중이다.',
+        '관계 당국은 아직 원인과 전파 경로를 공식 확정하지 못했다. 일부 SNS에 유포 중인 영상의 촬영 시각 및 위치는 확인되지 않았다.',
+        '서울역 지하 연결 통로의 구조 요청이 급증했으나 현장 통신망 불안정으로 연락이 지연되고 있다.'
+      ]},
+      {type:'news',source:'연합속보24',time:'3분 전 · 18:14',tone:'#ba2626',title:'[속보] 정부, 수도권 일대 긴급 대응… 원인 불명 집단 공격 사건 조사',body:[
+        '서울 종로구에서 시작된 것으로 추정되는 연쇄 공격 사건이 도심 여러 곳에서 동시에 보고되고 있다. 경찰과 소방은 다수 출동 중이나 현장별 상태 파악에 어려움을 겪는 것으로 알려졌다.',
+        '당국은 확인되지 않은 치료법과 허위 대피 정보를 퍼뜨리지 말 것을 당부했다. 현장 소식은 계속 갱신될 예정이다.'
+      ]},
+      {type:'news',source:'서울시 현장브리핑',time:'9분 전 · 18:08',tone:'#7d1225',title:'서울시: 실내 대기 권고 지역 확대… "공식 안내 확인하고 불필요한 이동 자제"',body:[
+        '17시 52분에 발송된 재난 안내에 이어 서울 도심 일부 지하철역과 지하상가의 진입 제한이 추가 공지됐다.',
+        '유동 인구가 많은 지역에서 혼잡과 통신 장애가 발생하고 있어 개별 구조 요청은 지연될 수 있다고 안내했다.'
+      ]},
+      {type:'news',source:'도심리포트',time:'17분 전 · 18:00',tone:'#981b28',title:'[현장] 종각에서 서울역까지… 시민들 "사람들을 향해 갑자기 달려들었다" 증언',body:[
+        '오후 4시 40분쯤 종각역 인근에서 한 남성이 시민을 붙잡고 목과 어깨 부위를 공격했다는 신고가 접수됐다. 이후 시청, 을지로, 서울역 인근에서도 비슷하게 사람을 향해 달려드는 사례가 잇따랐다.',
+        '목격자들은 공격자들이 비틀거리다가도 갑자기 전력으로 달려들었다고 증언했다. 일부는 "잡히면 바로 문다"는 표현을 썼지만 정확한 원인은 아직 확인되지 않았다.',
+        '18시 전후부터 원문 영상과 게시물들이 급속도로 삭제되거나 접속 불가 상태로 바뀌었다.'
+      ]},
+      {type:'news',source:'교통네트워크',time:'25분 전 · 17:52',tone:'#cc5b3b',title:'수도권 1·4호선 열차 지연… 일부 역사 셔터 폐쇄, 승객 이동 중 혼란',body:[
+        '서울역 지하 구역에 대규모 인파가 몰리고 있다. 4호선 열차 대기 시간이 급증했으며 일부 개찰구가 임시 폐쇄되었다.',
+        '현장 승객들은 안내 방송이 반복되다 중단됐다고 전했다.'
+      ]},
+      {type:'news',source:'시티타임',time:'1시간 전 · 17:15',tone:'#49708a',title:'종로 인근 소란 영상 확산… 경찰 "정확한 상황 확인 중"',body:[
+        '오후 4시께 종로 일대에서 시민을 쫓아가거나 무차별적으로 공격한다는 신고가 접수됐다.',
+        '온라인에 퍼진 관련 영상은 아직 진위 여부를 확인하기 어려우며 섣부른 판단에 주의가 필요하다.'
+      ]},
+      {type:'news',source:'라이프서울',time:'3시간 전',tone:'#6e9d9c',title:'월요일 퇴근길 맑고 선선… 서울 저녁 체감 12도',body:['서울 도심은 오후 들어 맑은 하늘을 보였으며 바람은 다소 차갑겠다.']},
+      {type:'ad',brand:'배달광고',tone:'#e6a149',title:'퇴근하고 치킨 어때요? 월요일 특가',sub:'오후 5시 이전 예약 시 할인 · 주문 서비스 지연 안내',cta:'지금 보기'}
+    ]
+  },
+  messages:{pinned:'',anyReplies:{
+      '엄마':[['도현아? 지금 통신 되는 거야?','엄마는 집이야. 제발 조심해.'],['아빠 아직 안 들어왔어. 혹시 연락 오면 엄마한테 말해줘.']],
+      '민서 ❤️':[['나 시청역 쪽이야','전화보다 문자로 해 줘. 들키면 안 돼'],['도현아 나 너무 무서워']],
+      '하린 (동생)':[['오빠 살아있어? 대답해 줘','나 학교 도서관에 있어. 문 잠갔어.']]
+    },replyCall:{},threads:[
+      {name:'[긴급재난문자]',preview:'[서울특별시] 서울역·시청역 등 주요 역 접근 금지… 실내에 머무르십시오.',when:'18:15',unread:true,sms:true},
+      {name:'민서 ❤️',preview:'도현아 제발 전화받아',when:'18:14',unread:true},
+      {name:'[안전안내문자]',preview:'[서울특별시] 다수 공격 사건 신고… 현장 접근 및 이동 자제',when:'18:08',unread:true,sms:true},
+      {name:'엄마',preview:'집에 오려고 하지 말고 안전한 데 숨어 있어',when:'18:05',unread:true},
+      {name:'하린 (동생)',preview:'오빠 학교에서 문 다 잠갔어',when:'18:03',unread:true},
+      {name:'[긴급재난문자] ',preview:'[중구청] 서울역 인근 시민 대피 안내',when:'17:52',unread:true,sms:true},
+      {name:'지우 (회사)',preview:'지하철 타지 마 절대',when:'17:49',unread:true},
+      {name:'114',preview:'일시적인 통신량 증가로 통화 연결이 원활하지 않을 수 있습니다.',when:'17:47',sms:true},
+      {name:'정 팀장',preview:'건물에서 절대 나가지 마세요',when:'17:38',unread:true},
+      {name:'[안전안내문자] ',preview:'[종로구청] 종각역 인근 폭력 사건… 주변 통행 자제',when:'17:06',sms:true},
+      {name:'민서 ❤️ ',preview:'오늘 저녁 떡볶이 먹을까 ㅎㅎ',when:'어제'}
+    ], chats:{
+      '[긴급재난문자]':[
+        {date:'오늘 오후 6:15'}, {text:'[긴급재난문자]\n[서울특별시] 18:15 현재 서울역·시청역·종로3가역 등 도심 주요 역사 접근을 금지합니다. 주변 건물 실내로 대피하고 출입문을 잠그십시오. 공식 발표 전까지 이동을 자제하세요.'}
+      ],
+      '[안전안내문자]':[
+        {date:'오늘 오후 6:08'}, {text:'[안전안내문자]\n[서울특별시] 도심 전역 원인 불명 집단 공격 사건이 접수되고 있습니다. 폭력 행위자와 접촉하지 말고 안전한 실내 공간에 머무르십시오. 112·119 신고 폭주로 연결이 지연될 수 있습니다.'}
+      ],
+      '[긴급재난문자] ': [{date:'오늘 오후 5:52'},{text:'[긴급재난문자]\n[중구청] 서울역 인근 대규모 인파 밀집 및 위해 상황 발생. 지하 출입구 사용을 잠정 중단하고 현장 안내에 따라 안전한 장소로 이동하세요.'}],
+      '[안전안내문자] ':[{date:'오늘 오후 5:06'},{text:'[안전안내문자]\n[종로구청] 종각역 주변 다수 폭력 신고로 일대 통제 중. 접근 자제 및 현장 경찰 안내에 따라 주시기 바랍니다.'}],
+      '민서 ❤️':[
+        {date:'어제 오후 11:45'},{text:'낼 퇴근하고 떡볶이 먹자 ㅋㅋ'},{me:true,text:'좋지 ㅎㅎ 7시에 볼까'},{text:'좋아 사랑해 ❤️'},
+        {date:'오늘 오후 5:13'},{text:'도현아 종로에서 사람들 싸우는 거 봤어 무섭다'},{me:true,text:'경찰 왔겠지? 지나가지 말고 돌아가'},
+        {date:'오늘 오후 5:48'},{text:'아니 지금 사람들이 막 뛰어'},{text:'나 종각역인데 열차 운행 안한대'},
+        {me:true,text:'민서야 어디야 나 서울역이야'},{text:'도현아 지금 옆에 사람 물렸어'},
+        {date:'오늘 오후 6:04'},{text:'여기서 나가야 돼'},{me:true,text:'시청역 말고 광장 쪽으로 가봐'},
+        {date:'오늘 오후 6:14'},{text:'전화 좀 받아 줘'},{text:'도현아 제발 전화받아'}
+      ],
+      '엄마':[{date:'오늘 오후 5:19'},{text:'도현아 뉴스에 서울에서 사람들 다쳤다는데 별일 없지?'},{me:true,text:'응 엄마 나 퇴근 중이야 걱정마'},
+        {date:'오늘 오후 5:52'},{text:'아빠 차 끌고 나갔는데 길이 막힌대'},{text:'엄마는 수원 집에 있어'},
+        {date:'오늘 오후 6:05'},{text:'집에 오려고 하지 말고 안전한 데 숨어 있어'},{text:'제발 전화 한 번만 받아줘'}],
+      '하린 (동생)':[{date:'오늘 오후 5:20'},{text:'오빠 이거 진짜야?? 종로 영상 개무섭던데'},{me:true,text:'합성 아니냐 ㅋㅋ'},
+        {date:'오늘 오후 5:59'},{text:'오빠 나 학교 도서관이야'},{text:'정문에서 사람들이 소리 지름'},
+        {date:'오늘 오후 6:03'},{text:'경비 아저씨가 전부 안으로 들어오라고 해서 문 닫았어'},{text:'오빠 학교에서 문 다 잠갔어'}],
+      '지우 (회사)':[{date:'오늘 오후 5:32'},{text:'야 아직 회사임? 갑자기 방송 뭐냐'},{me:true,text:'나 서울역 가는 중. 버스 끊겼냐'},
+        {date:'오늘 오후 5:49'},{text:'도현아 4호선 타지 마'},{text:'승강장에서 누가 갑자기 사람 붙잡고 물어뜯음 진짜임'},{me:true,text:'뭐? 너 어디임'},
+        {text:'지하철 타지 마 절대'}],
+      '정 팀장':[{date:'오늘 오후 5:38'},{text:'전 직원분들, 긴급 상황입니다. 빌딩에서 나가지 마세요.'},{text:'1층 로비 출입문을 봉쇄했습니다.'},{text:'외부에서 누가 문을 열어 달라고 해도 경비실 지시 확인 전에는 열지 마세요.'}],
+      '114':[{date:'오늘 오후 5:47'},{text:'[안내] 현재 일부 지역에서 일시적인 통신량 증가로 통화 연결이 원활하지 않을 수 있습니다.'}],
+      '민서 ❤️ ':[{date:'어제 오후 9:11'},{text:'오늘 저녁 떡볶이 먹을까 ㅎㅎ'}]
+    }
+  },
+  kakao:{ad:{label:'안내',title:'데이터 연결이 원활하지 않을 수 있습니다',sub:'네트워크 상태 · 마지막 동기화 18:16',icon:'coat'},
+    chats:[
+      {name:'민서 ❤️',preview:'지금 누가 문 두드려',when:'18:16',pinned:true,unread:12},
+      {name:'우리팀 단톡 (11)',preview:'지우: 제발 계단으로 내려오지 마',when:'18:15',unread:43},
+      {name:'가족 👨‍👩‍👧',preview:'엄마: 아빠 전화 안받는다',when:'18:15',unread:19},
+      {name:'지우 (회사)',preview:'나 지금 사람들한테 밀리고 있어',when:'18:14',unread:9},
+      {name:'서울역 근처 사람들 (27)',preview:'익명: B2 편의점 쪽 계신 분???',when:'18:13',unread:67},
+      {name:'고등학교 친구들',preview:'성훈: 이거 장난 아니야',when:'18:12',unread:28},
+      {name:'정 팀장',preview:'회사 건물 1층으로 절대 내려오지 마세요',when:'18:10',unread:5},
+      {name:'하린 (동생)',preview:'오빠 나 안나갈게 연락줘',when:'18:09',unread:4},
+      {name:'아빠',preview:'도로에 차 버리고 걷는다',when:'18:02',unread:3},
+      {name:'서울역 분실물센터',preview:'[운영 안내] 현장 안전 확보 시까지 업무 중단',when:'17:59',channel:true,unread:1},
+      {name:'다은',preview:'도현아 나 피났는데 이거 어떡해?',when:'17:58',unread:7},
+      {name:'민서 엄마',preview:'민서 혹시 같이 있니?',when:'17:53',unread:2},
+      {name:'상희',preview:'종각 영상 삭제됐어? 링크 안 열린다',when:'17:44',unread:3},
+      {name:'카카오톡',preview:'일부 메시지 전송이 지연되고 있습니다.',when:'17:35',channel:true,unread:1},
+      {name:'배달 단골집',preview:'[주문취소] 배달 서비스 일시 중단',when:'17:28',channel:true},
+      {name:'혜원',preview:'오늘 약속 취소할까? 길 막혔대',when:'17:06'}
+    ],
+    autoReplies:{}, scripted:{},nudge:{},callTriggers:{},anyRepliesLoop:[],
+    anyReplies:{
+      '민서 ❤️':[['도현아 답장했어?','지금 누가 문 두드려'],['나 소리 안 낼게','복도에서 뛰는 소리 들려'],['배터리 3퍼야','사랑해']],
+      '엄마':[['도현아 진짜 너 맞지?','통화가 안 돼서 미치겠다'],['일단 숨을 곳부터 찾아','아빠가 연락이 안 돼']],
+      '하린 (동생)':[['헐 오빠 살아있다 ㅠㅠㅠ','나 여기 나가지 않을게'],['도서관 사람들이 밖에서 소리 난다고 함','무서워']],
+      '지우 (회사)':[['폰 되냐?','나 여자화장실 앞에 숨어 있음'],['여기 누구 숨 쉬는 소리 들려','잠깐만']]
+    },
+    keywordReplies:{
+      '민서 ❤️':[
+        {match:['사랑해'],reply:['나도 사랑해','잠깐만, 밖에서 또 문 두드려'],stopAfter:true},
+        {match:['괜찮아','괜찮냐'],reply:['안 괜찮아','문 바로 앞까지 왔어. 소리 내면 안 돼']},
+        {match:['어디','위치'],reply:['시청역 9번 출구 뒤 사무실 건물 2층이야','근데 아래 복도에 누가 전력으로 뛰어다녀']}
+      ],
+      '지우 (회사)':[
+        {match:['어디'],reply:['4호선 내려가는 비상계단 옆이었는데 이동함','문 여는 소리 들려서 더 못 보냄'],stopAfter:true},
+        {match:['괜찮아'],reply:['아니','누가 바로 위층 계단 난간 넘어서 내려옴']}
+      ],
+      '엄마':[
+        {match:['괜찮아'],reply:['살아있기만 해도 돼','엄마한테 괜찮은 척 안 해도 돼']}
+      ],
+      '하린 (동생)':[
+        {match:['사랑해'],reply:['나도 ㅠㅠ','오빠 꼭 살아서 와']}
+      ]
+    },
+    notificationBurst:[
+      {delay:1200,msg:'긴급재난문자 · 서울역·시청역 접근 금지. 가까운 실내로 대피하십시오.'},
+      {delay:2800,msg:'전화 · 부재중 18통 · 민서 ❤️, 엄마, 지우 (회사) 외'},
+      {delay:4700,msg:'카카오톡 · 민서 ❤️: 지금 누가 문 두드려'},
+      {delay:7000,msg:'속보 · 서울역 지하상가 공격 신고 잇따라 · 현장 혼선'},
+      {delay:10200,msg:'카카오톡 · 지우 (회사): 계단으로 내려오지 마'}
+    ],
+    notification:{from:'지우 (회사)',messages:[{text:'도현아 진짜 이거 봤으면 읽었다고 해 줘',delay:12000},{text:'계단 바로 아래에서 발소리 남',delay:16000},{text:'오지 마. 나 있는 데로 오지 마',delay:25000}]},
+    rooms:{
+      '민서 ❤️':room([
+        ['16:28','오늘 끝나면 청계천 걷자 ㅎㅎ'],['16:29','오 떡볶이도',true],
+        ['17:03','종로에서 구급차 엄청 다녀'],['17:05','사람들 막 뛰어다녀 장난 아님'],
+        ['17:20','너 거기 가지마. 나 먼저 지하철 탈게',true],['17:46','열차 운행 안한다는데?'],
+        ['17:47','경찰이 막 뛰어다녀'],['17:48','누가 갑자기 사람들 쪽으로 뛰어들었어'],
+        ['17:51','전화 받아 줘 도현아'],['17:57','나 시청 쪽으로 가볼게'],
+        ['18:03','왜 다들 안쪽으로 뛰어오지'],['18:06','나 지금 건물 안이야'],
+        ['18:07','밖에 있는 사람들한테 쫓기고 있어'],['18:09','움직이지 마. 내 위치 보낼게',true],
+        ['18:12','지도 앱이 안 돼'],['18:15','너는 괜찮아?'],['18:16','지금 누가 문 두드려']
+      ]),
+      '우리팀 단톡 (11)':room([
+        ['16:51','정 팀장: 다들 오늘 정시 퇴근하셔도 됩니다.'],['16:53','지우: 와 ㅋㅋ 월요일에 무슨일'],
+        ['17:25','성민: 종로 영상 뭐임? 영화촬영임?'],['17:26','민영: 아 맞다 출퇴근길 통제한다는데'],
+        ['17:36','정 팀장: 전 직원 1층 출입문 이용하지 마세요. 경비실 통제 중입니다.'],
+        ['17:41','지우: 밖에서 어떤 아저씨 계속 유리문 박음'],['17:43','성민: 사람들 무슨 좀비영화처럼 달려듦'],
+        ['17:52','민영: 나 엄마한테 전화해야 되는데 계속 안 돼'],
+        ['17:54','도현: 나 서울역 지하인데 다들 괜찮아?',true],['17:55','지우: 야 도현아 서울역이면 올라오지마'],
+        ['18:00','성민: 경비 아저씨 문 열어줬는데 누가 들어오려 했어'],
+        ['18:04','정 팀장: 1층 이동 금지. 엘리베이터 탑승 금지.'],
+        ['18:07','민영: 성민 씨 답 좀 해봐요'],['18:09','지우: 지금 지하철에서 사람들이 계속 밀고 들어옴'],
+        ['18:11','정 팀장: 3층에 계신 분들은 비상계단 문 닫으세요'],
+        ['18:13','성민: 밖에서 도와달라고 소리 지른다'],['18:14','민영: 그거 사람 맞아??'],
+        ['18:15','지우: 제발 계단으로 내려오지 마']
+      ]),
+      '가족 👨‍👩‍👧':room([
+        ['17:18','엄마: 저녁에 다들 뭐 먹을 거야'],['17:20','하린: 나 학교에서 늦게 끝남 ㅠㅠ'],
+        ['17:31','엄마: 뉴스 봤니 서울에서 무슨 일 났나 봐'],['17:34','아빠: 별일 없겠지. 퇴근길이 엄청 막힌다'],
+        ['17:55','엄마: 도현아 지금 어디야'],['17:57','나 서울역 지하. 사람들 너무 많아',true],
+        ['17:58','엄마: 나가지 마 제발'],['18:00','하린: 오빠 진짜 괜찮아?'],
+        ['18:02','아빠: 도로에 차 버리고 걷는다'],['18:04','엄마: 여보 돌아와 위험하대'],
+        ['18:07','하린: 학교 문 닫았다. 나 집 못감'],['18:09','엄마: 아빠도 너도 전화가 안 되냐'],
+        ['18:12','아빠: ...'],['18:13','엄마: 아빠 어디야'],['18:15','엄마: 아빠 전화 안받는다']
+      ]),
+      '지우 (회사)':room([
+        ['17:31','아직 회사냐? 난 4호선 타러 간다'],['17:32','나도 퇴근. 서울역에서 보자',true],
+        ['17:50','야 계단 사람들 왜 다 뛰지'],['17:55','어디야, 지우야?',true],
+        ['17:56','사람 물렸다는 소문 진짜래'],['18:00','개찰구 아래로 사람들 막 내려옴'],
+        ['18:05','나 다른 출구 찾아볼게'],['18:09','앞에서 어떤 여자 쓰러짐'],
+        ['18:12','야 그 여자 갑자기 우리 쪽으로 달려들었어'],['18:14','나 지금 사람들한테 밀리고 있어']
+      ]),
+      '서울역 근처 사람들 (27)':room([
+        ['17:53','익명: 여기 서울역 1번 출구인데 왜 셔터 내려요?'],['17:56','ㅇㅇ: KTX도 중단됨?'],
+        ['17:57','승객A: 열차 안에 사람이 갇혀있다는데'],['18:01','관리자: 확인되지 않은 위치 정보 공유 자제 부탁드립니다.'],
+        ['18:03','ㅇㅇ: 응급환자라고 하는데 누가 자꾸 사람을 문대'],['18:05','익명: 4호선 쪽 가지마세요'],
+        ['18:06','나 B2 편의점 근처인데 출구 아는 분?',true],['18:07','ㄴㅇ: 저도 B2임 어디세요'],
+        ['18:09','익명: CCTV에 사람들 넘어지는 거 떴어요'],['18:10','승객B: 12번 출구 셔터 내려왔대'],
+        ['18:11','ㅇㅇ: 여기 손 다친 사람 있는데 구급차 못 온대요'],['18:12','관리자: 대피 안내는 공식 긴급문자를 우선 확인해 주세요.'],
+        ['18:13','익명: B2 편의점 쪽 계신 분???']
+      ]),
+      '고등학교 친구들':room([
+        ['16:44','성훈: 오늘 누가 회식 안 오냐?'],['16:45','혜원: 나 야근 ㅋㅋ'],
+        ['17:09','정우: 야 너네 종로 영상 봄? 합성 아니냐'],['17:18','성훈: 유튜브 라이브에서 경찰차 보이는데'],
+        ['17:31','혜원: 나 방금 창문밖에서 누가 차 유리 두드리는거 봄'],
+        ['17:52','정우: 쟤들 왜 사람을 무냐 진짜'],['18:01','성훈: 나 신촌인데 경찰 다 뛰어감'],
+        ['18:07','혜원: 이거 진짜 좀비냐?'],['18:10','정우: 제발 주작이라고 해줘'],
+        ['18:12','성훈: 이거 장난 아니야']
+      ]),
+      '정 팀장':room([['17:38','도현 씨, 회사 건물로 복귀하지 마세요.'],['17:51','지하철 노선 전체 상황 확인 중입니다.'],['18:10','회사 건물 1층으로 절대 내려오지 마세요.']]),
+      '하린 (동생)':room([['17:40','오빠 종로 영상 봤냐 좀 무서워'],['17:59','지금 학교 도서관이야'],['18:03','문 닫았대 다들 안 나가'],['18:09','오빠 나 안나갈게 연락줘']]),
+      '아빠':room([['17:42','차 너무 막힌다. 지름길로 간다'],['17:54','소방차가 반대편으로 계속 지나감'],['18:02','도로에 차 버리고 걷는다']]),
+      '다은':room([['17:17','도현아 혹시 종로 근처야?'],['17:33','난 다쳤는데 병원이 사람을 안 받음'],['17:48','도현아 피가 멈추질 않아'],['17:58','도현아 나 피났는데 이거 어떡해?']]),
+      '민서 엄마':room([['17:53','도현아, 민서 혹시 같이 있니? 연락이 안 된다.']]),
+      '상희':room([['17:21','너네 종각 영상 봤냐'],['17:44','종각 영상 삭제됐어? 링크 안 열린다']]),
+      '서울역 분실물센터':room([['17:59','[운영 안내] 현장 안전 확보 시까지 업무를 중단합니다.']]),
+      '카카오톡':room([['17:35','[서비스 안내] 일부 지역에서 메시지 전송이 지연될 수 있습니다.']]),
+      '배달 단골집':room([['17:28','[주문취소] 배달 파트너 안전상의 이유로 서비스가 일시 중단되었습니다.']]),
+      '혜원':room([['17:06','오늘 약속 취소할까? 길 막혔대']])
+    }
+  },
+  mail:[
+    {from:'인사총무팀',subject:'[긴급] 사옥 출입 통제 및 실내 대기 안내',time:'18:12',preview:'전 직원께서는 건물 내부 안전 구역에서 대기해 주시기 바랍니다.',body:['전 직원께 알립니다.','18:10부로 본사 건물 1층 출입문을 전면 통제합니다. 외부에서 구조 요청이나 출입 요청이 있더라도 경비실 확인 전에는 절대 문을 열지 마십시오.','지하철 역사 및 지하상가 인접 구역에서 다수의 폭력적 공격 신고가 접수됐습니다. 각 층 관리자 지시에 따라 실내 대기해 주시고, 유리문 주변 접근을 금지합니다.','엘리베이터 탑승을 제한하며, 비상계단 사용 시 반드시 2인 이상 이동하십시오.'],quote:'※ 회신 금지. 해당 메일은 재난 대응 자동 발송 메일입니다.'},
+    {from:'서울특별시 재난대응본부',subject:'[긴급 브리핑] 서울역·시청역 일대 이동 자제 및 실내 대피 권고',time:'18:08',preview:'확인되지 않은 탈출 경로, 지도 이미지, 음성 파일을 공유하지 마십시오.',body:['시민 여러분께 안내드립니다.','18:08 현재 서울역·시청역·종로3가역 인근에서 다수의 공격 사건이 동시다발적으로 접수되고 있습니다. 현장 주변에 계신 시민은 가까운 실내로 이동해 출입문을 잠그고, 창문과 셔터에서 떨어져 주십시오.','확인되지 않은 탈출 경로, 지하 통로 개방 정보, 음성 파일을 공유하지 마십시오. 긴급 신고는 폭주로 연결이 지연될 수 있습니다.'],quote:'본 메일은 서울시 재난 알림 서비스 가입자에게 전송되었습니다.'},
+    {from:'민서',subject:'RE: 오늘 저녁 떡볶이 먹자',time:'어제',preview:'퇴근하고 종로에서 보자 ㅎㅎ',body:['도현아,','내일 퇴근하고 종로에서 떡볶이 먹자 ㅎㅎ\n사람 많으면 청계천 쪽으로 조금 걷다가 들어가도 좋고.','요즘 우리 계속 바빴잖아. 내일은 폰 내려놓고 천천히 얘기하자.','사랑해 ❤️'],quote:'2026.10.18 23:47에 보낸 메일'}],
+  notes:[
+    {group:'오늘',title:'지금. 제발 기억해',date:'2026. 10. 19.',body:'18:03부터 기록\n\n- 현재 위치: 서울역 지하 B2, 편의점 맞은편 기둥\n- 왼발목 삠. 걸을 수는 있음\n- 배터리 12%, 보조배터리는 회사 책상\n- 민서 마지막 메시지 18:16 / 시청역 근처 건물 안\n- 지우: 4호선 쪽, 18:14 이후 연락 안 됨\n- 엄마는 수원 집 / 하린은 학교 도서관\n- 119 연결 안 됨\n\n다른 사람이 이 폰을 찾았다면… 제발 가족한테 괜찮다고 한 번만 연락해 주세요.\n\n엄마 010-xxxx-0781\n민서 010-xxxx-4085'},
+    {group:'오늘',title:'18:07 녹음 대신 적은 것',date:'2026. 10. 19.',body:'셔터 치는 소리 5번.\n방송: 승객 여러분 안전한... 삐—\n가까이서 누가 이름 부르는 소리.\n지우 목소리인가?\n다시 듣지 말자.'},
+    {group:'오늘',title:'오늘 장 볼 것',date:'2026. 10. 19.',body:'달걀\n두부\n세제\n민서 좋아하는 어묵\n\n퇴근하면 마트 들리기'},
+    {group:'이전 7일',title:'엄마 생일 선물',date:'2026. 10. 17.',body:'목도리? 아니면 운동화\n이번 주말에 수원 내려가기'},
+    {group:'이전 7일',title:'비밀번호 힌트',date:'2026. 10. 16.',body:'폰 잠금은 평소처럼. 내일 출근 8:30. 회의자료 잊지 말기.'}
+  ],
+  translations:[{src:'Stay inside. Do not approach the injured.',ko:'실내에 머무르십시오. 부상자에게 접근하지 마십시오.'},{src:'Emergency networks are currently congested.',ko:'현재 긴급 통신망이 혼잡한 상태입니다.'}],
+  photos:{count:'1,842',images:[]},
+  clock:{startTab:'alarm',sleep:'알람 없음',alarms:[{time:'07:00',label:'출근',repeat:'주중',on:true},{time:'18:30',label:'민서 만나기',repeat:'오늘',on:true}],home:9,world:[{city:'서울',offset:9},{city:'도쿄',offset:9}],timer:{h:0,m:3,s:0,sound:'공지음',link:''},timerRecent:['3분','5분']},
+  insta:{me:'do.hyun_29',dms:[
+      {id:'minseo.zip',name:'민서',preview:'스토리를 볼 수 없습니다',when:'20분',unread:true,msgs:[{date:'오늘 오후 5:46'},{text:'야 지금 종각역 출입 막혔어'},{text:'전화 왜 안돼 ㅠㅠ'}]},
+      {id:'seoullive',name:'서울라이브',preview:'실시간 중계가 종료되었습니다',when:'32분',unread:true,msgs:[{date:'오늘 오후 5:32'},{text:'종로 관련 중계 영상이 삭제되었다고 합니다.'}]}
+    ],profile:{name:'김도현',followers:'286',following:'310',followingTop:[],followingMix:[],bio:'커피 ☕ / 회사원 / 평범한 퇴근길',posts:[
+      {emoji:'🌅',bg:'linear-gradient(120deg,#f3b75b,#334d78)',place:'한강공원',likes:64,comments:3,when:'3일 전',caption:'퇴근길 노을 좋아'},
+      {emoji:'🍢',bg:'linear-gradient(160deg,#f0c29f,#875642)',place:'종로',likes:49,comments:7,when:'지난주',caption:'민서랑 떡볶이 ㅎㅎ'}
+    ]},stories:[{id:'minseo.zip'},{id:'seoullive'},{id:'jjyu_23'}],posts:[
+      {id:'seoulbreaking',verified:true,emoji:'🚨',bg:'linear-gradient(130deg,#3e1a23,#cb4343)',likes:92131,comments:4302,when:'8분 전',caption:'서울역 현장 제보가 빠르게 들어오고 있습니다. 정확하지 않은 위치 제보는 2차 피해를 낳을 수 있습니다. #서울역 #긴급속보'},
+      {id:'commute_seoul',emoji:'🚇',bg:'linear-gradient(150deg,#535c6f,#151d29)',likes:3542,comments:1839,when:'15분 전',caption:'열차가 갑자기 멈췄고 역무원도 안 보여요. 제발 공식 안내 좀…'},
+      {id:'minseo.zip',emoji:'☕',bg:'linear-gradient(150deg,#ddac7c,#977d62)',likes:98,comments:6,when:'3시간 전',caption:'월요일 빨리 지나가라 🥹'}
+    ]},
+  maps:{favorites:[
+    {name:'우리집',icon:'🏠',color:'#4aa37b',dist:'8.1km',addr:'마포구 공덕동',time:'경로 확인 불가',x:38,y:60},
+    {name:'회사',icon:'💼',color:'#8e8e93',dist:'1.2km',addr:'중구 남대문로',time:'경로 확인 불가',x:43,y:36},
+    {name:'민서네 집',icon:'❤️',color:'#e65573',dist:'4.9km',addr:'종로구 혜화동',time:'경로 확인 불가',x:69,y:23},
+    {name:'서울역',icon:'🚇',color:'#3078e8',dist:'현재 위치',addr:'서울역 지하 B2',time:'-',x:52,y:48}
+  ],food:[],recents:[
+    {name:'서울역 4호선',icon:'🚇',addr:'서울특별시 용산구',dist:'300m',time:'정보 없음',x:46,y:52},
+    {name:'시청역',icon:'🚇',addr:'서울특별시 중구',dist:'1.6km',time:'정보 없음',x:65,y:41},
+    {name:'종각역',icon:'🚇',addr:'서울특별시 종로구',dist:'3.3km',time:'정보 없음',x:71,y:31}
+  ]},
+  blockblast:{best:1840},minesweeper:{cols:9,rows:9,mines:10,best:120},
+  calendar:{calendars:{'개인':'#34c759','회사':'#007aff','긴급':'#ff3b30'},birthdays:[],holidays:[],events:[
+    {date:'2026-10-19',start:'18:30',title:'민서랑 저녁 🍜',place:'종로 떡볶이',cal:'개인'},
+    {date:'2026-10-19',start:'19:20',title:'집에 도착',place:'공덕',cal:'개인'},
+    {date:'2026-10-20',start:'08:30',title:'주간 업무회의',place:'회사 12층',cal:'회사'},
+    {date:'2026-10-24',start:'13:00',title:'엄마 보러 수원',place:'수원',cal:'개인'}
+  ]}
+};
+// 잠금 해제 뒤 1회 표시되는 긴급 알림 + 지우의 후속 카카오톡 알림
+window.PHONE.calendar.events.unshift({date:'2026-10-19',start:'18:16',title:'안전안내 · 역사 접근 금지',place:'서울역·시청역',cal:'긴급',alert:true});
+
+window.PHONE.weekday="월요일";window.PHONE.day=19;
+
+for(const who of Object.keys(window.ZOMBIE_CHOICES||{})){if(window.PHONE.kakao?.anyReplies)window.PHONE.kakao.anyReplies[who]=[];if(window.PHONE.messages?.anyReplies)window.PHONE.messages.anyReplies[who]=[];}
+
+
+window.PHONE.mail = [
+  {from:'인사총무팀',subject:'[긴급] 사옥 출입 통제 및 실내 대기 안내',time:'18:12',preview:'외부에서 구조 요청이 있어도 문을 열지 마세요.',body:['전 직원께 알립니다.','18:10부로 본사 건물 1층 출입문을 전면 통제합니다. 바깥에서 출입을 요청하더라도 경비실 확인 전에는 절대로 문을 열지 마십시오.','지하철 역사와 지하상가 인접 구역에서 다수의 인명 피해 신고가 접수됐습니다. 특히 외부에서 갑자기 돌진하거나 물어뜯는 공격이 반복되는 것으로 알려졌습니다.','엘리베이터 탑승을 제한합니다. 비상계단도 가급적 사용을 삼가 주시기 바랍니다.','현재 건물 내부의 공식 대피 구역은 3층 회의실이며, 사내 메신저 연결이 불안정해 이메일로 재공지드립니다.'],quote:'본 메일은 임직원 안전 확보를 위한 긴급 안내입니다.'},
+  {from:'서울특별시 재난안내',subject:'[긴급] 서울역·시청역 일대 이동 자제 및 실내 대피',time:'18:08',preview:'안전한 실내에서 출입문을 잠가 주십시오.',body:['시민 여러분께 안내드립니다.','서울 도심 주요 역사에서 원인 불명의 집단 공격 신고가 이어지고 있습니다. 현장 주변 시민은 실내로 대피하고, 공격자나 부상자에게 가까이 접근하지 마십시오.','인터넷에 유포된 출구 개방 정보와 대피 경로는 공식 확인되지 않았습니다.','현장 신고가 집중되어 112·119 통화 연결이 지연될 수 있습니다.'],quote:'발송 시각 18:08 · 가상 재난 상황을 위한 창작 안내문'},
+  {from:'한국철도 알림센터',subject:'수도권 1호선 및 4호선 열차 지연 안내',time:'17:52',preview:'안전상의 이유로 일부 구간 열차 운행이 중단되었습니다.',body:['안녕하세요. 한국철도 알림센터입니다.','17:52 현재 서울역 및 인근 주요 역사에서 열차 운행이 지연되고 있습니다. 현장 안내방송을 따라 주시기 바랍니다.','일부 역사 출입구 통제 및 긴급 대피 조치가 진행 중이므로 해당 구간 이용을 삼가 주십시오.','운행 재개 시각은 미정입니다. 불편을 드려 죄송합니다.']},
+  {from:'정 팀장',subject:'[정정] 내일 오전 회의 및 출근 관련',time:'17:41',preview:'방금 전달드린 정상 출근 안내를 취소합니다.',body:['팀원 여러분.','조금 전 발송된 내일 정상 출근 안내를 정정합니다.','현재 발생한 상황이 확인되지 않아 10월 20일 오전 회의는 잠정 연기합니다. 모두 안전한 실내에 머물러 주세요.','각자 위치나 안전 상태는 사내 단체 채팅방에 남겨 주시면 취합하겠습니다.','정유진 드림']},
+  {from:'민서',subject:'RE: 오늘 저녁 떡볶이 먹자',time:'어제',preview:'퇴근하고 종로에서 보자 ㅎㅎ',body:['도현아 ㅎㅎ','내일 퇴근하면 종로에서 떡볶이 먹자. 사람 많으면 청계천 쪽으로 조금 걷다가 들어가도 좋고.','요즘 우리 계속 바빴잖아. 내일은 폰 내려놓고 좀 천천히 얘기하자.','사랑해 ❤️','민서']},
+  {from:'회사 IT지원팀',subject:'[안내] 사내 VPN 정기 점검',time:'어제',preview:'이번 주 목요일 02:00~03:00 점검 예정',body:['안녕하세요, IT지원팀입니다.','이번 주 목요일 새벽 2시부터 3시까지 사내 VPN 점검이 예정되어 있습니다.','점검 시간에는 일부 연결이 일시적으로 끊길 수 있습니다. 업무에 참고 부탁드립니다.','감사합니다.']},
+  {from:'서울역 앞 카페',subject:'[예약 완료] 아이스 아메리카노 2잔',time:'16:24',preview:'픽업 예상 시각: 오늘 18:20',body:['안녕하세요, 고객님.','아이스 아메리카노 2잔 예약이 완료되었습니다.','픽업 장소: 서울역 앞 1층 매장','픽업 예정 시간: 2026년 10월 19일 18:20','항상 이용해 주셔서 감사합니다.']},
+  {from:'엄마',subject:'사진 보냈어 ㅎㅎ',time:'지난주',preview:'너 어릴 때 사진 찾았다',body:['도현아','옷 정리하다가 너 어릴 때 사진 나왔다 ㅎㅎ','주말에 집에 오면 보여 줄게. 밥 잘 챙겨 먹고 다녀.','엄마']}
+];
+</script>
+<script>/* 세계관 정합성 / 카카오톡과 SMS를 분리하는 초기 데이터 보정 */
+(() => {
+ const P=window.PHONE;if(!P)return;
+ // 카카오톡 단톡 속 지우의 마지막 메시지는 18:15 이전. 그 이후 그녀는 어떤 단톡에도 답하지 않는다.
+ if(P.kakao){
+   P.kakao.anyReplies={};P.kakao.anyRepliesLoop=[];P.kakao.autoReplies={};P.kakao.scripted={};P.kakao.nudge={};
+   P.kakao.notification={from:'민영',messages:[
+      {text:'지우한테 연락되는 사람 있나요...?',delay:12500},
+      {text:'계단 쪽에서 쾅 하는 소리 났어요',delay:21500},
+      {text:'아 진짜 전화 안되네',delay:30500}
+   ]};
+   const fixMsg=msg=>{
+     if(typeof msg?.text!=='string')return;
+     msg.text=msg.text.replace('야 그 여자 일어났는데 눈이 이상해','야 그 사람 우리 쪽으로 갑자기 뛰어들었어');
+     msg.text=msg.text.replace('누가 쓰러졌는데 일어났어','누가 사람 붙잡고 물어뜯었어');
+   };
+   Object.values(P.kakao.rooms||{}).flat().forEach(fixMsg);
+ }
+ if(P.messages){
+   P.messages.anyReplies={};P.messages.replyCall={};
+   // 인물의 사건 당시 대화 기록은 카카오톡에만. SMS는 사고 전 일상 대화와 정부·서비스 알림으로 시작한다.
+   P.messages.threads=(P.messages.threads||[]).filter(t=>!['민서 ❤️','엄마','하린 (동생)','지우 (회사)','정 팀장'].includes((t.name||'').trim()));
+   for(const name of ['민서 ❤️','엄마','하린 (동생)','지우 (회사)','정 팀장'])delete P.messages.chats[name];
+   // 예전 한 쪽에는 있던 오타가 현실적인 평시 문자로 표시된다.
+   P.messages.threads.push({name:'동네 세탁소',preview:'수선 맡기신 코트 내일 찾아가셔도 됩니다',when:'어제',sms:true});
+   P.messages.chats['동네 세탁소']=[{date:'어제 오후 2:12'},{text:'고객님, 수선 맡기신 코트 내일부터 찾아가실 수 있습니다. 영업시간 10:00~20:00'}];
+ }
+ // 메일과 기존 iOS 앱, 팝업 위치를 원본 엔진이 관리하도록 한다.
+ window.ZOMBIE_NARRATIVE={lastJiwoo:'18:15',outbreak:'빠르게 달려들어 물어뜯는 공격자들'};
+})();
+</script>
+<script id="v7-data-fixes">
+(function(){
+ 'use strict';
+ const P=window.PHONE||{}, C=window.ZOMBIE_CHOICES||{};
+ const isOwn=m=>!!m?.me;
+ // Historical own messages were imported with sender names: own bubbles must never display "도현:"
+ for(const arr of Object.values(P.kakao?.rooms||{}))if(Array.isArray(arr))for(const msg of arr){
+   if(isOwn(msg)&&typeof msg.text==='string')msg.text=msg.text.replace(/^\s*(?:도현|김도현)\s*:\s*/,'');
+ }
+ for(const arr of Object.values(P.messages?.chats||{}))if(Array.isArray(arr))for(const msg of arr){
+   if(isOwn(msg)&&typeof msg.text==='string')msg.text=msg.text.replace(/^\s*(?:도현|김도현)\s*:\s*/,'');
+ }
+ // Team manager and the player are colleagues: formal address in both directions.
+ const manager={'정 팀장':'정 팀장','정팀장':'정 팀장'};
+ // Personal work chats use business-appropriate language, including fallback mode.
+ C['정 팀장']={stages:[{options:[
+  {label:'팀장님, 현재 사무실 상황은 어떤가요?',send:'팀장님, 현재 사무실 상황은 어떤가요?',replies:['도현 씨, 직원들은 현재 3층 회의실에서 대기 중입니다.','외부 출입문을 모두 잠갔습니다. 이동하지 말아 주세요.'],next:1},
+  {label:'지우 씨와 연락되시나요?',send:'팀장님, 지우 씨와 연락되시나요?',replies:['18시 15분 이후 지우 씨와 연락이 되지 않습니다.','상황 확인되는 대로 다시 안내드리겠습니다.'],next:1},
+  {label:'구조대와 연락은 가능할까요?',send:'팀장님, 구조대 연결 여부를 확인 부탁드립니다.',replies:['긴급신고 연결을 시도하고 있습니다만 통화량이 많습니다.','도현 씨, 현재 위치에서 움직이지 않는 것이 좋겠습니다.'],next:1}
+ ]},{options:[
+  {label:'확인했습니다, 팀장님. 대기하겠습니다.',send:'확인했습니다, 팀장님. 안전한 곳에서 대기하겠습니다.',replies:['네, 도현 씨. 현재 위치를 유지해 주세요.','상황 변동 시 다시 연락드리겠습니다.'],next:1},
+  {label:'팀장님, 추가 지시가 있으신가요?',send:'팀장님, 추가 지시가 있으신가요?',replies:['추가 지침이 확인되면 바로 공유드리겠습니다.','실내 출입문을 열지 말아 주세요.'],next:1}
+ ]}]};
+ P.kakao.anyReplies=P.kakao.anyReplies||{};
+ P.messages.anyReplies=P.messages.anyReplies||{};
+ for(const db of [P.kakao,P.messages])db.anyReplies['정 팀장']=[
+  ['도현 씨, 메시지 확인했습니다.','현재 건물 3층에서 대기 중입니다.'],
+  ['네. 말씀하신 내용 확인했습니다.','외부로 이동하지 마시고 안전을 우선해 주세요.'],
+  ['통신이 불안정해 답변이 늦었습니다.','상황 변동이 확인되는 대로 다시 안내드리겠습니다.']
+ ];
+ const formalize=s=>String(s).replace(/^정\s*팀장\s*:\s*([^\n]*)/,(_,v)=>'정 팀장: '+
+    v.replace(/\b도현아\b/g,'도현 씨').replace(/\b움직이지 마\b/g,'움직이지 마세요').replace(/\b괜히 이동하지 마\b/g,'무리해서 이동하지 마세요').replace(/\b좀 보세요\b/g,'확인해 주세요')
+ ).replace(/^도현(?:아)?\s*:\s*/, '');
+ for(const arr of Object.values(P.kakao?.rooms||{}))if(Array.isArray(arr))for(const msg of arr){
+   if(typeof msg.text==='string'&&!msg.me)msg.text=formalize(msg.text);
+ }
+ // Formal reply choices in 1:1 and group chats.
+ for(const [name,data] of Object.entries(C)){
+   if(!data?.stages)continue;
+   for(const stage of data.stages)for(const opt of stage.options||[]){
+     if(Array.isArray(opt.replies))opt.replies=opt.replies.map(s=>formalize(s));
+     if(name==='정 팀장'){
+       opt.send=String(opt.send||opt.label||'').replace(/팀장님?\s*$/,'팀장님, 확인 부탁드립니다.');
+     }
+   }
+ }
+ const scripts=P.callScripts||{};
+ // First 119 call is answered once; subsequent calls ring without any answer.
+ const emergency={
+   answerAfter:2100,lineStart:750,deadAfterOnce:false,
+   lines:[
+     {text:'119입니다. 신고자분, 현재 위치부터 말씀해 주시겠습니까?',ms:3900},
+     {who:'me',text:'서울역 지하 2층이요! 사람들이 갑자기 달려들어서 물어뜯어요! 제발 와주세요!',ms:4100},
+     {text:'서울역 지하 2층, 확인했습니다. 출입문이 있는 안전한 공간에서 대기하시고—',ms:4200},
+     {text:'...잠시만요. 여기 출입문을 누가... 저기요? 누구세요? 안으로 들어오시면 안 됩니다!',ms:3700},
+     {text:'으아아악!!! 아, 아아악! 으아아— 지지직... 치지지직!!',noise:true,cut:true,cutAfter:1650,endLabel:'통신이 끊어졌습니다'}
+   ]
+ };
+ Object.defineProperty(emergency,'answer',{configurable:true,enumerable:true,get(){return this._used?0:1}});
+ scripts['119']=emergency;
+ // Keep a local flag for testing and for future story continuity.
+ window.ZOMBIE_119=emergency;
+ window.ZOMBIE_INSTITUTIONS=name=>/\[.*(?:재난|안전|알림|시스템).*\]|^114$|(?:센터|서비스|카카오톡|배달 단골집)$|^서울특별시/.test(String(name||'').trim());
+})();
+</script>
+<script>// Recognizable, inline vector logos; no external image server needed.
+const vectorData = svg => 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+window.PHONE.icons=window.PHONE.icons||{};
+window.PHONE.icons.insta=vectorData(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><linearGradient id="i" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#feda75"/><stop offset=".35" stop-color="#fa7e1e"/><stop offset=".67" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect width="60" height="60" fill="url(#i)"/><rect x="12" y="12" width="36" height="36" rx="11" stroke="white" stroke-width="4" fill="none"/><circle cx="30" cy="30" r="9" stroke="white" stroke-width="4" fill="none"/><circle cx="42" cy="19" r="2.8" fill="white"/></svg>`);
+window.PHONE.icons.chrome=vectorData(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><rect width="60" height="60" fill="white"/><circle cx="30" cy="30" r="27" fill="#34a853"/><path d="M30 30 7 30A26 26 0 0 1 52 15Z" fill="#ea4335"/><path d="M30 30 52 15A26 26 0 0 1 53 46Z" fill="#fbbc05"/><circle cx="30" cy="30" r="13" fill="white"/><circle cx="30" cy="30" r="10.5" fill="#4285f4"/></svg>`);
+window.PHONE.icons.photos=vectorData(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><rect width="60" height="60" fill="white"/>${['#ff5b63','#ff9e45','#ffd15c','#82d45f','#54c7c2','#578be3','#8769d6','#d97cb5'].map((color,i)=>`<ellipse cx="30" cy="19" rx="7.8" ry="14" transform="rotate(${i*45} 30 30)" fill="${color}" opacity=".92"/>`).join('')}<circle cx="30" cy="30" r="4.5" fill="white"/></svg>`);
+</script>
+<script>window.__usingOriginal=false;window.__originScriptLoaded=false;window.__originScriptError=false;</script>
+<script id="originJS" src="https://myjust1t1a.github.io/ganadimin/app.js?v=202610171118" onload="window.__originScriptLoaded=true;window.__usingOriginal=true" onerror="window.__originScriptError=true"></script>
+<script>/* 재난 휴대폰 확장: 원본 앱 화면은 그대로 유지하고 이벤트/프로필/대화 기능만 추가 */
+(() => {
+'use strict';
+const $=(s,root=document)=>root.querySelector(s), $$=(s,root=document)=>Array.from(root.querySelectorAll(s));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const P=window.PHONE||{}, story=window.ZOMBIE_CHOICES||{}, TEST=/[?&]testmode/.test(location.search);
+const state={began:false,online:true,unlockedAt:0,chatSends:0,stage:{},ended:{},responding:{},personLastReply:{},mail:null,networkWarning:false,seenMessages:new Set(),systemTimers:[],smsActive:new Set(),lastTyped:new Map(),recentPop:[],synthetic:{}};
+const fast=n=>TEST?Math.max(60,Math.round(n*.15)):n;
+const timestamp=()=>P.time?.slice(0,5)||'18:19';
+
+// 단체방의 각 인물을 구분할 수 있도록 초상화 스타일의 자체 제작 SVG 아바타
+const specs={
+ '민서':[2,'#e9b7b9','#734b4f','#35262b',false], '지우':[6,'#aac8e9','#c87f62','#201b2b',false], '엄마':[1,'#edccaf','#9a6774','#4b2c20',false],
+ '아빠':[0,'#aec8d4','#5a788b','#2c292b',true], '하린':[2,'#e2b3d9','#9b77bd','#241a35',false], '성민':[0,'#afbed7','#454a5c','#1b2531',true],
+ '민영':[2,'#ecd1b6','#77a7a7','#322927',true], '정 팀장':[1,'#c2c9ce','#4b6785','#222327',true], '정우':[0,'#d1d7aa','#637858','#211f22',false],
+ '혜원':[2,'#bddac7','#ca8f9c','#47312e',false], '성훈':[0,'#d4b4cb','#846898','#242328',true],
+ '관리자':[1,'#bddddd','#657c89','#444',true], '익명':[1,'#cfcfcf','#969ba4','#595b5f',false], 'ㅇㅇ':[1,'#b8c5dd','#838fad','#434652',false],
+ '승객A':[0,'#b8d7cf','#548a82','#302a28',false], '승객B':[0,'#cbb9bd','#87767c','#232323',false], 'ㄴㅇ':[0,'#d4a9c3','#a65c83','#24232a',false],
+ '사서 선생님':[1,'#cfc9a5','#797e66','#514030',true]
+};
+function svgProfile(name){
+ const s=specs[name]||[1,'#c8d0db','#6a8091','#272d39',false];const [hairStyle,bg,shirt,hair,glasses]=s;
+ const longHair=hairStyle===2;const p=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><defs><linearGradient id="b" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="${bg}"/><stop offset="1" stop-color="#f7eee5"/></linearGradient></defs><rect width="80" height="80" fill="url(#b)"/><circle cx="65" cy="15" r="17" fill="#fff" opacity=".2"/><path d="M-8 87Q0 60 28 59H53Q83 66 88 87" fill="${shirt}"/><path d="M33 54h15v12Q40 75 33 66Z" fill="#d5a68d"/>${longHair?`<path d="M17 63Q11 18 32 14Q61 7 63 38L65 72Q57 75 53 65L22 68Z" fill="${hair}"/>`:`<path d="M20 43Q12 17 34 15Q64 7 61 41L55 48 28 49Z" fill="${hair}"/>`}<ellipse cx="40" cy="39" rx="20" ry="25" fill="#f3cfb5"/><path d="M20 35Q22 10 43 14Q55 13 62 30Q48 29 42 23Q34 35 20 35Z" fill="${hair}"/><path d="M29 40q4-3 8 0M44 40q4-3 8 0" fill="none" stroke="#4b3831" stroke-width="2" stroke-linecap="round"/><path d="M37 50q4 3 8 0" fill="none" stroke="#bc7772" stroke-width="1.6" stroke-linecap="round"/>${glasses?'<rect x="25" y="35" width="14" height="11" rx="5" fill="none" stroke="#453d39" stroke-width="1.6"/><rect x="41" y="35" width="14" height="11" rx="5" fill="none" stroke="#453d39" stroke-width="1.6"/><path d="M39 39h3" stroke="#453d39" stroke-width="1.7"/>':''}</svg>`;
+ return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(p);
+}
+// 1:1 카톡 목록과 문자 연락처에도 각 인물의 프로필 사진을 사용한다.
+P.avatars=P.avatars||{};
+for(const name of Object.keys(specs))P.avatars[name]=svgProfile(name);
+for(const [alias,source] of [['민서 ❤️','민서'],['지우 (회사)','지우'],['하린 (동생)','하린'],['정 팀장','정 팀장'],['다은','혜원'],['민서 엄마','엄마'],['상희','혜원']])P.avatars[alias]=svgProfile(source);
+const composite=names=>{
+ const tiles=names.map((n,i)=>`<rect x="${(i%2)*37}" y="${Math.floor(i/2)*37}" width="37" height="37" rx="4" fill="${(specs[n]||specs['익명'])[1]}"/><circle cx="${18+(i%2)*37}" cy="${14+Math.floor(i/2)*37}" r="9" fill="#f1cbb0"/><path d="M${6+(i%2)*37} ${38+Math.floor(i/2)*37}q12-18 25 0" fill="${(specs[n]||specs['익명'])[2]}"/>`).join('');
+ return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="16" fill="#d9e1ec"/>${tiles}</svg>`);
+};
+P.avatars['우리팀 단톡 (11)']=composite(['민영','성민','정 팀장','지우']);
+P.avatars['가족 👨‍👩‍👧']=composite(['엄마','아빠','하린','민서']);
+P.avatars['고등학교 친구들']=composite(['성훈','혜원','정우','민영']);
+P.avatars['서울역 근처 사람들 (27)']=composite(['승객A','익명','승객B','관리자']);
+function avatar(name){return `<img class="ex-profile" draggable="false" alt="${esc(name)} 프로필" src="${svgProfile(name)}">`}
+const groupNames=new Set(['우리팀 단톡 (11)','가족 👨‍👩‍👧','서울역 근처 사람들 (27)','고등학교 친구들']);
+function resolveName(room){if(room.classList.contains('kroom'))return room.dataset.room||'';return $('.chat-head .who b',room)?.textContent?.replace(/\s*›\s*$/,'').trim()||''}
+function isGroup(name){return groupNames.has(name)||name.includes('단톡')||name.includes('사람들 (')}
+function groupAvatar(room){
+ const name=resolveName(room);if(!isGroup(name))return;
+ const target=$('.kmsgs',room);if(!target)return;
+ let last='';
+ for(const line of $$('.kline',target)){
+   if(line.classList.contains('me')){const mine=$('.kb',line);if(mine)mine.textContent=mine.textContent.replace(/^\s*(?:도현|김도현)\s*:\s*/,'');last='';continue}
+   let bubble=$('.kb',line);if(!bubble)continue;
+   let sender=line.dataset.exSpeaker||'',text=bubble.textContent||'';
+   if(!sender){const m=/^([^:\n]{1,12}):\s*([\s\S]*)$/.exec(text);if(m){sender=m[1];line.dataset.exSpeaker=sender;bubble.textContent=m[2]}}
+   if(!sender){if(name==='우리팀 단톡 (11)')sender='민영';else if(name.startsWith('가족'))sender='엄마';else sender='익명';line.dataset.exSpeaker=sender}
+   if(!line.classList.contains('ex-group-line')){
+     line.classList.add('ex-group-line');
+     const wrap=document.createElement('div');wrap.className='ex-group-wrap';
+     const label=document.createElement('div');label.className='ex-group-name';label.textContent=sender;
+     bubble.parentNode.insertBefore(wrap,bubble);wrap.append(label,bubble);
+     const portrait=document.createElement('span');portrait.className='ex-group-avatar';portrait.innerHTML=avatar(sender);line.insertBefore(portrait,wrap);
+     const meta=$('.kmeta',line);if(meta)wrap.append(meta);
+   }
+   if(line.classList.contains('ex-continued')!==(sender===last))line.classList.toggle('ex-continued',sender===last);last=sender;
+ }
+}
+function popTop(){return $('#device .ex-disaster-stack')}
+function popDismiss(node){if(!node||node.dataset.removing)return;node.dataset.removing='true';node.style.transform='translateY(-160%)';node.style.opacity='0';setTimeout(()=>node.remove(),270)}
+function popup(label,message,type='notice',navigate=true){
+ if(!$('#phoneLayer')?.classList.contains('open') || $('#device')?.classList.contains('is-locked'))return;
+ let host=popTop();if(!host){host=document.createElement('div');host.className='ex-disaster-stack';host.setAttribute('role','region');host.setAttribute('aria-label','휴대폰 알림');$('#device').append(host)}
+ const item=document.createElement('button');item.type='button';item.className='ex-disaster-popup';item.dataset.kind=type;
+ item.innerHTML=`<div class="ex-pop-top"><span class="ex-pop-symbol ${esc(type)}">${type==='call'?'☎':type==='kakao'?'●':type==='sms'?'●':type==='news'?'속':'!'}</span><b>${esc(label)}</b><small>지금</small></div><div class="ex-pop-text">${esc(message)}</div>`;
+ let down=null,didSwipe=false;
+ item.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};didSwipe=false});
+ item.addEventListener('pointerup',e=>{if(!down)return;const dy=e.clientY-down.y;if(dy<-26&&Math.abs(e.clientX-down.x)<100){didSwipe=true;popDismiss(item)}down=null});
+ item.addEventListener('touchstart',e=>{if(e.touches.length)down={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
+ item.addEventListener('touchend',e=>{if(!down||!e.changedTouches.length)return;if(e.changedTouches[0].clientY-down.y<-26){didSwipe=true;popDismiss(item)}down=null},{passive:true});
+ item.addEventListener('click',()=>{if(didSwipe)return;popDismiss(item);if(!navigate)return;
+   if(type==='call')$('.home [data-app="phone"]')?.click();
+   else if(type==='sms'||type==='notice')$('.home [data-app="messages"]')?.click();
+   else if(type==='news')$('.home [data-app="chrome"]')?.click();
+   else $('.home [data-app="kakao"]')?.click();
+ });
+ host.prepend(item);requestAnimationFrame(()=>item.classList.add('active'));
+ while(host.children.length>2){const old=host.lastElementChild;old.remove();}
+ const life=type==='notice'?7200:4900;
+ setTimeout(()=>popDismiss(item),fast(life));
+ state.recentPop.push({label,message,type});
+}
+function showInitial(){if(state.began)return;state.began=true;state.unlockedAt=Date.now();
+ const events=[
+ [450,'긴급재난문자 · 중구청','서울역·시청역 주변 원인 불명 집단 공격. 밖으로 나오지 마십시오.','notice'],
+ [2050,'[속보] 현장','서울역 인근 사람 물어뜯는 공격 다수… 1·4호선 운행 중지','news'],
+ [4050,'부재중 전화 · 민서 ❤️','6통 · 통화 연결 실패','call'],
+ [6700,'카카오톡 · 민영','지우한테 연락되는 사람 있나요...?','kakao'],
+ [11500,'카카오톡 · 민서 ❤️','도현아 나 지금 소리내면 안될거 같아','kakao'],
+ [20500,'부재중 전화 · 엄마','엄마에게서 4통 · 연결 실패','call'],
+ [30500,'긴급재난문자 · 서울특별시','구조 요청 폭주. 이동하지 말고 문에서 떨어져 대기','notice'],
+ [41000,'카카오톡 · 하린','오빠 나 학교야 ㅜㅜ 밖에서 또 소리나','kakao']
+ ];
+ for(const [delay,title,body,kind] of events)setTimeout(()=>popup(title,body,kind),fast(delay));
+ // 몇 분 사이 상황이 계속 바뀜. 이후에는 20~40초 간격으로 상황별 알림 반복.
+ const late=[
+  ['뉴스 속보','서울역에서 시청 방면 도로 통제 확대','news'],
+  ['안전문자 · 중구청','외부에서 구조 요청 소리가 들려도 바로 문을 열지 마십시오','notice'],
+  ['부재중 전화 · 010-72**-1940','알 수 없는 번호가 다시 전화했습니다','call'],
+  ['카카오톡 · 우리팀 단톡','민영: 지금 회사에 남은 사람 몇 분이에요?','kakao']
+ ];
+ const loop=()=>{if(!$('#phoneLayer')?.classList.contains('open'))return;const e=late[(state.recentPop.length+state.chatSends)%late.length];popup(...e);state.systemTimers.push(setTimeout(loop,fast(29000)))};
+ state.systemTimers.push(setTimeout(loop,fast(72000)));
+ // 수신 채널을 카톡에서 문자로 옮기는 사건. 자연스러운 대화가 몇 번 진행되면 더 빨라질 수 있음.
+ state.systemTimers.push(setTimeout(networkDown,fast(81000)));
+}
+function save(name,isK,me,text){
+ const bank=isK?P.kakao?.rooms:P.messages?.chats;if(!bank)return;
+ (bank[name]??=[]).push({me:!!me,text,time:timestamp()});
+ const rows=isK?P.kakao?.chats:P.messages?.threads;let row=rows?.find(x=>x.name===name);
+ if(row){row.preview=text;row.when=timestamp();if(!me)row.unread=(row.unread||0)+1}
+}
+function draw(room,me,raw){
+ const k=room.classList.contains('kroom'),bucket=$(k?'.kmsgs':'.imsg',room);if(!bucket)return;
+ const ln=document.createElement('div');
+ if(k){ln.className='kline '+(me?'me':'them');ln.innerHTML=`<div class="kb">${esc(raw)}</div><div class="kmeta"><span>${esc(timestamp())}</span></div>`}
+ else{ln.className='bub '+(me?'me':'them');ln.textContent=raw}
+ bucket.append(ln);
+ if(k)groupAvatar(room);
+ scroll(room);
+}
+function scroll(room){let x=$('[data-autobottom]',room)||$('.scroll',room);if(x)requestAnimationFrame(()=>{x.scrollTop=x.scrollHeight})}
+function roomPanel(room){return $('.ex-options',room)}
+function createGeneric(name){
+ if(story[name])return story[name];
+ if(name==='정 팀장')return {generic:true,stages:[
+  {options:[
+   {label:'팀장님, 회사 안은 안전한가요?',send:'팀장님, 회사 안은 안전한가요?',replies:['도현 씨, 현재 직원들은 3층 회의실에 대기 중입니다.','외부 출입문은 잠가 둔 상태입니다. 이동하지 말아 주세요.'],next:1},
+   {label:'지우 씨와 연락되시나요?',send:'팀장님, 지우 씨와 연락되시나요?',replies:['18시 15분 이후에는 지우 씨와 연락되지 않고 있습니다.','계속 확인해 보겠습니다.'],next:1},
+   {label:'구조대 연결 상황을 알려주세요',send:'팀장님, 구조대 연결 상황 확인 부탁드립니다.',replies:['119로 계속 연결을 시도하고 있지만 아직 응답이 없습니다.','지금은 안전을 최우선으로 해 주세요.'],next:1}
+  ]},{options:[
+   {label:'확인했습니다. 대기하겠습니다',send:'확인했습니다, 팀장님. 안전한 곳에서 대기하겠습니다.',replies:['네, 확인했습니다. 도현 씨.','통신이 가능한 동안 수시로 상황 공유 부탁드립니다.'],next:1},
+   {label:'추가 지시가 있으면 부탁드립니다',send:'추가 지시가 있으면 알려주세요, 팀장님.',replies:['네. 상황이 확인되는 대로 바로 연락드리겠습니다.','불필요한 이동은 자제 부탁드립니다.'],next:1}
+  ]}]};
+ const dic={
+  '정 팀장':['도현 씨 지금 지하에 계신 거 맞나요?','회사는 3층에서 문 잠갔습니다. 괜히 이동하지 마세요','제가 인원 다시 확인해 보겠습니다'],
+  '민서 엄마':['민서 연락이 안 돼서요...','도현아 혹시 민서랑 같이 있니?','아가 제발 전화라도 받아 줬으면 좋겠어'],
+  '고등학교 친구들':['성훈: 야 도현아 폰 돼?','혜원: 뉴스 보니까 진짜야?','정우: 너네 다들 문 잠가'],
+  '상희':['야 너 지금 어디야','지하철 앱 먹통인데 뉴스는 계속 바뀌어','조심해 제발'],
+  '혜원':['오늘 약속 취소할게ㅜㅜ','밖에서 다들 뛰는데 무슨 일임','안에 숨어 있을게'],
+  '서울역 분실물센터':['[자동 안내] 현재 현장 출입이 통제되고 있습니다.'],
+  '카카오톡':['[서비스 안내] 일부 지역에서 메시지 수신이 지연될 수 있습니다.'],
+  '배달 단골집':['[자동 안내] 안전상 이유로 서비스가 중단되었습니다.']
+ };
+ const sample=dic[name]||['지금 휴대폰 겨우 켰어','밖에서 누가 갑자기 사람한테 달려들었대','일단 문 잠가, 답 늦으면 전화하지 마'];
+ const system=/센터|카카오톡|배달/.test(name);
+ const reactions=[
+  {label:'어디야? 괜찮아?',send:'어디야? 괜찮아?',replies:sample.slice(0,2),next:1},
+  {label:'혹시 사람들 물어뜯는 거 봤어?',send:'혹시 직접 봤어?',replies:[sample[1]||sample[0],'나도 뭐가 뭔지 모르겠어'],next:1},
+  {label:'문 잠그고 답장해줘',send:'문 잠그고 답장해줘',replies:[sample[0]||'알았어','ㅈ금 배터리 없어'],next:1}
+ ];
+ return {generic:true,stages:[{options:reactions},{options:[
+  {label:'사랑해, 살아 있어',send:'사랑해, 살아 있어',replies:[system?sample[0]:'나도. 꼭 무사해야 해'],end:system?'자동 발송 계정입니다':'연결이 불안정합니다'},
+  {label:'위치 알려줘. 내가 갈게',send:'위치 알려줘',replies:[sample[2]||'대답이 늦어질 수 있어'],end:'마지막 접속 후 새 메시지 없음'},
+  {label:'답장해줘 제발',send:'제발 답장해줘',replies:['ㅈㅁ','밖에서 뛰는 소리'],end:'읽음 표시가 사라졌습니다'}
+ ]}]};
+}
+function config(name){return story[name]||state.synthetic[name]||(state.synthetic[name]=createGeneric(name))}
+function renderOptions(room){const name=room.dataset.exPerson,p=roomPanel(room);if(!p||!name)return;
+ if(window.ZOMBIE_INSTITUTIONS?.(name)){p.innerHTML='<div class="ex-connect-note">발신 전용 안내 · 답장할 수 없습니다</div>';return;}
+ if(!room.isConnected)return;
+ const isK=room.classList.contains('kroom');
+ if(isK&&!state.online){const inp=$('[data-input]',room),send=$('[data-send]',room);if(inp){inp.disabled=true;inp.placeholder='네트워크 연결 실패'}if(send)send.disabled=true;p.innerHTML='<div class="ex-connect-note">⚠️ 네트워크 연결 끊김<br><small>카카오톡 메시지가 전송되지 않습니다</small><button type="button" data-switch-sms>문자 메시지에서 이어가기 ›</button></div>';return}
+ if(state.ended[name]){p.innerHTML=`<div class="ex-connect-note">${esc(state.ended[name])}</div>`;return}
+ const c=config(name),i=state.stage[name]||0,options=c.stages[i]?.options||[];
+ p.innerHTML=options.map((op,n)=>`<button type="button" class="ex-choice" data-exchoice="${n}">${esc(op.label)}<span>↗</span></button>`).join('');
+}
+function notified(name,isK,message){
+ if(!$('#phoneLayer')?.classList.contains('open'))return;
+ let type=isK?'kakao':'sms';popup((isK?'카카오톡':'메시지')+' · '+name,message,type,false);
+}
+function sendReply(room,name,replies,isK,ending){
+ const wait=fast(isK?1350:1750);
+ const available=(replies||[]).filter(Boolean);
+ const finish=available.length;
+ available.forEach((line,i)=>{
+  setTimeout(()=>{
+    // 카카오톡 연결이 끊어지면 뒤의 답장은 SMS에서만 수신.
+    if(isK&&!state.online){if(i===0)popup('카카오톡','메시지를 받지 못했습니다 · 네트워크 연결 없음','kakao',false);return}
+    save(name,isK,false,line);
+    if(room.isConnected)draw(room,false,line);
+    else notified(name,isK,line);
+  },(i+1)*wait);
+ });
+ setTimeout(()=>{
+  state.responding[name]=false;
+  if(ending)state.ended[name]=typeof ending==='string'?ending:'상대방이 더 이상 응답하지 않습니다';
+  if(room.isConnected)renderOptions(room);
+ },(finish+1)*wait);
+}
+function choose(room,name,opt,typed=false){
+ if(state.responding[name])return;
+ const isK=room.classList.contains('kroom');if(isK&&!state.online){renderOptions(room);return}
+ state.responding[name]=true;state.chatSends++;
+ const actual=opt.send||opt.label;
+ if(!typed){save(name,isK,true,actual);draw(room,true,actual)}
+ const panel=roomPanel(room);if(panel)panel.innerHTML='<div class="ex-connect-note">전송됨 · 답장 기다리는 중…</div>';
+ const phase=state.stage[name]||0; if(typeof opt.next==='number')state.stage[name]=opt.next;else if(!opt.end)state.stage[name]=phase+1;
+ let replies=(opt.replies||[]).filter(Boolean);
+ // 지우가 직접 답할 수 있는 시간은 점점 사라지지만 단톡방에서는 이미 연락 두절됨.
+ if(isGroup(name)){
+  replies=replies.filter(t=>!/^지우\s*:/.test(t));
+  if(name==='우리팀 단톡 (11)'&&/지우/.test(actual))replies=['민영: 저도 아까부터 안 받아져요','성민: 18:15에 계단 쪽 메시지가 마지막인 듯','정 팀장: 지금은 지우 씨가 답을 못하고 계십니다'];
+ }
+ sendReply(room,name,replies,isK,opt.end);
+ if(isK&&state.chatSends>=3&&state.online)state.systemTimers.push(setTimeout(networkDown,fast(5200)));
+}
+function keywordChoice(name,raw){
+ if(name==='정 팀장'){
+   const t=String(raw).replace(/\s+/g,'');
+   const lines=/위치|어디|안전|괜찮/.test(t)?['도현 씨, 3층 회의실에 대기 중입니다.','현재 출입문은 모두 잠긴 상태입니다. 이동하지 말아 주세요.']:
+      /연락|답장|확인/.test(t)?['도현 씨, 메시지 확인했습니다.','네트워크가 불안정하니 이동은 삼가시고 안전을 우선해 주세요.']:
+      ['도현 씨, 확인했습니다.','현재 상황이 파악되는 대로 다시 안내드리겠습니다. 안전한 장소에서 대기해 주세요.'];
+   return {send:raw,replies:lines,next:Math.min(state.stage[name]||0,1)};
+ }
+ const txt=raw.replace(/[\s?!.,~ㅋㅎㅠㅜ]/g,'').toLowerCase();
+ const c=config(name),stage=state.stage[name]||0,available=c.stages[stage]?.options||[];
+ let found=available.find(o=>txt&&[o.label,o.send].some(s=>s.replace(/\s/g,'').toLowerCase().includes(txt)));
+ if(found)return found;
+ const isMother=name==='엄마'||name==='가족 👨‍👩‍👧';
+ if(/사랑해|보고싶어/.test(txt))return{send:raw,replies:isMother?['엄마도 보고 싶어.','살아만 있어줘 제발']:name.startsWith('민서')?['나도 사랑해','도혀나 지금 문밖에ㅅ','잠깐만 소리 들려']:['나도 진짜 보고 싶어','제발 서로 무사하자'],next:stage};
+ if(/답장|대답|연락|살아있/.test(txt))return{send:raw,replies:name.startsWith('지우')?['도현아 ㅈㅁ','나 지금 숨어있','누가 바로 밖에 있어']:['미안 폰 지금 겨우 봄','ㅇㅇ 나 살아있어','밖에서 계속 뛰는 소리나'],next:stage};
+ if(/괜찮|다쳤|안전/.test(txt))return{send:raw,replies:isMother?['엄마는 안 다쳤어','너는 진짜 괜찮니']:['ㄴㄴ 안 괜찮아','손이 계속 떨려','너는? 지금 어디?'],next:stage};
+ if(/어디|위치|출구/.test(txt))return{send:raw,replies:['나 아직 건물 안이야','밖에는 절대 나가지 마','지금 정확히 어디라 말하기가 무서워'],next:stage};
+ if(/좀비|무슨일|상황|물어/.test(txt))return{send:raw,replies:['사람들 그냥 달려와서 덮치더라','물어뜯는 거 나도 봤어','영상에 나오는 것보다 훨씬 빨라'],next:stage};
+ const defaults={
+  '민서 ❤️':['도현아 나 지금 타자가 잘 안쳐져','모...문앞에 또 왔어'],
+  '엄마':['도현아 전화가 안 돼','밥 걱정할 때가 아닌데 너 생각나'],
+  '하린 (동생)':['오빠 우리 도서관 문 또 치고 있어 ㅠ','사람들 전부 책상 뒤로 숨었어'],
+  '아빠':['어 그래','지금 걷는 중이다. 연락 조금 있다 해'],
+  '지우 (회사)':['잠깐만 지금 움직이면 안돼','문 손잡이 돌아감'],
+  '정 팀장':['도현 씨, 확인했습니다.','함부로 이동하지 말아 주세요']
+ };
+ const a=defaults[name]||['어 방금 봤어','폰도 잘 안터지고 손이 너무 떨려','일단 안에 있어 제발'];
+ const i=state.personLastReply[name]||0;state.personLastReply[name]=i+1;
+ return {send:raw,replies:[a[i%a.length],a[(i+1)%a.length]],next:stage};
+}
+function processTyped(room,name,raw){
+ if(!raw||state.responding[name])return;
+ // 원본 앱 엔진이 이미 말풍선과 P.kakao.rooms 저장을 처리했으므로 중복 저장하지 않는다.
+ const k=room.classList.contains('kroom');
+ if(k&&!state.online){renderOptions(room);return}
+ const opt=keywordChoice(name,raw);choose(room,name,opt,true);
+}
+function installRoom(room){
+ const name=resolveName(room);if(!name)return;
+ if(window.ZOMBIE_INSTITUTIONS?.(name)){room.dataset.exInstalled='system';room.dataset.exPerson=name;const cp=$(room.classList.contains('kroom')?'.kcomp':'.composer',room);if(cp){cp.style.display='none';if(!room.querySelector('.ex-oneway'))cp.insertAdjacentHTML('beforebegin','<div class="ex-oneway">발신 전용 재난·안전 안내 · 이 번호로 답장할 수 없습니다</div>');}return;}
+ groupAvatar(room);
+ if(room.dataset.exInstalled)return;
+ const panelParent=$(room.classList.contains('kroom')?'.kcomp':'.composer',room),input=$('[data-input]',room);
+ if(!panelParent||!input)return;
+ room.dataset.exInstalled='true';room.dataset.exPerson=name;
+ const panel=document.createElement('div');panel.className='ex-options';panelParent.before(panel);room.classList.add('ex-choice-room');
+ panel.addEventListener('click',e=>{
+  const sms=e.target.closest('[data-switch-sms]');if(sms){e.stopPropagation();const home=$('#homebar');home?.click();setTimeout(()=>$('.home [data-app="messages"]')?.click(),250);return}
+  const btn=e.target.closest('[data-exchoice]');if(!btn)return;e.stopPropagation();
+  const opts=config(name).stages[state.stage[name]||0]?.options||[];const opt=opts[Number(btn.dataset.exchoice)];if(opt)choose(room,name,opt,false);
+ });
+ // 기존 앱의 클릭/Enter 전송을 그대로 사용하되, 실제 입력 내용에 맞춘 후속 답장을 추가한다.
+ const button=$('[data-send]',room);let lastEntry='',lastAt=0;
+ function submit(text){if(!text)return;const now=Date.now();if(text===lastEntry&&now-lastAt<320)return;lastEntry=text;lastAt=now;
+   setTimeout(()=>processTyped(room,name,text),45);
+ }
+ input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing)submit(input.value.trim())},true);
+ button?.addEventListener('click',()=>submit(input.value.trim()),true);
+ renderOptions(room);
+ if(!room.classList.contains('kroom') && state.smsActive.has(name)){
+  room.querySelector('.chat-head')?.insertAdjacentHTML('beforeend','<span class="ex-sms-flag">SMS · 카카오톡 연결 실패</span>');
+ }
+}
+function syncRoomUI(){
+ $$('.kroom', $('#screens')||document).forEach(installRoom);
+ $$('.screen.white',$('#screens')||document).filter(s=>!s.classList.contains('home')).forEach(s=>{if($('.composer',s))installRoom(s)});
+}
+function incomingSMS(name,message){
+ if(!state.smsActive.has(name))return;
+ save(name,false,false,message);
+ const room=$$('.screen.white',$('#screens')||document).find(r=>resolveName(r)===name&&$('.imsg',r));
+ if(room)draw(room,false,message);
+ popup('메시지 · '+name,message,'sms',false);
+}
+function networkDown(){
+ if(!state.online)return;state.online=false;window.ZOMBIE_NET_LOST=true;
+ popup('카카오톡 · 연결 끊김','메시지 전송 실패 · 모바일 데이터 연결이 불안정합니다','kakao',false);
+ setTimeout(()=>popup('메시지 · 민서 ❤️','도현아 카톡 안됨?? 문자로 해줘 ㅈㅂ','sms',false),fast(1800));
+ const names=['민서 ❤️','엄마','하린 (동생)','지우 (회사)','정 팀장'];
+ const intro={
+  '민서 ❤️':'도현아 카톡 왜 안보내짐 ㅈㅂ 이거 보면 문자로 해줘. 나 아직 여기 있어',
+  '엄마':'도현아 카톡 안 돼서 문자한다. 괜찮으면 답 하나만 보내줘',
+  '하린 (동생)':'오빠 카톡 먹통이야? ㅠㅠ 우리 폰 다 안터짐. 문자로 연락줘',
+  '지우 (회사)':'[미전송 임시저장] 도현아 ㅈㅁ 4호선...',
+  '정 팀장':'[SMS 긴급 공지] 카카오톡 장애로 안전 확인을 문자로 전환합니다.'
+ };
+ names.forEach((name,i)=>{
+  if(state.smsActive.has(name))return;state.smsActive.add(name);
+  P.messages.chats[name]=[{date:'오늘 오후 6:20'}, {text:intro[name],time:timestamp()}];
+  P.messages.threads.unshift({name,preview:intro[name],when:timestamp(),unread:true,sms:true});
+ });
+ // 지우는 접촉이 끊긴 상태이므로 문자에서도 실제 답장을 보내지 않는다.
+ state.ended['지우 (회사)']='18:15 이후 응답 없음 · 전송 실패';
+ $$('.kroom,.screen.white',$('#screens')||document).forEach(s=>{if(s.dataset.exPerson)renderOptions(s)});
+ state.systemTimers.push(setTimeout(()=>incomingSMS('엄마','카톡이 안돼서 문자 보낸다 아들 괜찮니'),fast(14000)));
+ state.systemTimers.push(setTimeout(()=>incomingSMS('하린 (동생)','오빠 답장해줘 지금 우리 문앞에 누가 계속 ㅜㅜ'),fast(28000)));
+ state.systemTimers.push(setTimeout(()=>incomingSMS('민서 ❤️','도현아 나 여기야. 카톡은 안가서ㅓ 문자로 보냄 ㅈㅂ'),fast(41000)));
+}
+function showMail(){
+ closeMail();const m=document.createElement('section');m.className='ex-mail-screen';m.setAttribute('aria-label','메일');$('#screens')?.append(m);state.mail=m;mailInbox();
+ m.addEventListener('click',e=>{if(e.target.closest('[data-close-mail]')){closeMail();return}const row=e.target.closest('[data-index]');if(row){mailDetail(+row.dataset.index);return}if(e.target.closest('[data-mailback]'))mailInbox()});
+}
+function mailInbox(){const m=state.mail;if(!m)return;const mail=P.mail||[];
+ m.innerHTML=`<div class="ex-mail-nav"><button data-close-mail>‹ 홈</button><b>받은 편지함</b><span>•••</span></div><div class="ex-mail-scroll"><div class="ex-mail-title"><small>iCloud</small><h1>받은 편지함</h1><span>${mail.length}개의 메시지</span></div>${mail.map((r,i)=>`<button class="ex-mail-row" data-index="${i}"><i class="ex-mail-dot"></i><div><div class="ex-mail-rowtop"><b>${esc(r.from)}</b><time>${esc(r.time)}</time></div><strong>${esc(r.subject)}</strong><p>${esc(r.preview)}</p></div><span class="ex-mail-chev">›</span></button>`).join('')}</div><div class="ex-mail-bottom">✉︎　　<i>⇄</i>　　♜　　✎</div>`;
+}
+function mailDetail(i){const m=state.mail,r=P.mail?.[i];if(!m||!r)return;
+ m.innerHTML=`<div class="ex-mail-nav"><button data-mailback>‹ 받은 편지함</button><b>메일</b><span>•••</span></div><div class="ex-mail-scroll"><article class="ex-mail-detail"><h1>${esc(r.subject)}</h1><div class="ex-mail-author"><b>${esc(r.from)}</b><small>${esc(r.time)} · 받는 사람: 나</small></div><div class="ex-mail-body">${(r.body||[]).map(t=>`<p>${esc(t)}</p>`).join('')}${r.quote?`<blockquote>${esc(r.quote)}</blockquote>`:''}</div></article></div><div class="ex-mail-bottom">⌫　　↪　　↗　　✎</div>`;
+}
+function closeMail(){state.mail?.remove();state.mail=null}
+document.addEventListener('click',e=>{
+ if(!window.__usingOriginal)return;
+ if(e.target.closest('.home [data-app="mail"]')){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();showMail();return}
+ if(state.mail&&e.target.closest('#homebar'))closeMail();
+},true);
+let swipe=null;document.addEventListener('pointerdown',e=>{if(state.mail&&e.clientX<30)swipe={x:e.clientX,y:e.clientY}},true);
+document.addEventListener('pointerup',e=>{if(!state.mail||!swipe)return;const dx=e.clientX-swipe.x,dy=Math.abs(e.clientY-swipe.y);if(dx>72&&dy<65){if($('[data-mailback]',state.mail))mailInbox();else closeMail()}swipe=null},true);
+
+function observe(){
+ const d=$('#device');if(!d)return;
+ // 일정 간격으로 필요한 새 화면만 찾아 한 번 설치한다. DOM 변경을 다시 관찰하며 되풀이하는 무한 갱신을 방지한다.
+ const tick=()=>{
+   if(!window.__usingOriginal || !$('#phoneLayer')?.classList.contains('open'))return;
+   if(!d.classList.contains('is-locked'))showInitial();
+   syncRoomUI();
+ };
+ setInterval(tick,320);
+ setTimeout(tick,350);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',observe);else observe();
+window.__ZOMBIE_V4__={popup,showInitial,networkDown,renderOptions,installRoom,groupAvatar,svgProfile,showMail,mailDetail,mailInbox,closeMail,state};
+})();
+</script>
+<script>/* 가상 X · 인터넷 커뮤니티 — 실제 서버에 데이터를 전송하지 않는 픽션 */
+(() => {
+  'use strict';
+  const tweets = [
+ {id:'boong_00',name:'잠만보',time:'18:19',avatar:'ㅈ',text:'구라가 아니라 갑자기 긴급재난문자가 위이이이잉 ㅇㅈㄹ 진짜 개놀라서 깸\n밖에서 누가 쌉전력질주하는 소리 들리는데 이거뭐임',replies:'94',rt:'2,848',likes:'3,880',views:'14만'},
+ {id:'miu___zip',name:'미유',time:'18:18',avatar:'🐈',text:'나 지금 서울역인데 아니 아니 누가 갑자기 사람 목쪽 물고 다른 사람한테 뛰어감\n다들 반대로 뛰어서 나도 뛰었는데 ㅅㅂ 다리풀림',replies:'821',rt:'1.7만',likes:'4.1만',views:'88만'},
+ {id:'going_home_late',name:'퇴근시켜줘',time:'18:18',avatar:'🚌',text:'엄마가 전화받으래서 받았는데 서로 괜찮냐고만 5번함ㅋㅋㅋㅋㅋㅋㅋㅋ\n진짜 안웃김 이제',replies:'47',rt:'1,152',likes:'7,994',views:'9.8만'},
+ {id:'nyan_1019',name:'ㄴㅇ',time:'18:17',avatar:'나',text:'님들... 혹시 4호선 지금 탄사람잇음? 친구가 안읽어 급함 ㅠㅠㅠㅠㅠㅠ',replies:'1,892',rt:'6,001',likes:'1.6만',views:'22만'},
+ {id:'sunglasses_2',name:'직장인',time:'18:17',avatar:'🕶️',text:'개찰구 닫혔다길래 그럼 출구로 나가면 되잖아 했는데 누가 셔터를 밖에서 치고있음\n아ㅋㅋ 어떡하라고',replies:'153',rt:'2,381',likes:'8,882',views:'10만'},
+ {id:'just_a_cat',name:'고양이가최고',time:'18:16',avatar:'🐱',text:'아니 검색어 실화임? 좀비 뭐 이딴거 말고 가족한테 연락이나 하셈\n근데 저도 지금 가족한테 연락안됨',replies:'409',rt:'1,703',likes:'1.1만',views:'13만'},
+ {id:'jjineunmi',name:'찐',time:'18:16',avatar:'🍞',text:'지금 창문밖에서 사람들 다 뛰는데 경찰차도 반대로 돌려서 가는중임 무슨일임 진심 나 손떨려',replies:'313',rt:'6,125',likes:'1.2만',views:'17만'},
+ {id:'tangtang_s2',name:'ㄹㅁ',time:'18:15',avatar:'🧸',text:'아까까지만 해도 영상보고 ㅋㅋ영화촬영인가 이랬는데 지금 엄마랑 문잠그고 앉아있음\n밖에서 누가 문열어달라고 하는데 열어주면 안되겠지',replies:'1,533',rt:'8,514',likes:'2.7만',views:'35만'},
+ {id:'0_0_0_m',name:'지하철의노예',time:'18:14',avatar:'🚇',text:'4호선 앱엔 정상운행 뜨거든요? 근데 실제로는 사람들 못들어가게 막아놓음 거짓말하지마라 제발',replies:'662',rt:'9,720',likes:'2.1만',views:'29만'},
+ {id:'yamyam_23',name:'냠냠',time:'18:14',avatar:'🍜',text:'와 진짜 멍때리고있다가 갑자기 경보소리 들으니까 심장 터지는줄알았음\n이거 이제 집에 어케감',replies:'85',rt:'901',likes:'4,003',views:'4.9만'},
+ {id:'cc_0421',name:'서울의딸',time:'18:13',avatar:'🌙',text:'시청역 근처 건물 3층인데 아래서 누가 계속 계단 뛰어올라오는소리 들림\n근데 아까부터 안멈춤 진짜 안멈춰 ㅅㅂ',replies:'2,421',rt:'1.4만',likes:'3.7만',views:'50만'},
+ {id:'news_check_kr',name:'현장팩트체크',time:'18:11',avatar:'✓',verified:true,text:'[정정] 현재 온라인에 도는 「서울 전역 통금」 이미지는 공식 발표로 확인되지 않았습니다. 검증되지 않은 출구 개방 정보에 주의해 주세요.',replies:'291',rt:'7,814',likes:'1.3만',views:'19만'},
+ {id:'piyo_piyo',name:'피요',time:'18:10',avatar:'🐥',text:'종각 지나갈때 누가 사람들한테 막 달려들고 물어뜯는거 봄\n장난으로 글쓰는거아님 지금 화장실에 숨어있어',replies:'1,644',rt:'1.2만',likes:'3.3만',views:'44만'},
+ {id:'hae__0',name:'해',time:'18:09',avatar:'🌊',text:'카톡 왜안감??? 엄마한테 문자 보냈는데 이것도 안가네?????\n제발 좀',replies:'205',rt:'1,314',likes:'5,810',views:'8.1만'},
+ {id:'ib1028',name:'ㅎ',time:'18:08',avatar:'🫧',text:'나 걍 평범하게 퇴근하고 있었는데 지금 왜 뭔 재난영화에 들어와있냐....',replies:'322',rt:'3,040',likes:'1.2만',views:'13만'},
+ {id:'seoul_ee',name:'연락주세요',time:'18:07',avatar:'🎧',text:'서울역 2번출구쪽에 동생있는분 연락좀요 20분째 전화를 안받아 미치겠어요\n나 진짜 어떡해',replies:'1,041',rt:'6,330',likes:'1.8만',views:'22만'},
+ {id:'tototo',name:'토토',time:'17:58',avatar:'🍓',text:'이때까지만해도 그냥 지하철 고장난줄알앗는데ㅋㅋㅋㅋㅋ 웃음안나옴',replies:'136',rt:'1,122',likes:'7,034',views:'7.3만'},
+ {id:'snack_777',name:'과자',time:'17:41',avatar:'🎀',text:'친구가 종로쪽 영상 보내줘서 봤는데 이거 진짜임? 합성아니고?;',replies:'87',rt:'420',likes:'2,144',views:'2.1만'}
+ ];
+  const trends = [
+ ['1 · 대한민국 실시간','재난문자','게시물 31.2만'],['2 · 대한민국 실시간','#서울역','게시물 28.4만'],
+ ['3 · 대한민국 실시간','4호선','게시물 15.9만'],['4 · 대한민국 실시간','카톡안됨','게시물 8.7만'],
+ ['5 · 대한민국 실시간','엄마전화','게시물 6.6만'],['6 · 대한민국 실시간','시청역','게시물 5.8만'],
+ ['7 · 대한민국 실시간','문열지마','게시물 4.4만'],['8 · 대한민국 실시간','종각역','게시물 3.1만'],
+ ['9 · 대한민국 실시간','퇴근','게시물 2.6만'],['10 · 대한민국 실시간','119불통','게시물 2.1만']
+ ];
+  const boardPosts = [
+    {board:'국내야구',title:'[속보] 서울역 B2에 있는 사람들 있냐 지금 진짜 심각함',id:'ㅇㅇ(223.39)',time:'18:17',views:'67,214',votes:1182,comments:[['ㅇㅇ','거기 편의점 셔터 반쯤 내려옴','18:17'],['도현','B2 편의점 맞은편 기둥 쪽인데 다른 출구 아시는 분','18:18'],['ㅇㅇ','위치 너무 자세히 쓰지마ㅠ','18:18'],['ㅇㅇ','개찰구쪽 절대 가지마 사람들 몰림','18:19']],body:'서울역 B2인데 개찰구 쪽에서 비명 계속 들림.\n사람 한 명이 다른 사람 붙잡고 물어뜯는 거 보고 다들 반대로 도망쳤다.\n영화처럼 우르르 달려듦.\n혹시 여기 있는 사람 있으면 댓글 달아줘.'},
+    {board:'지하철',title:'4호선 전광판 정상운행 뜨는 거 믿지 마세요',id:'승객(175.223)',time:'18:16',views:'39,114',votes:944,comments:[['지하철러','열차 안에 갇힌 사람들도 있음','18:16'],['ㅇㅇ','앱이랑 현장이 완전 다름','18:17']],body:'앱은 그대로인데 실제로는 셔터 내리고 개찰구 막힌 데 많음.\n"○번 출구 열렸다" 같은 글 아무거나 믿지 마세요.\n현장에선 뛰는 소리랑 비명 계속 남.'},
+    {board:'싱글벙글',title:'두 시간 전까지만 해도 다들 영화촬영이네 ㅋㅋ 하던 분위기',id:'ㅇㅇ(118.235)',time:'18:15',views:'52,930',votes:802,comments:[['ㅇㅇ','그때로 돌아가고 싶다','18:15'],['ㅇㅇ','이젠 웃을 힘도 없음','18:16']],body:'16:40: 와 연출 개쩌네 ㅋㅋ\n17:20: 경찰차 왜 이렇게 많냐\n18:00: 엄마한테 전화\n18:10: 창고에 숨어서 커뮤 보는 중\n\n월요일이 이렇게 끝날 줄 몰랐다.'},
+    {board:'기타 국내 드라마',title:'회사 문 계속 두드리는데 절대 열지 말라는 연락 옴',id:'익명',time:'18:13',views:'28,460',votes:411,comments:[['ㅇㅇ','절대 혼자 보러 나가지마','18:13'],['ㅇㅇ','도와주세요 해도 열지 말라는 공지 돌더라','18:14']],body:'처음엔 사람 목소리로 "살려주세요" 하더니 곧바로 쾅쾅쾅 문 부딪히는 소리로 바뀜.\n복도 CCTV로 봤다는 사람 말로는 뛰는 속도가 이상하대.'},
+    {board:'서울',title:'종각에서 시청까지 걸어왔는데 밖은 절대 비추천',id:'ㅇㅇ',time:'18:11',views:'61,402',votes:803,comments:[['ㅇㅇ','실내 들어간 게 신의 한 수','18:11'],['ㅇㅇ','밖에서 뛰는 사람들 봤다는 글 많음','18:12']],body:'길에서 누가 소리치길래 봤는데\n그냥 싸움 수준이 아니라 사람들 무리 쪽으로 달려들더라.\n한번 붙잡히면 바로 넘어짐.\n무조건 실내 들어가는 게 맞음.'},
+    {board:'고민상담',title:'엄마한테 괜찮다고 거짓말했다',id:'익명',time:'18:08',views:'19,394',votes:702,comments:[['ㅇㅇ','살아남는 게 먼저다','18:08'],['ㅇㅇ','다들 가족한텐 그러고 있을 듯','18:09']],body:'나 사실 지하 창고에 숨어있는데\n엄마한텐 집 가는 길이라고 했다.\n목소리 듣자마자 울 것 같았음.\n무사히 돌아가고 싶다.'},
+    {board:'교통',title:'서울역 주변 버스 전면 우회 맞음?',id:'ㅇㅇ',time:'17:54',views:'16,164',votes:104,comments:[['ㅇㅇ','길 막혀서 차가 거의 못 움직임','17:55']],body:'아직 교통 앱에는 일부 정상이라는데 현장은 완전 다름.\n택시 기사들도 안 들어가려 함.'},
+    {board:'국내야구',title:'[정보] "군 통금" 캡처는 가짜라고 함',id:'ㅇㅇ',time:'18:06',views:'41,825',votes:470,comments:[['ㅇㅇ','가짜뉴스 너무 많다','18:07']],body:'공식 발표 확인된 거 없음.\n불안하다고 아무거나 퍼나르면 더 위험함.'},
+    {board:'싱글벙글',title:'세 시간 전 글: 오늘 퇴근하고 치킨 시킬 사람 개추',id:'ㅇㅇ',time:'16:24',views:'27,728',votes:368,comments:[['ㅇㅇ','세 시간 전이 다른 세계 같다','18:11']],body:'내일 화요일이라 더 힘들다 ㅋㅋ\n치킨이나 먹자'}
+  ];
+  const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const esc=(s)=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
+  let current=null,kind='',activeTab='',postIndex=null,query='';
+  function toast(text){if(!current)return;current.querySelector('.z-toast')?.remove();const x=document.createElement('div');x.className='z-toast';x.textContent=text;current.append(x);setTimeout(()=>x.remove(),2300)}
+  function close(){if(!current)return;current.remove();current=null;kind='';$('#statusbar')?.classList.remove('light');$('#homebar')?.classList.remove('light')}
+  function open(k){close();kind=k;activeTab=k==='x'?'home':'live';postIndex=null;query='';current=document.createElement('section');current.className='z-modal '+(k==='x'?'x-theme':'');current.setAttribute('role','dialog');current.setAttribute('aria-label',k==='x'?'X 실시간':'인터넷 커뮤니티');$('#screens')?.append(current);paint();if(k==='x'){$('#statusbar')?.classList.add('light');$('#homebar')?.classList.add('light')}else{$('#statusbar')?.classList.remove('light');$('#homebar')?.classList.remove('light')}}
+  function xIcon(kind){const paths={
+ reply:'<path d="M20 11.5c0 4.5-3.8 8.2-8.4 8.2-1.1 0-2.3-.2-3.3-.7L3 21l1.7-5.1A8 8 0 0 1 3 11.5c0-4.6 3.8-8.3 8.5-8.3s8.5 3.7 8.5 8.3z"/>',
+ rt:'<path d="M3.5 7.5h12.8m-3.7-3.7 3.7 3.7-3.7 3.7M20.5 16.5H7.7m3.7-3.7-3.7 3.7 3.7 3.7"/>',
+ heart:'<path d="M20.8 8.7c0 5-8.8 11.1-8.8 11.1S3.2 13.7 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3z"/>',
+ view:'<path d="M4 20h16M6.5 16.5V10m5 6.5V4.5m5 12V8"/>',
+ bookmark:'<path d="M6 3.5h12v17l-6-4.2-6 4.2V3.5z"/>',
+ share:'<path d="M12 16V3m-4.5 4.5L12 3l4.5 4.5M5 13v6.5h14V13"/>'};return `<svg viewBox="0 0 24 24" aria-hidden="true" class="z-x-icon"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths[kind]||''}</g></svg>`}
+  function formatTweet(p,i){return `<article class="z-post" data-tweet="${i}"><div class="z-author"><div class="z-avatar" style="background:${['#4d607d','#7b3058','#496a53','#805442','#313d61'][i%5]}">${esc(p.avatar)}</div><div class="z-author-info"><strong>${esc(p.name)} ${p.verified?'🔹':''}</strong><small>@${esc(p.id)} · ${esc(p.time)}</small></div><span style="color:#7e7e87">···</span></div><p class="z-post-content">${esc(p.text)}</p><div class="z-actions"><button data-replies="${i}" aria-label="댓글">${xIcon('reply')} <span>${esc(p.replies)}</span></button><button data-rt="${i}" aria-label="재게시">${xIcon('rt')} <span>${esc(p.rt)}</span></button><button data-heart="${i}" aria-label="좋아요">${xIcon('heart')} <span>${esc(p.likes)}</span></button><button aria-label="조회수">${xIcon('view')} <span>${esc(p.views||'')}</span></button><button data-bookmark="${i}" aria-label="북마크">${xIcon('bookmark')}</button><button aria-label="공유">${xIcon('share')}</button></div></article>`}
+  function xFeed(){let arr=tweets.map((p,i)=>({...p,_i:i})).filter(p=>!query||[p.name,p.id,p.text].some(x=>x.toLowerCase().includes(query.toLowerCase())));return arr.length?arr.map(p=>formatTweet(p,p._i)).join(''):'<div class="z-offline"><strong>검색 결과 없음</strong><p>게시물을 찾지 못했습니다.</p></div>'}
+  function makeX(){const detail=postIndex!==null;return `<header class="z-header"><button data-zback aria-label="뒤로">‹</button><div class="z-heading">${detail?'게시물':activeTab==='trends'?'탐색':activeTab==='alerts'?'알림':'𝕏'}</div><div class="z-small">실시간 기록<br>18:17 KST</div></header>${!detail?`<nav class="z-tabbar"><button data-ztab="home" class="${activeTab==='home'?'active':''}">추천</button><button data-ztab="trends" class="${activeTab==='trends'?'active':''}">트렌드</button><button data-ztab="alerts" class="${activeTab==='alerts'?'active':''}">알림</button></nav>`:''}<div class="z-scroll">${detail?formatTweet(tweets[postIndex],postIndex)+`<div class="z-section">답글</div>${[
+    ['현장 제보 먼저 믿고 싶지만 나도 지금 뭘 봤는지 모르겠음','2분 전'],['제발 다들 살아 있어 줘요','1분 전'],['정확한 위치랑 촬영 시각 확인 후 공유해 주세요','방금']
+  ].map((r,i)=>`<div class="z-reply"><b>@reply_${i+2}</b><p>${esc(r[0])}</p><small>${r[1]}</small></div>`).join('')}`:
+    activeTab==='trends'?`<div class="z-searchbox">⌕ <input placeholder="X 검색" data-zsearch value="${esc(query)}"></div><div class="z-section">대한민국의 트렌드</div>${trends.map((t,i)=>`<div class="z-trend" data-trend="${i}"><small>${esc(t[0])}</small><strong>${esc(t[1])}</strong><em>${esc(t[2])}</em></div>`).join('')}`:
+    activeTab==='alerts'?`<div class="z-section">새 알림</div><div class="z-feature" style="background:#2b1b1d;color:#fff;border-left-color:#ff4343">⏺ 현재 상황을 전하는 게시물이 급증하고 있습니다.<br>일부 콘텐츠는 확인되지 않았습니다.</div>${tweets.slice(0,4).map((p,i)=>`<div class="z-reply" data-tweet="${i}"><b>@${esc(p.id)}</b><p>${esc(p.text.slice(0,125))}</p><small>${p.time}</small></div>`).join('')}`:
+    `<div class="z-hint">지금 이 순간 · 가상 실시간 타임라인 · 네트워크 불안정</div>${xFeed()}`}</div>${detail?`<div class="z-compose"><input data-comment-input placeholder="답글 게시하기 (시뮬레이션)"><button data-comment-send>게시</button></div>`:''}`}
+  function boardRow(p,i){return `<div class="z-board-row" data-board="${i}"><div class="z-num">${boardPosts.length-i}</div><div class="z-rowmain"><div class="z-rowtitle">${esc(p.title)} <em>[${p.comments.length+Math.floor(p.views.replaceAll(',','')/623)}]</em></div><div class="z-rowmeta">${esc(p.board)} · ${esc(p.id)} · ${esc(p.time)} · 조회 ${p.views} · 추천 ${p.votes}</div></div></div>`}
+  function makeBoard(){const detail=postIndex!==null;let posts=boardPosts.map((p,i)=>({...p,_i:i})).filter(p=>!query||[p.title,p.body,p.board].some(x=>x.toLowerCase().includes(query.toLowerCase())));return `<header class="z-header"><button data-zback>‹</button><div class="z-heading">${detail?'게시글': '실시간 커뮤니티'}</div><div class="z-small">익명 게시판<br>접속자 급증</div></header>${!detail?`<nav class="z-tabbar"><button data-ztab="live" class="${activeTab==='live'?'active':''}">실시간</button><button data-ztab="best" class="${activeTab==='best'?'active':''}">인기글</button><button data-ztab="search" class="${activeTab==='search'?'active':''}">검색</button></nav>`:''}<div class="z-scroll">${detail?(()=>{let p=boardPosts[postIndex];return `<div class="z-board-label">${esc(p.board)} 갤러리</div><article class="z-detail"><h2>${esc(p.title)}</h2><div class="z-rowmeta">${esc(p.id)} · 2026.10.19 ${esc(p.time)} · 조회 ${p.views} · 추천 ${p.votes}</div><div class="z-bodytext">${esc(p.body)}</div><div style="text-align:center;margin:14px"><button data-recommend style="border:1px solid #b8c6da;padding:10px 25px;border-radius:7px;color:#3063a4">👍 추천 ${p.votes}</button></div></article><div class="z-board-label">댓글 ${p.comments.length}</div>${p.comments.map(([name,text,time])=>`<div class="z-reply"><b>${esc(name)}</b><p>${esc(text)}</p><small>${esc(time)}</small></div>`).join('')}`})():`${activeTab==='search'?'<div class="z-searchbox" style="background:#e9eaf0;color:#535762">⌕ <input placeholder="게시글 검색" data-zsearch style="color:#111"></div>':''}<div class="z-board-top"><span class="z-pill">실시간</span> 서울·교통·일상 게시판에서 빠르게 확산 중인 글<br>※ 이 화면의 게시글은 모두 창작된 가상 기록입니다.</div>${(activeTab==='best'?posts.sort((a,b)=>b.votes-a.votes):posts).map(p=>boardRow(p,p._i)).join('')}`}</div>${detail?`<div class="z-compose"><input data-comment-input placeholder="댓글 입력 (이 기기에만 표시)"><button data-comment-send>등록</button></div>`:''}`}
+  function paint(){if(!current)return;current.innerHTML=kind==='x'?makeX():makeBoard();const s=$('.z-scroll',current);if(s)s.scrollTop=0;const input=$('[data-zsearch]',current);if(input){input.addEventListener('input',e=>query=e.target.value);input.addEventListener('keydown',e=>{if(e.key!=='Enter')return; e.preventDefault();if(kind==='x')activeTab='home';paint()})}}
+  document.addEventListener('click',e=>{
+    if(!current)return;
+    const target=e.target;
+    if(!current.contains(target))return;
+    const tab=target.closest('[data-ztab]');if(tab){activeTab=tab.dataset.ztab;postIndex=null;query='';paint();return}
+    if(target.closest('[data-zback]')){if(postIndex!==null){postIndex=null;paint()}else close();return}
+    const trend=target.closest('[data-trend]');if(trend){query=trends[+trend.dataset.trend][1].replace(/^#/,'');activeTab='home';paint();return}
+    if(target.closest('[data-heart],[data-rt],[data-bookmark]')){target.closest('button').classList.toggle('marked');return}
+    if(target.closest('[data-replies]')){postIndex=+target.closest('[data-replies]').dataset.replies;paint();return}
+    const t=target.closest('[data-tweet]');if(t){postIndex=+t.dataset.tweet;paint();return}
+    const b=target.closest('[data-board]');if(b){postIndex=+b.dataset.board;paint();return}
+    if(target.closest('[data-recommend]')){target.closest('button').textContent='👍 추천 완료';toast('이 페이지에서만 추천한 것으로 표시됩니다.');return}
+    if(target.closest('[data-comment-send]')){const inp=$('[data-comment-input]',current);if(!inp?.value.trim())return;const v=inp.value.trim();const rr=document.createElement('div');rr.className='z-reply';rr.innerHTML='<b>나 · 김도현</b><p></p><small>방금 · 로컬 시뮬레이션</small>';rr.querySelector('p').textContent=v;const scroll=$('.z-scroll',current);scroll.append(rr);scroll.scrollTop=scroll.scrollHeight;inp.value='';toast('댓글이 이 기기의 시뮬레이션에 표시되었습니다.');return}
+  });
+  document.addEventListener('keydown',e=>{if(current&&e.key==='Escape'){e.stopImmediatePropagation();if(postIndex!==null){postIndex=null;paint()}else close()}},true);
+  document.addEventListener('click',e=>{if(!current)return;const h=e.target.closest('#homebar');if(h){e.stopImmediatePropagation();e.preventDefault();close()}},true);
+  document.addEventListener('click',e=>{const shortcut=e.target.closest('.cr-short > div');if(!shortcut)return;const label=shortcut.querySelector('span')?.textContent||'';if(label==='X 실트'||label==='커뮤니티'){e.stopPropagation();open(label==='X 실트'?'x':'board')}},true);
+  const decorate=()=>{
+    $$('.home .grid .app[data-app="blockblast"]').forEach(b=>{if(b.dataset.zadded)return;b.dataset.zadded='1';b.dataset.app='z-x';b.innerHTML='<div class="ic" style="background:#050505;display:flex;align-items:center;justify-content:center"><span style="font-size:40px;font-weight:600;color:white;line-height:1">𝕏</span></div><span>X</span>';b.addEventListener('click',e=>{e.stopPropagation();open('x')})});
+    $$('.home .grid .app[data-app="mines"]').forEach(b=>{if(b.dataset.zadded)return;b.dataset.zadded='1';b.dataset.app='z-board';b.innerHTML='<div class="ic" style="background:linear-gradient(155deg,#448cff,#2055bc);display:flex;align-items:center;justify-content:center"><span style="font-size:26px;font-weight:900;color:white;line-height:1">갤</span></div><span>커뮤니티</span>';b.addEventListener('click',e=>{e.stopPropagation();open('board')})});
+    $$('.lock .lk-main').forEach(el=>{if(el.querySelector('.z-lockalerts'))return;const n=document.createElement('div');n.className='z-lockalerts';n.innerHTML=`<div class="z-alert z-alert-danger"><div class="z-alert-top"><b>🚨 긴급재난문자 · 서울특별시</b><span>18:15</span></div><div class="z-alert-body">서울역·시청역 등 주요 역사 접근 금지. 주변 실내에 대피하고 출입문을 잠그십시오.</div></div><div class="z-alert"><div class="z-alert-top"><b>카카오톡 · 민서 ❤️</b><span>18:16</span></div><div class="z-alert-body">지금 누가 문 두드려. 계속.</div></div><div class="z-alert"><div class="z-alert-top"><b>전화 · 부재중 18통</b><span>18:15</span></div><div class="z-alert-body">민서 ❤️ (6) · 지우 (3) · 엄마 (4) 외</div></div>`;el.append(n)});
+    $$('.cr-when').forEach(el=>{if(el.textContent.includes('2026.10.18'))el.textContent=el.textContent.replace('2026.10.18','2026.10.19')});
+    $$('.cr-inline-ad').forEach(el=>el.remove());
+  };
+  // 원본 앱은 화면을 열 때 DOM을 생성하므로 새 화면의 변화를 관찰
+  const watcher=new MutationObserver(decorate);watcher.observe(document.getElementById('device'),{childList:true,subtree:true});decorate();
+})();
+</script>
+<script id="fallbackStyle" type="text/plain">:root{--blue:#007aff;--gray:#8e8e93;--muted:#6c6c72;--line:#e9e9ed;--paper:#faf9f6;--font:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{padding:0;margin:0;min-height:100%;font-family:var(--font)}button,input{font:inherit}button{cursor:pointer}body{background:#faf9f6;color:#262324}.story{max-width:620px;margin:auto;padding:62px 26px 140px;font-family:Georgia,"AppleMyungjo",serif;font-size:18px;line-height:1.9;word-break:keep-all}.story h1{font-size:22px;margin:0 0 32px}.story p{margin:0 0 2px;text-indent:1em}.story p.gap{height:25px}.story .phone-link{color:#2e63ba;text-decoration:none;border-bottom:1px solid #90b4ea}.story-hint{font-family:var(--font);font-size:12px;color:#888;text-align:center;margin-top:36px}.phone-layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;visibility:hidden;pointer-events:none}.phone-layer.open{visibility:visible;pointer-events:auto}.backdrop{position:absolute;inset:0;background:rgba(4,6,12,.65);backdrop-filter:blur(8px)}.device{position:relative;width:390px;height:min(830px,calc(100dvh - 48px));background:#06080c;border-radius:49px;border:9px solid #18191e;box-shadow:0 0 0 2px #666b71,0 28px 90px #0008;overflow:hidden;isolation:isolate;color:#101014}.close-phone{position:absolute;right:20px;top:19px;border:0;background:#fff2;color:#fff;border-radius:50%;height:36px;width:36px;font-size:21px}.statusbar{position:absolute;z-index:30;top:0;left:0;right:0;height:51px;padding:14px 25px 0;display:flex;align-items:flex-start;justify-content:space-between;font-size:15px;font-weight:750;pointer-events:none;color:#151519}.statusbar.light{color:#fff}.sb-time{font-variant-numeric:tabular-nums}.sb-icons{display:flex;align-items:center;gap:5px}.statusbar svg{fill:currentColor}.battery{width:25px;height:12px;border:1.5px solid currentColor;border-radius:4px;display:block;padding:1.5px;margin-left:3px;position:relative}.battery i{display:block;background:#ff4b44;width:12%;height:100%;border-radius:1px}.battery:after{content:"";position:absolute;width:2px;height:5px;right:-4px;top:2px;background:currentColor;border-radius:1px}.screens{position:absolute;inset:0}.screen{position:absolute;inset:0;display:flex;flex-direction:column;background:#f2f2f7;overflow:hidden;padding-top:50px;animation:screenIn .21s ease}.screen.under{display:none}@keyframes screenIn{from{opacity:.45;transform:translateX(12px)}to{opacity:1;transform:none}}.screen.white{background:white}.screen.dark{background:#0b0d15;color:#fff}.scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:70px}.scroll::-webkit-scrollbar{display:none}.homebar{position:absolute;bottom:0;left:50%;transform:translateX(-50%);z-index:38;width:220px;height:34px;display:flex;align-items:center;justify-content:center;border:0;background:none}.homebar i{height:5px;width:135px;background:#15151a;border-radius:5px}.homebar.light i{background:#fff}.pill{border:0;color:#007aff;background:none;font-size:15px;padding:8px}.nav{height:47px;display:flex;flex-shrink:0;align-items:center;justify-content:space-between;padding:0 14px;gap:8px}.nav strong{font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nav .nav-side{min-width:44px;text-align:right}.back{display:flex;align-items:center;gap:3px;color:#007aff;border:0;background:none;font-size:16px;padding:8px 3px}.bigtitle{font-size:33px;font-weight:760;letter-spacing:-1.6px;padding:12px 19px 16px}.searchfield{background:#e9e9ee;color:#92929b;border-radius:10px;margin:0 16px 15px;padding:10px 12px;font-size:14px}.subttl{font-size:12px;color:#909097;padding:14px 20px 8px;text-transform:uppercase}.listgroup{background:#fff;margin:0 0 17px}.listrow{display:flex;gap:11px;align-items:center;min-height:67px;width:100%;border:0;border-bottom:1px solid #ededf0;background:#fff;text-align:left;padding:10px 17px;color:#111}.listrow:active{background:#f4f4f7}.listrow .av{flex:none;width:47px;height:47px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:670;color:white;background:linear-gradient(135deg,#acb1bb,#697c96)}.listrow .body{flex:1;min-width:0}.listrow .nameline{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.listrow .nm{font-size:15px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.listrow .when{color:#92929a;font-size:11px;flex-shrink:0}.listrow .preview{font-size:12.5px;color:#8b8b94;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.unreadpill{flex:none;background:#ff3b30;color:white;border-radius:50px;min-width:20px;padding:3px 5px;text-align:center;font-size:11px;font-weight:700}.missed{color:#ec3530!important}.tabsbar{height:58px;flex-shrink:0;background:#fafafa;border-top:1px solid #e9e9ea;display:flex;justify-content:space-around;align-items:center;padding-bottom:14px}.tabsbar button{border:0;background:none;color:#8a8a92;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px}.tabsbar button.on{color:#007aff}.tabsbar button b{font-size:20px;font-weight:500}.chat-bg{background:#abc1d4!important}.chat-bg .nav{background:#b2c7d9}.chat-bg .scroll{padding:10px 15px 16px}.chat-bg .chat-date{display:table;width:auto;max-width:calc(100% - 28px);margin:16px auto 14px;color:#7d7d84;font-size:11px;text-align:center;clear:both;background:#d7d7dc;padding:5px 11px;border-radius:12px}.bubble-row{display:flex;margin:9px 0;gap:7px;align-items:flex-end;padding:0 1px}.bubble-row.me{justify-content:flex-end}.bubble{max-width:81%;background:white;border-radius:18px;padding:11px 13px;font-size:14px;white-space:pre-wrap;line-height:1.55;word-break:break-word;box-shadow:0 1px 1px #0001}.bubble-row.me .bubble{background:#fee500}.bub-time{font-size:10px;color:#627889;flex:0 0 auto}.chat-compose{display:flex;align-items:center;background:white;padding:9px 12px 33px;gap:8px;flex-shrink:0;border-top:1px solid #ececf1}.chat-compose input{flex:1;min-width:0;border:1px solid #e7e7e7;border-radius:19px;padding:11px 12px;background:#fff;font-size:14px;outline:none}.chat-compose button{border:0;background:#fee500;color:#1e1e1e;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700}.chat-im{background:white!important}.chat-im .scroll,.chat-bg .scroll{padding:10px 14px 18px}.chat-im .bubble-row.me .bubble{background:#0a84ff;color:white}.chat-im .bubble-row:not(.me) .bubble{background:#e9e9ed}.chat-im .chat-date{background:#efeff3;color:#8a8a90}.chat-im .nav{background:#fff}.chat-im .chat-compose button{background:#007aff;color:white}.kakao-app{background:#fff}.kakao-app .nav{background:#fff}.kakao-ad{margin:0 15px 11px;padding:12px;border-radius:11px;background:#f8f8f1;font-size:12px;color:#52545c;line-height:1.6}.app-headhint{font-size:12px;color:#93939b;padding:0 20px 10px}.home{background:radial-gradient(ellipse 110% 80% at 23% 0%,#575761,#222430 41%,#090b11 100%);color:white;padding:0}.home:before{content:"";position:absolute;inset:0;background:linear-gradient(125deg,transparent 44%,#ffffff08 52%,transparent 60%);pointer-events:none}.home-top{padding:71px 23px 0;display:flex;justify-content:space-between;align-items:start;gap:14px;position:relative}.home-calendar,.home-music{width:50%;height:143px;border-radius:20px;background:#ffffff29;backdrop-filter:blur(16px);padding:15px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}.home-calendar small,.home-music small{font-size:11px;opacity:.8}.home-calendar b{font-size:34px}.home-calendar span{font-size:11px;line-height:1.45}.home-music .note{font-size:35px}.home-music b{font-size:13px;line-height:1.2}.home-grid{display:grid;grid-template-columns:repeat(4,1fr);align-content:start;column-gap:8px;row-gap:17px;padding:26px 14px;flex:1;overflow-y:auto;min-height:0}.home .grid{display:contents}.app{border:0;background:none;color:white;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;min-width:0;position:relative;text-align:center}.app .ic{width:min(62px,calc((100vw - 100px)/4));height:min(62px,calc((100vw - 100px)/4));max-width:65px;max-height:65px;border-radius:15px;background:#d9e0e8;color:#1f2630;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px #0004;overflow:hidden;font-size:28px}.app .ic b{font-size:25px}.app .ic.yellow{background:#fee500;color:#241a19}.app .ic.green{background:#26bf62;color:#fff}.app .ic.blue{background:#3999fd;color:white}.app .ic.red{background:#fff;color:#f2443b}.app .ic.gray{background:#fcfcfc;color:#51535b}.app .ic.dark{background:#0c0d11;color:white}.app .ic svg{width:100%;height:100%}.app .badge{position:absolute;top:-6px;left:calc(50% + 14px);background:#ff3b30;border-radius:16px;padding:3px 7px;color:white;font-size:12px;font-weight:700;z-index:1}.home-dock{margin:0 12px 24px;background:#ffffff30;backdrop-filter:blur(15px);padding:10px 8px;display:flex;border-radius:24px;justify-content:space-around;position:relative}.home-dock .app{flex:1}.home-dock .ic{max-height:58px;max-width:58px}.home .back-to-book{position:absolute;top:47px;right:16px;z-index:2;color:#d8dce3;background:none;border:0;font-size:12px}.lock{position:absolute;inset:0;z-index:28;color:white;background:radial-gradient(ellipse at 22% 12%,#4d4e5d,#232634 43%,#090c15);overflow:hidden;touch-action:pan-y;user-select:none}.lk-main,.lk-pin{position:absolute;inset:0}.lk-main{display:flex;align-items:center;flex-direction:column;padding-top:67px}.lk-ic{font-size:16px}.lk-date{font-size:18px;margin-top:12px}.lk-time{font-size:84px;font-weight:580;letter-spacing:-4px;line-height:1.1;font-variant-numeric:tabular-nums}.lk-widgets{display:flex;justify-content:space-between;gap:12px;width:calc(100% - 44px);margin-top:22px}.lw-dday,.lw-circ{background:#ffffff25;backdrop-filter:blur(12px);border:1px solid #ffffff23;border-radius:18px;padding:12px 15px}.lw-dday{flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px}.lw-dday small{font-size:11px}.lw-dday b{font-size:22px}.lw-circ{font-size:11px;text-align:center;min-width:67px;display:flex;flex-direction:column;gap:5px;justify-content:center}.lk-bottom{position:absolute;bottom:67px;display:flex;justify-content:space-between;left:37px;right:37px}.lk-btn{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;font-size:23px;background:#ffffff25}.lk-hint{position:absolute;bottom:38px;font-size:12px;opacity:.8}.lk-pin{display:none;background:#20232bdc;backdrop-filter:blur(25px);flex-direction:column;align-items:center;padding:105px 22px 25px}.lock.pin .lk-main{display:none}.lock.pin .lk-pin{display:flex}.pin-title{font-size:20px;font-weight:570}.pin-dots{display:flex;gap:18px;margin:20px 0 35px}.pin-dots i{height:12px;width:12px;border:1.5px solid #fff;border-radius:50%}.pin-dots i.on{background:white}.pin-pad{display:grid;grid-template-columns:repeat(3,75px);gap:15px 22px}.pin-pad button{height:69px;width:69px;border:0;background:#ffffff26;color:white;border-radius:50%;font-size:30px}.pin-pad .empty{height:69px}.pin-foot{margin-top:30px;font-size:12px;display:flex;justify-content:space-between;width:235px}.pin-foot button{border:0;background:none;color:white}.z-lockalerts{top:330px!important;max-height:calc(100% - 475px)!important}.hero-note{background:#f7eded;border-left:3px solid #d33535;padding:12px 14px;margin:10px 17px 18px;border-radius:7px;line-height:1.65;font-size:12px;color:#7e2525}.feed-card{margin:0 14px 11px;border-radius:15px;border:1px solid #eee;overflow:hidden;background:#fff;text-align:left;width:calc(100% - 28px);display:flex;align-items:stretch;padding:0;box-shadow:0 2px 7px #00000007}.feed-card .feed-mark{width:93px;min-height:100px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:27px;font-weight:750;flex:none}.feed-card .feed-content{padding:13px;min-width:0}.feed-card strong{font-size:14px;line-height:1.45;display:block}.feed-meta{color:#81818a;font-size:11px;margin-top:9px}.search-head{background:#f0f0f5;border-radius:25px;margin:12px 18px;padding:12px;color:#8c8c94;display:flex;align-items:center;gap:9px;font-size:13px}.search-head input{border:0;background:none;width:100%;outline:none;font-size:13px}.cr-short{display:grid;grid-template-columns:repeat(4,1fr);gap:15px 5px;padding:18px 14px}.cr-short>div{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;color:#6b6b72;cursor:pointer}.cr-short i{height:47px;width:47px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:white;font-size:20px;font-style:normal}.article-title{font-size:24px;line-height:1.47;padding:12px 18px;margin:0}.article-meta{color:#999;font-size:12px;padding:3px 19px}.article-hero{height:165px;margin:16px 18px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:52px}.article-body{font-size:15px;line-height:1.85;padding:0 21px 25px;word-break:keep-all}.article-body p{margin:0 0 22px}.sheet{margin:0 16px;padding:15px 14px;background:#fff;border-radius:12px}.notes-row{border-bottom:1px solid #eee;padding:13px 0}.notes-row:last-child{border:0}.notes-row strong{font-size:16px}.notes-row p{font-size:12px;color:#999;margin:7px 0}.note-text{font-size:15px;line-height:1.85;white-space:pre-wrap;padding:18px 24px 40px}.call-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 18px;border-bottom:1px solid #eee;cursor:pointer}.call-row .call-name{font-size:15px;font-weight:620}.call-row .call-detail{color:#98989b;font-size:11px;margin-top:4px}.call-row .call-time{font-size:12px;color:#929296;white-space:nowrap}.call-ui{position:absolute;inset:0;z-index:45;color:white;background:linear-gradient(160deg,#393a49,#080910);padding:95px 19px 55px;display:flex;flex-direction:column;align-items:center;text-align:center}.call-ui .call-person{font-size:31px;font-weight:500}.call-ui .call-state{font-size:13px;opacity:.72;margin-top:9px}.call-ui .call-lines{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;line-height:1.7;max-width:85%;font-size:20px}.call-ui .call-lines small{font-size:12px;opacity:.6}.call-ui .call-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;width:90%;margin-bottom:30px}.call-ui .call-buttons span{display:flex;flex-direction:column;gap:6px;font-size:11px;opacity:.8}.call-ui .call-buttons b{font-size:29px;background:#ffffff25;border-radius:50%;width:65px;height:65px;display:grid;place-items:center;margin:auto}.call-ui .hang{height:62px;width:62px;border-radius:50%;background:#f13b3b;color:white;border:0;font-size:27px}.call-ui .answer{background:#2ec65c;border:0;color:white;border-radius:45px;padding:15px 22px;font-size:17px}.vm-card{padding:18px;border-bottom:1px solid #ececf0}.vm-card .vm-h{display:flex;justify-content:space-between;gap:9px;font-size:13px}.vm-card .vm-h b{font-size:15px}.vm-card button{background:#eef0f6;border:0;border-radius:15px;padding:7px 11px;margin:12px 0 0;color:#227cd7}.vm-card p{line-height:1.6;font-size:13px;color:#494d59}.mini-banner{position:absolute;z-index:44;top:52px;left:11px;right:11px;max-height:125px;background:#f6f6fadf;backdrop-filter:blur(21px);border-radius:17px;padding:11px 14px;color:#111;box-shadow:0 6px 24px #0004;animation:slideDown .3s ease}.mini-banner b{font-size:12px}.mini-banner p{font-size:12px;line-height:1.4;margin:6px 0 0}@keyframes slideDown{from{transform:translateY(-30px);opacity:0}to{transform:none;opacity:1}}.empty-panel{padding:55px 32px;text-align:center;font-size:15px;color:#8e8e94;line-height:1.8}.simple-card{margin:14px 16px;border-radius:15px;background:#fff;padding:17px;box-shadow:0 1px 4px #00000007}.simple-card h3{font-size:17px;margin:0 0 8px}.simple-card p{font-size:13px;line-height:1.6;color:#62636b;white-space:pre-wrap}.simple-card button{border:0;background:#ecf2ff;color:#1472d4;border-radius:7px;padding:9px 12px}.photos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}.photo-tile{aspect-ratio:1;display:grid;place-items:center;color:#fff;font-size:31px;cursor:pointer}.map-panel{height:290px;background:#e3e9e6;position:relative;margin:15px;border-radius:14px;overflow:hidden}.map-panel:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(20deg,transparent 0 33px,#f8f6ef 34px 43px,transparent 44px 77px),repeating-linear-gradient(112deg,transparent 0 52px,#f8f6ef 53px 65px,transparent 66px 101px);opacity:.9}.map-dot{position:absolute;background:#fff;padding:8px;border-radius:15px;font-size:12px;box-shadow:0 2px 9px #0002;white-space:nowrap}.map-dot.big{background:#d5333e;color:white}.weather-center{text-align:center;padding:26px 18px;font-size:24px}.weather-center b{font-size:68px;display:block;font-weight:350}.mail-row{padding:13px 18px;border-bottom:1px solid #ddd}.mail-row b{font-size:14px}.mail-row p{font-size:12px;color:#777;margin:5px 0;line-height:1.4}.swipe-tip{font-size:10px;color:#9398a8;text-align:center;padding:10px}.z-modal{z-index:4!important}.z-modal~.homebar{z-index:3}
+@media(max-width:520px){.device{width:100%;height:100dvh;border:0;border-radius:0;box-shadow:none}.close-phone{display:none}.phone-layer{align-items:stretch;justify-content:stretch}.home .home-top{padding-top:max(75px,env(safe-area-inset-top) + 59px)}.statusbar{padding-top:max(15px,env(safe-area-inset-top) + 2px)}.home-dock{margin-bottom:max(20px,env(safe-area-inset-bottom))}.homebar{bottom:max(0px,env(safe-area-inset-bottom) - 15px)}.story{padding:44px 22px 110px}.z-lockalerts{top:330px!important}}@media(max-height:710px){.home-top{padding-top:62px}.home-calendar,.home-music{height:105px}.home-grid{row-gap:9px;padding:16px}.home-dock{margin-bottom:16px}.app .ic{max-width:51px;max-height:51px}.z-lockalerts{top:270px!important;max-height:calc(100% - 385px)!important}.lk-time{font-size:67px}.lk-main{padding-top:55px}}
+
+.mail-open-head{padding:16px 18px 10px;border-bottom:1px solid #ececf1;background:#fff}.mail-open-head .mail-subject{font-size:22px;font-weight:760;line-height:1.35;letter-spacing:-.02em}.mail-open-head .mail-meta{margin-top:10px;font-size:12px;color:#8e8e94;line-height:1.6}.mail-open-body{padding:22px 18px 40px;background:#fff;font-size:15px;line-height:1.85;white-space:pre-wrap;word-break:keep-all}.mail-open-body p{margin:0 0 18px}.mail-quote{margin-top:24px;padding:13px 14px;border-left:3px solid #d9d9de;background:#f7f7fa;color:#666;font-size:13px;line-height:1.7}.nav .back{font-size:17px}.
+
+/* Original-page-inspired iPhone homepage: square calendar + music, four-column icons */
+.home{background:radial-gradient(120% 75% at 30% 11%,#41414b 0%,#17181e 45%,#090a0d 100%);color:#fff}
+.home:before{content:"";position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.055) 49%,transparent 60%);pointer-events:none}
+.home .ios-grid.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:90px;row-gap:4px;column-gap:1px;padding:86px 12px 0;position:relative;z-index:1;overflow:visible;align-content:start}
+.home .ios-grid .app{justify-content:flex-start;margin:0;min-height:80px;gap:5px;color:#fff;font-size:11.5px}
+.home .ios-grid .app .ic,.ios-dock .app .ic{width:min(66px,calc((100vw - 82px)/4));height:min(66px,calc((100vw - 82px)/4));max-width:66px;max-height:66px;border-radius:15px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.home .ios-grid .app .ic svg,.ios-dock .app .ic svg{width:100%;height:100%;display:block}
+.home .ios-grid .app .ic svg[width="26"],.home .ios-grid .app .ic svg[width="28"],.ios-dock .app .ic svg[width="26"],.ios-dock .app .ic svg[width="28"]{width:70%;height:70%}
+.home .ios-grid .app .ic svg[width="34"],.ios-dock .app .ic svg[width="34"]{width:82%;height:82%}
+.home .ios-grid .app .badge,.ios-dock .app .badge{top:-5px;right:calc(50% - 39px);left:auto}
+.home .ios-widget{grid-column:span 2;grid-row:span 2;min-width:0;margin:0 5px 6px;align-self:stretch;background:rgba(255,255,255,.18);border-radius:22px;border:0;color:#fff;text-align:left;display:flex;flex-direction:column;box-shadow:inset 0 0 0 1px #ffffff12;overflow:hidden}
+.home .ios-widget.cal{padding:13px 13px 10px;gap:7px}
+.home .cal-top{display:flex;flex-direction:column;line-height:1;gap:2px}
+.home .cal-top small{color:#ff665f;font-size:12px;font-weight:750}
+.home .cal-top b{font-size:36px;font-weight:450}
+.home .cal-appointments{display:flex;flex-direction:column;gap:10px;margin-top:3px}
+.home .cal-appointments .ev{display:flex;gap:7px;min-width:0}
+.home .cal-appointments .ev i{flex:0 0 3px;border-radius:4px}
+.home .cal-appointments .ev span{min-width:0}
+.home .cal-appointments .ev strong{font-weight:650;font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home .cal-appointments .ev small{font-size:10px;display:block;opacity:.75;margin-top:2px;white-space:nowrap}
+.home .ios-widget.music{grid-column:3 / span 2;grid-row:span 2;background:rgba(66,66,72,.55);padding:14px;justify-content:space-between}
+.home .mwidget-top{display:flex;align-items:flex-start;justify-content:space-between}
+.home .album-art{width:45%;aspect-ratio:1;border-radius:10px;background:linear-gradient(135deg,#637080,#323941 55%,#191c25);display:grid;place-items:center;box-shadow:0 1px 8px #0003;font-size:34px}
+.home .music-notes{font-size:26px;color:#d5d7dd}
+.home .track-name{font-weight:700;font-size:12.5px;line-height:1.25;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.home .track-name small{display:block;opacity:.67;font-size:10.5px;margin-top:4px}
+.home .paused{font-size:11px;font-weight:650;padding:6px 9px;border-radius:20px;background:#ffffff27;align-self:flex-start}
+.home .home-spot{position:absolute;left:50%;bottom:127px;transform:translateX(-50%);background:#ffffff2b;border-radius:18px;backdrop-filter:blur(12px);padding:6px 14px;font-size:11px;white-space:nowrap}
+.home .ios-dock{position:absolute;left:12px;right:12px;bottom:15px;height:99px;border-radius:34px;background:#ffffff29;backdrop-filter:blur(18px);display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:11px 8px;z-index:2}
+.ios-dock .app span{display:none}
+.home .back-to-book{position:absolute;top:51px;right:20px;left:auto;color:#ffffffaa;z-index:2;font-size:12px}
+/* Native-feeling conversation screen with compact selected choices */
+.chat-scene .chat-native-head{min-height:61px;display:flex;align-items:center;justify-content:space-between;padding:0 15px 6px;flex:none;position:relative;z-index:2;box-shadow:0 1px 0 #00000009}
+.chat-scene.chat-bg .chat-native-head{background:#b2c7d9}
+.chat-scene.chat-im .chat-native-head{background:#fff;min-height:98px;align-items:flex-start;padding-top:4px}
+.chat-scene .chat-nav-back{border:0;background:rgba(255,255,255,.67);height:42px;width:42px;border-radius:50%;font-size:32px;font-weight:300;line-height:1;color:#111;padding-bottom:5px}
+.chat-scene .chat-nav-more{height:42px;width:42px;border-radius:50%;border:0;background:#ffffff99;font-size:20px;color:#111}
+.chat-scene .chat-native-head> b{font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70%}
+.chat-scene .chat-contact{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.chat-scene .chat-contact-avatar{width:49px;height:49px;display:flex;align-items:center;justify-content:center}
+.chat-scene .chat-contact-avatar .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:18px}
+.chat-scene .chat-contact b{font-size:12px;font-weight:650;white-space:nowrap}
+.chat-scene .chat-contact b i{font-style:normal;color:#a0a0a7}
+.chat-scene .chat-scroll{flex:1;min-height:0;overscroll-behavior:contain}
+.chat-scene .chat-scroll .chat-log{display:flex;flex-direction:column;gap:3px}
+.chat-scene .bubble-row{padding:0 3px;margin:4px 0;max-width:100%}
+.chat-scene .bubble{font-size:15px;line-height:1.42;max-width:77%;border-radius:17px;padding:9px 12px;overflow-wrap:anywhere}
+.chat-scene .chat-date{background:transparent;color:#65798a;font-size:11.5px;margin:11px auto 7px;padding:0;white-space:normal;max-width:85%;width:fit-content}
+.chat-scene.chat-im .chat-date{color:#92929a;background:transparent}
+.chat-scene .choice-panel{flex:none;min-height:0;max-height:185px;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:6px 12px 8px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.14));scrollbar-width:none}
+.chat-scene.chat-im .choice-panel{background:#f8f8fa}
+.chat-scene .choice-panel:empty{display:none}
+.chat-scene .choice-chip{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;border:1px solid rgba(61,86,112,.23);border-radius:15px;padding:9px 12px;font-size:12px;min-height:38px;background:#ffffffc9;color:#1b1f25;box-shadow:0 1px 3px #0000000b}
+.chat-scene .choice-chip span{font-weight:bold;color:#5780a4}
+.chat-scene.chat-im .choice-chip{color:#007aff;background:#fff;border-color:#c6ddff}
+.chat-scene .choice-connection{text-align:center;color:#677789;font-size:12px;padding:7px 10px}
+.chat-scene .typing-dot{animation:blinksoft 1.3s ease-in-out infinite}
+@keyframes blinksoft{50%{opacity:.4}}
+.chat-scene .chat-compose{display:flex;align-items:center;gap:9px;padding:9px 12px max(22px,env(safe-area-inset-bottom));background:#fff}
+.chat-scene .chat-compose .compose-plus{height:29px;width:29px;display:grid;place-items:center;border-radius:50%;background:#d1d1d6;color:#fff;font-size:25px;line-height:1;flex:none}
+.chat-scene .chat-compose button{width:34px;height:34px;padding:0;border-radius:50%;font-size:20px;font-weight:bold;background:#ffdf2a;color:#3d2b08}
+.chat-scene.chat-im .chat-compose button{background:#007aff;color:#fff}
+.chat-scene .chat-compose input{font-size:15px}
+/* In-world notification stack */
+.disaster-stack{position:absolute;top:47px;left:9px;right:9px;z-index:48;display:flex;flex-direction:column;gap:7px;pointer-events:none;max-height:48%;overflow:hidden}
+.disaster-note{pointer-events:auto;display:block;text-align:left;border:1px solid #ffffffaa;color:#1b1b1e;background:#ededf1f0;box-shadow:0 7px 20px #0003;backdrop-filter:blur(16px);border-radius:18px;padding:10px 13px;line-height:1.4;font-size:12px;transform:translateY(-120%);opacity:0;transition:transform .34s ease,opacity .34s ease}
+.disaster-note.visible{transform:none;opacity:1}
+.disaster-note .dn-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.disaster-note .dn-head b{font-size:12px;font-weight:800}
+.disaster-note .dn-head small{color:#919198;font-size:11px}
+@media(max-width:520px){.home .ios-grid.grid{padding-top:max(83px,env(safe-area-inset-top) + 64px)}.home .ios-dock{bottom:max(15px,env(safe-area-inset-bottom) + 5px)}.home .home-spot{bottom:max(126px,env(safe-area-inset-bottom) + 112px)}}
+@media(max-height:730px){.home .ios-grid.grid{grid-auto-rows:78px;padding-top:67px}.home .ios-grid .app .ic{width:55px;height:55px}.home .ios-widget.cal{padding:9px}.home .ios-widget.music{padding:9px}.home .cal-top b{font-size:27px}.home .ios-dock{height:83px}.home .home-spot{bottom:105px}}
+
+</script>
+<script id="fallbackEngine" type="text/plain">/* 독립형 재난 휴대폰 시뮬레이션 - 오프라인 작동 */
+(() => {
+'use strict';
+const P=window.PHONE,S=window.STORY;
+const $=(q,r=document)=>r.querySelector(q), $$=(q,r=document)=>[...r.querySelectorAll(q)];
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const story=$('#story'),layer=$('#phoneLayer'),device=$('#device'),screens=$('#screens'),status=$('#statusbar'),hb=$('#homebar'),banner=$('#banner');
+const rtime=(v='18:17')=>v.slice(0,5),av=n=>esc((n||'?').replace(/[❤️👨‍👩‍👧]/g,'').trim().slice(0,1));
+const state={stack:[],locked:false,pin:'',clock:0,running:false,incoming:false,call:null,callTimers:[],replyIdx:{},viewIndex:0,timer:null,toastTimer:null};
+let elapsed=0;
+function storyHTML(){story.innerHTML=`<h1>${esc(S.title)}</h1>${S.paragraphs.map(p=>p===''?'<p class="gap"></p>':`<p>${esc(p).replace(/\[\[(.*?)\]\]/g,'<a href="#phone" class="phone-link">$1</a>')}</p>`).join('')}<div class="story-hint">모든 인물·속보·게시글은 가상의 픽션입니다.<br>앱을 누르면 내용을 열어볼 수 있습니다.</div>`;}
+function setStatus(dark){status.classList.toggle('light',dark);hb.classList.toggle('light',dark)}
+function makeScreen(markup,extraClass='white'){const s=document.createElement('section');s.className='screen '+extraClass;s.innerHTML=markup;return s}
+function push(s){const top=state.stack.at(-1);if(top)top.classList.add('under');screens.append(s);state.stack.push(s);setStatus(s.classList.contains('dark')||s.classList.contains('home'));return s}
+function pop(){if(state.stack.length<=1)return;state.stack.pop()?.remove();let top=state.stack.at(-1);top?.classList.remove('under');setStatus(top?.classList.contains('dark')||top?.classList.contains('home'))}
+function home(){while(state.stack.length>1)pop()}
+function time(){let start=(18*3600+17*60+40)+elapsed;let h=Math.floor(start/3600)%24,m=Math.floor(start/60)%60;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')}
+function toast(msg){banner.innerHTML='<b>알림</b><p></p>';banner.querySelector('p').textContent=msg;banner.className='mini-banner';clearTimeout(state.toastTimer);state.toastTimer=setTimeout(()=>{banner.innerHTML='';banner.className='banner'},4300)}
+function hnav(title,back=true,right=''){return `<div class="nav">${back?'<button class="back" data-action="back">‹ 뒤로</button>':'<span style="width:55px"></span>'}<strong>${esc(title)}</strong><div class="nav-side">${right||''}</div></div>`}
+function appIcon(id){
+  const icons={
+    phone:`<div class="ic green"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M7.2 4.6c.6-.6 1.6-.8 2.3-.3l2 1.3c.8.5 1 1.5.6 2.3l-.9 1.8c-.2.4-.2.9.1 1.2l2.4 2.4c.3.3.8.4 1.2.1l1.8-.9c.8-.4 1.8-.2 2.3.6l1.3 2c.5.8.4 1.8-.3 2.3l-1.5 1.3c-.9.8-2.3 1-3.5.6-2.8-1-5.8-3.4-8.1-5.8-2.4-2.4-4.8-5.4-5.8-8.1-.4-1.2-.2-2.6.6-3.5z"/></svg></div>`,
+    chrome:`<div class="ic gray"><svg viewBox="0 0 64 64" width="34" height="34"><circle cx="32" cy="32" r="29" fill="#fff"/><path d="M32 32L8 32A24 24 0 0 1 52 16Z" fill="#ea4335"/><path d="M32 32l12-20a24 24 0 0 1 9 32z" fill="#fbbc05"/><path d="M32 32l21 24A24 24 0 0 1 8 32z" fill="#34a853"/><circle cx="32" cy="32" r="10" fill="#4285f4"/></svg></div>`,
+    messages:`<div class="ic green"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M5 5.5C5 4.7 5.7 4 6.5 4h11A3.5 3.5 0 0 1 21 7.5v5A3.5 3.5 0 0 1 17.5 16H10l-4.5 3v-3H6.5A1.5 1.5 0 0 1 5 14.5z"/></svg></div>`,
+    kakao:`<div class="ic yellow"><svg viewBox="0 0 60 60"><rect width="60" height="60" rx="14" fill="#fee500"/><path fill="#241a19" d="M30 12C16.7 12 6 20.4 6 30.7c0 6.4 4.1 12.1 10.5 15.5L14.8 53l8.7-5.4c2.1.5 4.3.8 6.5.8 13.3 0 24-8.4 24-18.7C54 20.4 43.3 12 30 12Z"/><text x="30" y="34" fill="#fee500" font-size="10" font-family="Arial,sans-serif" font-weight="900" letter-spacing="-.3" text-anchor="middle">TALK</text></svg></div>`,
+    mail:`<div class="ic blue"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="5" width="18" height="14" rx="3" fill="currentColor"/><path d="M5 8l7 5 7-5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`,
+    calendar:`<div class="ic red"><div style="width:100%;height:100%;background:#fff;border-radius:15px;overflow:hidden;color:#111"><div style="height:15px;background:#ff3b30"></div><div style="display:grid;place-items:center;height:calc(100% - 15px);font-weight:800;font-size:25px">19</div></div></div>`,
+    clock:`<div class="ic dark"><svg viewBox="0 0 24 24" width="28" height="28"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`,
+    weather:`<div class="ic blue"><div style="font-size:28px">☁️</div></div>`,
+    notes:`<div class="ic gray"><svg viewBox="0 0 60 60"><rect width="60" height="60" fill="#fff"/><rect width="60" height="22" fill="#f8d74a"/><path d="M10 33h40M10 44h40M10 54h40" stroke="#c8c8ca" stroke-width="1.5"/></svg></div>`,
+    photos:`<div class="ic gray"><svg viewBox="0 0 60 60" width="60" height="60"><rect width="60" height="60" fill="#fff"/>${["#ff6c73","#ff9e4a","#efcc45","#71c96a","#4fc3da","#5c87e4","#9168d9","#d57bc3"].map((color,i)=>`<ellipse cx="30" cy="19.5" rx="8" ry="14" transform="rotate(${i*45} 30 30)" fill="${color}" opacity=".92"/>`).join('')}<circle cx="30" cy="30" r="4.8" fill="#fff"/></svg></div>`,
+    camera:`<div class="ic gray"><svg viewBox="0 0 60 60"><defs><radialGradient id="lens"><stop stop-color="#7ca3d8"/><stop offset=".4" stop-color="#1e2543"/><stop offset="1" stop-color="#020406"/></radialGradient></defs><rect width="60" height="60" fill="#d9d9df"/><circle cx="30" cy="30" r="23" fill="#33343a"/><circle cx="30" cy="30" r="18" fill="url(#lens)"/><circle cx="27" cy="26" r="6" fill="#ffffff4f"/></svg></div>`,
+    insta:`<div class="ic"><svg viewBox="0 0 24 24" width="28" height="28"><defs><linearGradient id="ig" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#feda75"/><stop offset=".45" stop-color="#fa7e1e"/><stop offset=".7" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig)"/><rect x="7" y="7" width="10" height="10" rx="3" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg></div>`,
+    blockblast:`<div class="ic dark"><b style="font-size:18px">𝕏</b></div>`,
+    mines:`<div class="ic blue"><b style="font-size:18px">갤</b></div>`,
+    maps:`<div class="ic gray"><svg viewBox="0 0 60 60"><rect width="60" height="60" fill="#e5f0dd"/><path d="M0 42 60 20v13L0 53Z" fill="#91cafa"/><path d="M0 16 60 47M35-2 26 64" stroke="#fff" stroke-width="6"/><path d="M35-2 26 64" stroke="#ffcb3c" stroke-width="3"/><path d="M40 15a10 10 0 0 0-20 0c0 7 10 18 10 18s10-11 10-18" fill="#fb4652"/><circle cx="30" cy="15" r="4" fill="#fff"/></svg></div>`
+  };
+  return icons[id]||`<div class="ic gray">◉</div>`
+}
+function appButton([id,label]){return `<button class="app" data-app="${id}" aria-label="${esc(label)}">${appIcon(id)}${P.badges[id]?`<em class="badge" data-badge="${id}">${esc(P.badges[id])}</em>`:''}<span>${esc(label)}</span></button>`}
+function homeScreen(){
+  return makeScreen(`<button class="back-to-book" data-action="close">‹ 본문으로</button>
+  <div class="ios-grid grid">
+    <button class="ios-widget cal" data-app="calendar"><div class="cal-top"><small>월요일</small><b>19</b></div><div class="cal-appointments"><div class="ev"><i style="background:#ff453a"></i><span><strong>⚠ 서울역 접근 금지</strong><small>18:16 · 긴급 안내</small></span></div><div class="ev"><i style="background:#34c759"></i><span><strong>민서랑 저녁 🍜</strong><small>18:30 · 종로</small></span></div></div></button>
+    ${[['clock','시계'],['weather','날씨'],['notes','메모'],['photos','사진']].map(appButton).join('')}
+    ${[['mail','메일'],['calendar','캘린더']].map(appButton).join('')}
+    <button class="ios-widget music" data-app="notes"><div class="mwidget-top"><div class="album-art"><span>♪</span></div><span class="music-notes">♫</span></div><div class="track-name">퇴근길 플레이리스트<small>네트워크 연결 끊김</small></div><div class="paused">Ⅱ&nbsp; 일시 정지</div></button>
+    ${[['camera','카메라'],['insta','Instagram'],['blockblast','X'],['mines','커뮤니티'],['maps','지도']].map(appButton).join('')}
+  </div>
+  <div class="home-spot">⌕ &nbsp;검색</div>
+  <div class="ios-dock">${[['phone','전화'],['chrome','Chrome'],['messages','메시지'],['kakao','카카오톡']].map(appButton).join('')}</div>`,'home')
+}
+function openPhone(){layer.classList.add('open');layer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';screens.innerHTML='';state.stack=[];push(homeScreen());lockPhone();}
+function closePhone(){endCall();layer.classList.remove('open');layer.setAttribute('aria-hidden','true');document.body.style.overflow='';screens.innerHTML='';state.stack=[];state.locked=false;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}
+function lockPhone(){state.locked=true;state.pin='';setStatus(true);$('#lock')?.remove();let l=document.createElement('section');l.id='lock';l.className='lock';l.innerHTML=`<div class="lk-main"><div class="lk-ic">🔒</div><div class="lk-date">10월 19일 (월)</div><div class="lk-time" data-ltime>6:17</div><div class="lk-widgets"><div class="lw-dday"><small>집에 돌아가기</small><b>오늘</b></div><div class="lw-circ">♫<span>연결 끊김</span></div><div class="lw-circ">◷<span>07:00</span></div></div><div class="lk-bottom"><span class="lk-btn">⌁</span><span class="lk-btn">📷</span></div><div class="lk-hint">위로 쓸어올려 열기</div></div><div class="lk-pin"><div class="pin-title">암호 입력</div><div class="pin-dots">${'<i></i>'.repeat(4)}</div><div class="pin-pad">${['1','2','3','4','5','6','7','8','9','','0',''].map(n=>n?`<button data-pin="${n}">${n}</button>`:'<span class="empty"></span>').join('')}</div><div class="pin-foot"><span>긴급 상황</span><button data-action="pin-cancel">취소</button></div></div>`;device.insertBefore(l,banner);let sy=0;l.addEventListener('pointerdown',e=>sy=e.clientY);l.addEventListener('pointerup',e=>{if(!l.classList.contains('pin')&&sy-e.clientY>45)l.classList.add('pin')});l.querySelector('.lk-main').addEventListener('click',()=>l.classList.add('pin'));l.addEventListener('click',e=>{let k=e.target.closest('[data-pin]');if(k)pressPin(k.dataset.pin)});}
+function pressPin(num){state.pin+=num;$$('#lock .pin-dots i').forEach((i,j)=>i.classList.toggle('on',j<state.pin.length));if(state.pin.length===4){state.locked=false;$('#lock')?.remove();setStatus(true);if(!state.running){state.running=true;startEvents();}}}
+function dramaticNotice(msg){
+  if(!layer.classList.contains('open')||state.locked)return;
+  let stack=device.querySelector('.disaster-stack');
+  if(!stack){stack=document.createElement('div');stack.className='disaster-stack';device.append(stack)}
+  const el=document.createElement('button');el.className='disaster-note';
+  const parts=msg.split(' · ');const title=parts.shift()||'알림';el.innerHTML=`<div class="dn-head"><b>${esc(title)}</b><small>지금</small></div><div>${esc(parts.join(' · '))}</div>`;
+  const kind=msg.includes('카카오톡')?'kakao':(msg.includes('재난')||msg.includes('속보'))?'chrome':msg.includes('전화')?'phone':'messages';
+  el.addEventListener('click',()=>{el.remove();if(!state.call)openApp(kind)});
+  stack.prepend(el);
+  requestAnimationFrame(()=>el.classList.add('visible'));
+  while(stack.children.length>4)stack.lastElementChild.remove();
+  setTimeout(()=>{el.classList.remove('visible');setTimeout(()=>el.remove(),450)},6200);
+}
+function startEvents(){(P.kakao.notification?.messages||[]).forEach(n=>setTimeout(()=>{if(!state.locked&&layer.classList.contains('open'))dramaticNotice(`카카오톡 · ${P.kakao.notification.from}: ${n.text}`)},n.delay||1500));(P.kakao.notificationBurst||[]).forEach(n=>setTimeout(()=>{if(!state.locked&&layer.classList.contains('open'))dramaticNotice(n.msg)},n.delay||1500));setTimeout(()=>{if(!state.locked&&layer.classList.contains('open')&&!state.call){incomingCall()}},42000);}
+function openApp(id){if(state.locked)return;const apps={phone:phoneApp,chrome:chromeApp,messages:messagesApp,kakao:kakaoApp,notes:notesApp,mail:mailApp,calendar:calendarApp,clock:clockApp,weather:weatherApp,photos:photosApp,camera:cameraApp,insta:instaApp,maps:mapsApp};if(id==='blockblast'||id==='z-x'){toast('X 앱 아이콘을 다시 눌러 주세요.');return}if(id==='mines'||id==='z-board'){toast('커뮤니티 아이콘을 다시 눌러 주세요.');return}const fn=apps[id];if(fn)push(fn());}
+function sectionTitle(t){return `<div class="subttl">${esc(t)}</div>`}
+function kakaoApp(){const K=P.kakao;return makeScreen(`${hnav('채팅',false,'⌕')}<div class="scroll"><div class="app-headhint">카카오톡 · 마지막 연결 18:16</div><div class="kakao-ad">📢 일부 메시지의 수신 및 전송이 지연될 수 있습니다.<br>상대방이 읽었는지 확인할 수 없을 수도 있습니다.</div>${K.chats.map((r,i)=>`<button class="listrow" data-action="kchat" data-id="${i}"><span class="av" style="background:${r.channel?'#fee500':'linear-gradient(135deg,#8ab3a2,#658997)'};color:${r.channel?'#443':'#fff'}">${av(r.name)}</span><div class="body"><div class="nameline"><span class="nm">${esc(r.name)}</span><span class="when">${esc(r.when)}</span></div><div class="preview">${esc(r.preview)}</div></div>${r.unread?`<span class="unreadpill">${r.unread>99?'99+':r.unread}</span>`:''}</button>`).join('')}</div><div class="tabsbar"><button class="on"><b>☏</b>친구</button><button class="on"><b>💬</b>채팅</button><button><b>☷</b>오픈채팅</button><button><b>•••</b>더보기</button></div>`,'kakao-app')}
+function messagesApp(){return makeScreen(`${hnav('메시지',false,'✎')}<div class="scroll">${sectionTitle('최근 메시지')}${P.messages.threads.map((r,i)=>`<button class="listrow" data-action="mchat" data-id="${i}"><span class="av" style="background:${r.name.includes('긴급')?'#e34a45':'linear-gradient(135deg,#6ba5db,#5781ad)'}">${r.name.includes('긴급')?'!':av(r.name)}</span><div class="body"><div class="nameline"><span class="nm">${esc(r.name)}</span><span class="when">${esc(r.when)}</span></div><div class="preview">${esc(r.preview)}</div></div>${r.unread?'<span class="unreadpill">●</span>':''}</button>`).join('')}</div>`,'white')}
+function chatScreen(name,isK){
+  const source=isK?P.kakao.rooms:P.messages.chats;
+  const msgs=source[name]||[];
+  let head=isK
+    ? `<div class="chat-native-head chat-kheader"><button class="chat-nav-back" data-action="back" aria-label="뒤로">‹</button><b>${esc(name)}</b><button class="chat-nav-more" data-action="call-chat" data-person="${esc(name)}" aria-label="전화">⌕</button></div>`
+    : `<div class="chat-native-head chat-iheader"><button class="chat-nav-back" data-action="back" aria-label="뒤로">‹</button><div class="chat-contact"><span class="chat-contact-avatar">${av(name)}</span><b>${esc(name)} <i>›</i></b></div><button class="chat-nav-more" data-action="call-chat" data-person="${esc(name)}" aria-label="통화">◉</button></div>`;
+  const items=msgs.map(m=>m.date?`<div class="chat-date">${esc(m.date)}</div>`:`<div class="bubble-row ${m.me?'me':''}"><div class="bubble">${esc(m.text??'').replace(/\n/g,'<br>')}</div><small class="bub-time">${esc(m.time??'')}</small></div>`).join('');
+  const scr=makeScreen(`${head}<div class="scroll chat-scroll" data-autobottom><div class="chat-log">${items}</div></div>
+    <div class="choice-panel" data-choices></div>
+    <form class="chat-compose"><span class="compose-plus">＋</span><input aria-label="메시지" placeholder="${isK?'메시지 입력':'iMessage'}" autocomplete="off"><button type="submit" aria-label="전송">↑</button></form>`,isK?'chat-bg chat-scene':'chat-im chat-scene');
+  scr.dataset.chat=name;scr.dataset.kind=isK?'k':'m';
+  if(window.ZOMBIE_INSTITUTIONS?.(name)){
+    scr.classList.add('oneway-channel');
+    const cp=scr.querySelector('.chat-compose');if(cp){cp.style.display='none';cp.insertAdjacentHTML('beforebegin','<div class="ex-oneway">발신 전용 긴급·안전 안내 · 답장할 수 없습니다.</div>')}
+    scr.querySelector('[data-choices]')?.remove();
+  }
+  scr.querySelector('.chat-compose').addEventListener('submit',e=>{e.preventDefault();let inp=scr.querySelector('input');let text=inp.value.trim();if(!text)return;inp.value='';sendChat(scr,name,isK,text)});
+  scr.addEventListener('click',e=>{const c=e.target.closest('[data-choice]');if(c)applyChoice(scr,name,isK,Number(c.dataset.choice))});
+  renderChoices(scr,name);return scr;
+}
+function renderChoices(s,name){
+  const panel=s.querySelector('[data-choices]');if(!panel)return;
+  const conf=window.ZOMBIE_CHOICES?.[name];if(!conf){panel.remove();return;}
+  if(!state.choiceStage)state.choiceStage={};let stage=state.choiceStage[name]??0;
+  if(stage===-1){panel.innerHTML='<div class="choice-connection">◌ 마지막 연결 이후 응답이 없습니다</div>';return;}
+  const opts=conf.stages[stage]?.options||[];
+  panel.innerHTML=opts.map((o,i)=>`<button type="button" class="choice-chip" data-choice="${i}">${esc(o.label)} <span>↗</span></button>`).join('');
+}
+function applyChoice(s,name,isK,i){
+  if(!state.choiceStage)state.choiceStage={};const phase=state.choiceStage[name]??0;
+  if(phase===-1)return;const opt=window.ZOMBIE_CHOICES?.[name]?.stages[phase]?.options[i];if(!opt)return;
+  const src=isK?P.kakao.rooms:P.messages.chats;
+  if(!src[name])src[name]=[];
+  const tm=time();src[name].push({me:true,text:opt.send,time:tm});appendChat(s,true,opt.send,tm);
+  const target=(isK?P.kakao.chats:P.messages.threads).find(c=>c.name===name);
+  if(target){target.preview=opt.send;target.when=tm;target.unread=0}
+  const panel=s.querySelector('[data-choices]');if(panel)panel.innerHTML='<div class="choice-connection typing-dot">상대방이 입력 중…</div>';
+  const replies=(opt.replies||[]).filter(Boolean);
+  state.choiceStage[name]=opt.end?-1:(Number.isFinite(opt.next)?opt.next:phase+1);
+  replies.forEach((r,j)=>setTimeout(()=>{if(!layer.classList.contains('open'))return;src[name].push({text:r,time:time()});if(s.isConnected)appendChat(s,false,r,time());},(j+1)*1450));
+  setTimeout(()=>{if(!s.isConnected)return;if(opt.end){panel.innerHTML=`<div class="choice-connection">${esc(opt.end)}</div>`;}else renderChoices(s,name)},(replies.length+1)*1450);
+}
+function sendChat(s,name,isK,text){if(window.ZOMBIE_INSTITUTIONS?.(name))return;let src=isK?P.kakao.rooms:P.messages.chats;if(!src[name])src[name]=[];src[name].push({me:true,text,time:time()});appendChat(s,true,text,time());let db=isK?P.kakao:P.messages;const norm=v=>String(v||'').replace(/\s+/g,'').toLowerCase();if(!state.replyStop)state.replyStop={};let rules=db.keywordReplies?.[name]||[],picked=null;for(const rule of rules){if((rule.match||[]).some(k=>norm(text).includes(norm(k)))){picked=rule;break}}if(picked&&!state.replyStop[(isK?'k:':'m:')+name]){(picked.reply||[]).forEach((r,j)=>setTimeout(()=>{if(!layer.classList.contains('open'))return;src[name].push({text:r,time:time()});if(s.isConnected)appendChat(s,false,r,time());},(j+1)*1800));if(picked.stopAfter)state.replyStop[(isK?'k:':'m:')+name]=true;}else{let ar=db.anyReplies?.[name];const key=(isK?'k:':'m:')+name;const n=state.replyIdx[key]||0;if(ar&&n<ar.length){state.replyIdx[key]=n+1;let reply=ar[n];(Array.isArray(reply)?reply:[reply]).forEach((r,j)=>setTimeout(()=>{if(!layer.classList.contains('open'))return;src[name].push({text:r,time:time()});if(s.isConnected)appendChat(s,false,r,time());},(j+1)*1700));}}let target=(isK?P.kakao.chats:P.messages.threads).find(c=>c.name===name);if(target){target.preview=text;target.when=time();target.unread=0}}
+function appendChat(s,me,t,clock){let d=document.createElement('div');d.className='bubble-row'+(me?' me':'');d.innerHTML=`<div class="bubble"></div><small class="bub-time">${esc(clock)}</small>`;d.querySelector('.bubble').textContent=t;s.querySelector('.chat-log').append(d);let sc=s.querySelector('.chat-scroll');sc.scrollTop=sc.scrollHeight}
+function callListHTML(type){return P.calls.filter(c=>type!=='missed'||c.missed).map((c,i)=>`<div class="call-row" data-action="dial" data-name="${esc(c.name)}"><div><div class="call-name ${c.missed?'missed':''}">${esc(c.name)} ${c.count?'('+c.count+')':''}</div><div class="call-detail">${c.dir==='out'?'↗':'↙'} ${esc(c.kind)}</div></div><span class="call-time">${esc(c.when)}　ⓘ</span></div>`).join('')}
+function phoneApp(){let s=makeScreen(`${hnav('전화',false,'편집')}<div class="scroll"><div class="bigtitle">최근 통화</div><div class="searchfield">⌕　검색</div><div style="display:flex;gap:6px;justify-content:center;padding:5px 16px 10px"><button class="pill" data-action="calls-all">모두</button><button class="pill" data-action="calls-missed">부재중 전화</button></div><div class="call-list">${callListHTML('all')}</div></div><div class="tabsbar"><button data-action="phone-tab" data-id="fav"><b>★</b>즐겨찾기</button><button class="on" data-action="phone-tab" data-id="recent"><b>◷</b>최근 통화</button><button data-action="phone-tab" data-id="keypad"><b>▦</b>키패드</button><button data-action="phone-tab" data-id="voicemail"><b>▣</b>음성사서함</button></div>`,'white');return s}
+function switchPhone(s,t){let content=s.querySelector('.scroll');if(t==='recent'){content.innerHTML=`<div class="bigtitle">최근 통화</div><div class="call-list">${callListHTML('all')}</div>`}else if(t==='keypad'){content.innerHTML=`<div style="text-align:center;padding:35px 20px;font-size:27px" class="dialnum">　</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:10px 55px">${['1','2','3','4','5','6','7','8','9','*','0','#'].map(n=>`<button data-action="digit" data-digit="${n}" style="background:#e9e9ee;border:0;border-radius:50%;height:65px;width:65px;font-size:25px">${n}</button>`).join('')}</div><div style="text-align:center;padding:17px"><button data-action="dial-num" style="border:0;background:#39bd5d;border-radius:50%;height:70px;width:70px;font-size:28px;color:white">☎</button></div>`;s.dataset.num=''}else if(t==='voicemail'){content.innerHTML=`<div class="bigtitle">음성 사서함</div>${P.voicemail.map((v,i)=>`<div class="vm-card"><div class="vm-h"><b>${esc(v.from)}</b><span>${esc(v.date)} ${v.new?'🔴':''}</span></div><button data-action="voice" data-id="${i}">▶ 재생　${esc(v.length)}</button><div class="transcript"></div></div>`).join('')}`}else{content.innerHTML=`<div class="bigtitle">즐겨찾기</div>${['엄마','민서 ❤️','지우 (회사)','119'].map(n=>`<div class="call-row" data-action="dial" data-name="${n}"><b>${esc(n)}</b>☎</div>`).join('')}`}}
+function outgoingCall(name){if(state.call)return;let c=makeCall(name,false);const cfg=P.callScripts[name]||P.callScripts['기본'];let valid=Math.random()<(cfg.answer??P.callScripts.answerRate??0.05);let wait=2600;state.callTimers.push(setTimeout(()=>{if(!state.call)return;if(!valid){$('#callState').textContent=name==='119'?'현재 연결량이 많아 통화가 지연됩니다':'연결할 수 없습니다';state.callTimers.push(setTimeout(endCall,2200))}else{cfg._used=true;runCallLines(cfg.lines||[]) }},wait));return c}
+function incomingCall(){if(state.call)return;let c=makeCall(P.incomingCall.from,true);state.callTimers.push(setTimeout(()=>{if(state.call&&state.call.dataset.incoming==='true')endCall()},30000));return c}
+function makeCall(name,incoming){let c=document.createElement('div');c.className='call-ui';c.dataset.incoming=incoming?'true':'false';c.innerHTML=`<div class="call-person">${esc(name)}</div><div id="callState" class="call-state">${incoming?'수신 전화':'연결 중...'}</div><div class="call-lines" id="callLines"></div><div class="call-buttons"><span><b>◉</b>소리 끔</span><span><b>▦</b>키패드</span><span><b>♬</b>스피커</span></div><div style="display:flex;gap:60px;align-items:center"><button class="hang" data-action="hang">☎</button>${incoming?'<button class="answer" data-action="answer">☎ 통화하기</button>':''}</div>`;device.append(c);state.call=c;return c}
+function runCallLines(lines){$('#callState').textContent='00:01';const part=$('#callLines');let ms=650;for(const p of lines){let t=ms;state.callTimers.push(setTimeout(()=>{if(!state.call)return;part.innerHTML=`<small>${p.who==='me'?'나':esc($('.call-person').textContent)}</small><div></div>`;part.querySelector('div').textContent=p.text;if(p.cut){$('#callState').textContent='⚠ 지지직 · 연결 불안정';if(p.noise){const c=state.call;c?.classList.add('flicker-static');setTimeout(()=>c?.classList.remove('flicker-static'),1100);try{const A=window.AudioContext||window.webkitAudioContext;if(A){const ac=window.__z119audio||(window.__z119audio=new A());const o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.value=190;g.gain.value=.035;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.65)}}catch(e){}}}},t));ms+=p.ms||2500;if(p.cut){ms+=900;break}}state.callTimers.push(setTimeout(endCall,ms+1400))}
+function endCall(){state.callTimers.forEach(clearTimeout);state.callTimers=[];state.call?.remove();state.call=null}
+function chromeApp(){return makeScreen(`${hnav('Chrome',false,'⊞')}<div class="scroll"><div style="text-align:center;font-size:39px;letter-spacing:-1px;font-weight:800;margin:22px 0;color:#4b80eb">검색</div><div class="search-head">⌕ <input data-chrome-search placeholder="검색어 또는 URL 입력" aria-label="검색"></div><div class="cr-short">${P.chrome.shortcuts.map((x,i)=>`<div data-action="shortcut" data-id="${i}"><i style="background:${esc(x.color)}">${esc(x.letter)}</i><span>${esc(x.label)}</span></div>`).join('')}</div><div style="font-size:17px;font-weight:720;padding:17px 18px">Discover <span style="float:right;color:#777">⚙</span></div>${P.chrome.feed.map((f,i)=>`<button class="feed-card" data-action="article" data-id="${i}"><div class="feed-mark" style="background:${esc(f.tone)}">${f.type==='ad'?'AD':f.source?.[0]}</div><div class="feed-content"><strong>${esc(f.title)}</strong><div class="feed-meta">${esc(f.source||f.brand)} · ${esc(f.time||'광고')}</div></div></button>`).join('')}</div><div class="tabsbar"><button>‹</button><button>›</button><button>＋</button><button>${P.chrome.tabs}</button><button>···</button></div>`,'white')}
+function articlePage(f){return makeScreen(`${hnav(f.source||'기사')}<div class="scroll"><div class="article-meta">${esc(f.source||f.brand)} · 2026.10.19 · ${esc(f.time||'')}</div><h1 class="article-title">${esc(f.title)}</h1><div class="article-hero" style="background:linear-gradient(135deg,${esc(f.tone)},#303743)">🚨</div><div class="article-body">${(f.body||[f.sub||'']).map(p=>`<p>${esc(p)}</p>`).join('')}<p style="color:#777;font-size:12px">※ 이 기사의 내용은 가상의 좀비 재난 세계관을 위해 창작되었습니다.</p></div></div>`,'white')}
+function searchPage(){return makeScreen(`${hnav('최근 검색어')}<div class="scroll">${P.chrome.searches.map(q=>`<div class="call-row" data-action="search-news" data-query="${esc(q)}"><span>◷　${esc(q)}</span><span>↗</span></div>`).join('')}</div>`,'white')}
+function notesApp(){return makeScreen(`${hnav('메모',false,'＋')}<div class="scroll"><div class="bigtitle">메모</div>${sectionTitle('iCloud · 이 기기에 저장됨')}<div class="sheet">${P.notes.map((n,i)=>`<div class="notes-row" data-action="note" data-id="${i}"><strong>${esc(n.title)}</strong><p>${esc(n.date)}　${esc(n.body.slice(0,47))}…</p></div>`).join('')}</div></div>`,'white')}
+function notePage(n){return makeScreen(`${hnav('메모')}<div class="scroll"><div style="color:#8e8e95;font-size:12px;text-align:center;padding:14px">${esc(n.date)}</div><div class="note-text">${esc(n.body)}</div></div>`,'white')}
+function mailApp(){const mails=P.mail||[];return makeScreen(`${hnav('메일',false,'✎')}<div class="scroll"><div class="bigtitle">받은 편지함</div>${mails.map((m,i)=>`<div class="mail-row" data-action="mail-item" data-id="${i}"><div style="display:flex;justify-content:space-between;gap:10px"><b>${esc(m.from)}</b><small>${esc(m.time)}</small></div><p><b>${esc(m.subject)}</b><br>${esc(m.preview)}</p></div>`).join('')}</div>`,'white')}function mailDetail(m){return makeScreen(`${hnav('메일')}<div class="scroll"><div class="mail-open-head"><div class="mail-subject">${esc(m.subject)}</div><div class="mail-meta">보낸 사람: ${esc(m.from)}<br>시간: ${esc(m.time)} · 2026년 10월 19일</div></div><div class="mail-open-body">${(m.body||[]).map(p=>`<p>${esc(p)}</p>`).join('')}${m.quote?`<div class="mail-quote">${esc(m.quote)}</div>`:''}</div></div>`,'white')}function calendarApp(){const ev=P.calendar.events;return makeScreen(`${hnav('캘린더',false,'＋')}<div class="scroll"><div class="bigtitle">2026년 10월</div><div class="simple-card"><h3>19일 월요일</h3><p>🚨 재난 상황 발생 · 모든 일정이 불확실합니다.</p></div>${ev.map(e=>`<div class="simple-card"><div style="border-left:4px solid ${(P.calendar.calendars[e.cal]||'#007aff')};padding-left:12px"><small>${esc(e.date)} · ${esc(e.start)}</small><h3>${esc(e.title)}</h3><p>${esc(e.place||'')}</p></div></div>`).join('')}</div>`,'white')}
+function clockApp(){return makeScreen(`${hnav('시계',false,'＋')}<div class="scroll"><div class="bigtitle">알람</div>${P.clock.alarms.map(a=>`<div class="call-row"><div><b style="font-size:37px;font-weight:400">${esc(a.time)}</b><div class="call-detail">${esc(a.label)}　${esc(a.repeat)}</div></div><span style="font-size:25px;color:#2ac561">●</span></div>`).join('')}<div class="simple-card"><h3>타이머</h3><p>잠시 시간을 확인하고, 통신 상태를 다시 점검할 수 있습니다.</p><button data-action="timer-start">3분 타이머 시작</button></div></div>`,'dark')}
+function weatherApp(){return makeScreen(`${hnav('날씨',false,'')}<div class="scroll" style="background:linear-gradient(#5886b5,#b4d1eb)"><div class="weather-center">서울<br><b>12°</b>맑음<br><small>2026년 10월 19일 · 체감 10°</small></div><div class="simple-card" style="background:#ffffff9c"><h3>오늘 밤</h3><p>북서풍 2m/s · 강수확률 10%<br>※ 실시간 기상 데이터 연결 불가</p></div></div>`,'white')}
+function photosApp(){const emoji=['🚇','🌇','🥤','🍢','🏢','🎂','🐈','☕','🌅','🌊','🥘','🌳','👟','🚉','💻','🍣','🍰','🎡'];return makeScreen(`${hnav('사진',false,'선택')}<div class="scroll"><div class="bigtitle">보관함</div><div class="app-headhint">${P.photos.count}개의 항목 · 최근 기록</div><div class="photos-grid">${Array.from({length:51},(_,i)=>`<div class="photo-tile" data-action="photo" data-id="${i}" style="background:linear-gradient(${120+i*17}deg,hsl(${i*34%360} 27% 66%),hsl(${(i*34+48)%360} 22% 30%))">${emoji[i%emoji.length]}</div>`).join('')}</div></div>`,'white')}
+function cameraApp(){let s=makeScreen(`<div class="scroll" style="background:#010101;color:#fff;display:flex;flex-direction:column;justify-content:space-between"><div style="padding:35px;text-align:center;font-size:12px">⚡　●</div><div style="text-align:center;color:#a6a6a6;font-size:14px;line-height:1.8">카메라<br><span style="font-size:70px">◉</span><br>주변이 어두워 초점을 맞출 수 없습니다</div><div style="display:flex;justify-content:center;padding:30px"><button data-action="shutter" style="border:4px solid #fff;background:#fff7;width:68px;height:68px;border-radius:50%"></button></div></div>`,'dark');return s}
+function instaApp(){const ins=P.insta,posts=ins.posts||[];return makeScreen(`${hnav('Instagram',false,'♡')}<div class="scroll">${(ins.stories||[]).map(s=>`<span style="display:inline-flex;align-items:center;flex-direction:column;font-size:10px;margin:8px"><span style="display:grid;place-items:center;height:55px;width:55px;border:2px solid #bf477e;border-radius:50%;font-size:19px">◎</span>${esc(s.id)}</span>`).join('')}${posts.map((p,i)=>`<div style="background:white;margin:0 0 15px"><div style="padding:13px;font-weight:650;font-size:13px">◉ ${esc(p.id)}</div><div style="height:240px;display:grid;place-items:center;font-size:72px;background:${esc(p.bg||'#b9b9b9')}">${esc(p.emoji)}</div><div style="padding:14px;font-size:13px;line-height:1.7">♡　♧　➤<br><b>좋아요 ${esc(p.likes)}개</b><br>${esc(p.caption)}</div></div>`).join('')}<div class="subttl">메시지</div>${ins.dms.map((d,i)=>`<div class="listrow" data-action="insta-dm" data-id="${i}"><span class="av">${av(d.name)}</span><div class="body"><b>${esc(d.name)}</b><div class="preview">${esc(d.preview)}</div></div></div>`).join('')}</div>`,'white')}
+function mapsApp(){const places=P.maps.favorites||[];return makeScreen(`${hnav('지도',false,'⌕')}<div class="scroll"><div class="searchfield">⌕　위치 검색</div><div class="map-panel"><div class="map-dot big" style="top:55%;left:32%">● 현재 위치 · 서울역 B2</div><div class="map-dot" style="top:16%;left:57%">서울역</div><div class="map-dot" style="top:75%;left:58%">시청역</div></div><div class="hero-note">⚠ 지도 데이터가 마지막으로 업데이트된 시각: 17:43<br>실시간 대피 가능 여부를 확인할 수 없습니다.</div>${places.map(p=>`<div class="listrow"><span class="av">${esc(p.icon)}</span><div class="body"><b>${esc(p.name)}</b><div class="preview">${esc(p.addr)}</div></div></div>`).join('')}</div>`,'white')}
+function refreshClock(){if(!state.running||state.locked)return;elapsed+=1;$('#sbTime').textContent=time();let h=(18+Math.floor((17*60+40+elapsed)/3600))%24,mins=Math.floor((17*60+40+elapsed)/60)%60;let clock12=h%12||12;let lk=$('[data-ltime]');if(lk)lk.textContent=clock12+':'+String(mins).padStart(2,'0')}
+setInterval(refreshClock,1000);
+// 공통 탐색
+screens.addEventListener('click',e=>{if(state.locked)return;const a=e.target.closest('[data-action]');if(a){const name=a.dataset.action,id=+a.dataset.id;switch(name){case'back':pop();break;case'close':closePhone();break;case'kchat':{let r=P.kakao.chats[id];r.unread=0;push(chatScreen(r.name,true));let sc=state.stack.at(-1).querySelector('.chat-scroll');sc.scrollTop=sc.scrollHeight;break}case'mchat':{let r=P.messages.threads[id];r.unread=false;push(chatScreen(r.name,false));let sc=state.stack.at(-1).querySelector('.chat-scroll');sc.scrollTop=sc.scrollHeight;break}case'dial':outgoingCall(a.dataset.name);break;case'calls-all':$('.call-list').innerHTML=callListHTML('all');break;case'calls-missed':$('.call-list').innerHTML=callListHTML('missed');break;case'phone-tab':switchPhone(state.stack.at(-1),a.dataset.id);break;case'digit':{let s=state.stack.at(-1);s.dataset.num=(s.dataset.num||'')+a.dataset.digit;s.querySelector('.dialnum').textContent=s.dataset.num;break}case'dial-num':{let n=state.stack.at(-1).dataset.num||'119';outgoingCall(n);break}case'voice':{let v=P.voicemail[id];a.closest('.vm-card').querySelector('.transcript').innerHTML=`<p>${(v.transcript||[]).map(esc).join('<br>')}</p>`;break}case'article':push(articlePage(P.chrome.feed[id]));break;case'shortcut':{let label=P.chrome.shortcuts[id]?.label;if(label==='X 실트'||label==='커뮤니티')break;else if(label==='지도')push(mapsApp());else if(label==='검색')push(searchPage());else if(label==='긴급속보'||label==='실시간')push(articlePage(P.chrome.feed[0]));else toast('현재 네트워크 연결이 불안정합니다');break}case'search-news':push(articlePage(P.chrome.feed[0]));break;case'note':push(notePage(P.notes[id]));break;case'mail-item':{let m=(P.mail||[])[id];if(m)push(mailDetail(m));break}case'photo':{let s=makeScreen(`${hnav('사진 보기')}<div class="scroll" style="display:grid;place-items:center;background:#111;color:white;font-size:100px">${a.textContent}</div>`,'dark');push(s);break}case'insta-dm':{let d=P.insta.dms[id];push(chatScreen(d.name,false));break}case'shutter':toast('사진 저장됨 · 화면 밖에서는 소리가 들리지 않습니다');break;case'timer-start':toast('타이머를 설정했습니다. 3분 뒤 다시 확인하세요.');break;}return}let b=e.target.closest('[data-app]');if(b){openApp(b.dataset.app);return}});
+$('#homebar').addEventListener('click',()=>{if(state.locked){$('#lock')?.classList.add('pin');return}home()});
+device.addEventListener('click',e=>{if(e.target.closest('[data-action="hang"]')){endCall()}else if(e.target.closest('[data-action="answer"]')){if(state.call){state.call.dataset.incoming='false';e.target.remove();runCallLines(P.incomingCall.lines)}}else if(e.target.closest('[data-action="pin-cancel"]')){$('#lock')?.classList.remove('pin');state.pin='';$$('#lock .pin-dots i').forEach(x=>x.classList.remove('on'))}});
+layer.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closePhone()});
+story.addEventListener('click',e=>{if(e.target.closest('.phone-link')){e.preventDefault();openPhone();try{history.pushState({},'','#phone')}catch(err){}}});
+let edgeSwipe=null;screens.addEventListener('pointerdown',e=>{if(state.locked||state.stack.length<=1)return;if(e.clientX>36)return;if(e.target.closest('input,textarea,button,[data-action]'))return;edgeSwipe={id:e.pointerId,x:e.clientX,y:e.clientY};});screens.addEventListener('pointerup',e=>{if(!edgeSwipe||edgeSwipe.id!==e.pointerId)return;let dx=e.clientX-edgeSwipe.x,dy=Math.abs(e.clientY-edgeSwipe.y);if(dx>78&&dy<60)pop();edgeSwipe=null});screens.addEventListener('pointercancel',()=>edgeSwipe=null);document.addEventListener('keydown',e=>{if(!layer.classList.contains('open'))return;if(state.locked&&/^[0-9]$/.test(e.key)){$('#lock')?.classList.add('pin');pressPin(e.key)}else if(e.key==='Escape'){if(state.call)endCall();else if(state.locked)$('#lock')?.classList.remove('pin');else if(state.stack.length>1)pop();else closePhone()}});
+window.addEventListener('popstate',()=>{if(layer.classList.contains('open')){if(state.stack.length>1)pop();else closePhone()}});
+storyHTML();if(location.hash==='#phone')openPhone();
+})();
+</script>
+<script>(function(){if(window.__originScriptLoaded && document.querySelector('#story .phone-link')){window.__usingOriginal=true;return}
+window.__usingOriginal=false;let s=document.createElement('style');s.id='fallbackLoaded';s.textContent=document.querySelector('#fallbackStyle').textContent;document.head.append(s);
+let j=document.createElement('script');j.textContent=document.querySelector('#fallbackEngine').textContent;document.body.append(j);})();</script>
+<script id="zombieV6Instagram">(function(){
+'use strict';
+const stories=[
+{id:'minseo.zip',name:'민서',avatar:'민',theme:'#c17688',frames:[
+{time:'오후 2:11',kind:'☀️ 오늘',title:'칼퇴만 하면 됨',msg:'퇴근하구 떡볶이 ㄱ?\n월요일인데 신난다 ㅋㅋ',bg:'linear-gradient(155deg,#fcac7b,#f05a95)'},
+{time:'오후 4:24',kind:'🚇 이동 중',title:'종로 가는중',msg:'와 사람 진짜 많다 ㅠ\n오늘 왜이럼',bg:'linear-gradient(150deg,#4c7fbb,#adc6dc)'},
+{time:'오후 5:49',kind:'⚠️ 제보',title:'뭐야 뭐임',msg:'앞에서 누가 갑자기 소리지름\n사람들이 다 뜀',bg:'linear-gradient(170deg,#383a40,#643743)'},
+{time:'오후 6:11',kind:'📍 마지막 스토리',title:'전화 좀 받아',msg:'시청쪽 건물 안인데\n문 밖에서 계속 뛰는 소리남\n도현아 이거 보면 연락좀',bg:'linear-gradient(145deg,#242027,#71313a)'}]},
+{id:'jjyu_23',name:'지유',avatar:'지',theme:'#ac5bc6',frames:[
+{time:'오후 12:08',kind:'🧁 점심시간',title:'드뎌 밥',msg:'회사 관둘까 걍\nㅋㅋㅋㅋ 점심먹으니 살겟다',bg:'linear-gradient(130deg,#efa9e6,#c56c90)'},
+{time:'오후 4:05',kind:'🍡 간식',title:'오늘의 행복',msg:'편의점 신상 젤리\n이건진짜 맛잇음',bg:'linear-gradient(140deg,#f9bf8e,#dc8a9c)'},
+{time:'오후 5:57',kind:'😰',title:'사람들이 다 뜀',msg:'나 지금 종각인데\n진짜 영화촬영 아니지?',bg:'linear-gradient(155deg,#535766,#8c3c50)'},
+{time:'오후 6:16',kind:'🆘',title:'혹시 근처 사람',msg:'이쪽 건물 3층인데\n바깥에서 누가 문 발로참\n진짜 제발 119좀',bg:'linear-gradient(160deg,#28252b,#872b37)'}]},
+{id:'harin.s2',name:'하린',avatar:'하',theme:'#e3a18b',frames:[
+{time:'오후 1:02',kind:'📚 수업 끝',title:'집가고싶다',msg:'교수님 제발 끝내주세요 ㅠㅠ\n과제 아직도 3개 남음',bg:'linear-gradient(155deg,#d6b3e6,#8e9bcb)'},
+{time:'오후 3:45',kind:'🍫',title:'당충전',msg:'도서관 구석자리 겟또',bg:'linear-gradient(140deg,#d9c6a2,#a9887f)'},
+{time:'오후 6:04',kind:'😢',title:'문 잠갔어',msg:'우리 도서관 못나감\n밖에서 계속 소리지르는데\n이거 꿈인가',bg:'linear-gradient(140deg,#443b58,#20252a)'}]},
+{id:'seoullive',name:'서울라이브',avatar:'서',theme:'#568ec6',frames:[
+{time:'오후 4:41',kind:'📰 속보',title:'도심 소란 제보',msg:'종로 인근 다수 공격 신고\n원인 확인 중',bg:'linear-gradient(155deg,#173654,#20466d)'},
+{time:'오후 5:26',kind:'🚨 긴급',title:'역사 통제',msg:'서울역·시청역 주변\n시민 대피 권고',bg:'linear-gradient(165deg,#232c3b,#773042)'},
+{time:'오후 6:13',kind:'📡 연결 불안정',title:'현장 중계 중단',msg:'통신량 급증\n제보 영상 접속 장애',bg:'linear-gradient(130deg,#161821,#343b50)'}]},
+{id:'hyeon__',name:'혜원',avatar:'혜',theme:'#cd7c93',frames:[
+{time:'오후 2:17',kind:'💛 일상',title:'반차 최고',msg:'날씨 너무좋자나\n약속까지 뭐하지',bg:'linear-gradient(150deg,#c0aedb,#f0b8c9)'},
+{time:'오후 5:46',kind:'📍 종로',title:'뭐야;;;',msg:'버스 안에서 사람들이\n갑자기 우르르 뛰는거 봄',bg:'linear-gradient(160deg,#797f82,#3d505c)'},
+{time:'오후 6:14',kind:'🆘 도움',title:'누구 제발',msg:'택시 기사님도 도망감\n가게 안에 숨어있음\n휴대폰 배터리 8퍼',bg:'linear-gradient(130deg,#302735,#8e344b)'}]},
+{id:'dane._.p',name:'다은',avatar:'다',theme:'#9e88b9',frames:[
+{time:'오후 1:33',kind:'🎵 점심',title:'커피마시러',msg:'퇴근하고 영화보러가야징',bg:'linear-gradient(145deg,#7ebbb6,#c8d49c)'},
+{time:'오후 5:59',kind:'😨 제발',title:'팔에서 피가 나',msg:'어떤 사람이 갑자기 잡고\n물었음 진짜 너무아파\n119 연결이 안돼',bg:'linear-gradient(165deg,#363d4f,#903543)'}]}
+];
+const posts=[{id:'minseo.zip',symbol:'☕',bg:'linear-gradient(150deg,#ca988d,#ac786b)',text:'오늘 저녁은 떡볶이다 ㅎ',time:'4시간 전',likes:'98'},
+{id:'jjyu_23',symbol:'🍰',bg:'linear-gradient(145deg,#a790a9,#efd3a0)',text:'월요일은 디저트 먹으면서 버티는거야',time:'5시간 전',likes:'67'},
+{id:'seoullive',symbol:'⚠️',bg:'linear-gradient(145deg,#4c1e2a,#242d43)',text:'서울 도심 교통 통제 · 현장 상황 집계 중',time:'24분 전',likes:'2.1만'}];
+let current=null,mode='feed',person=0,frame=0,timer=null,shown=false;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function pause(){if(timer){clearTimeout(timer);timer=null}}
+function renderFeed(){mode='feed';pause(); if(!current)return;
+ const rows=stories.map((s,i)=>`<button class="zi-story-tap" data-zi-person="${i}"><span class="zi-story-ring"><i style="color:${s.theme}">${esc(s.avatar)}</i></span><span class="zi-nick">${esc(s.name)}</span></button>`).join('');
+ const timeline=posts.map(p=>`<article class="zi-post"><div class="zi-posthead"><span class="zi-avatar">${esc(p.id[0].toUpperCase())}</span><div>${esc(p.id)}<small>${esc(p.time)}</small></div></div><div class="zi-post-art" style="background:${esc(p.bg)}"><div class="symbol">${esc(p.symbol)}</div><div class="desc">${esc(p.text)}</div></div><div class="zi-postfoot"><div class="zi-footicons"><span>♡　▢　➤</span><span>♧</span></div><b>좋아요 ${esc(p.likes)}개</b><div>${esc(p.id)}　${esc(p.text)}</div></div></article>`).join('');
+ const dms=(window.PHONE?.insta?.dms||[]).map((d,i)=>`<div class="zi-dm" data-zi-dm="${i}"><div class="zi-dm-avatar">${esc((d.name||'?').slice(0,1))}</div><div><b>${esc(d.name)}</b><p>${esc(d.preview)}</p></div></div>`).join('');
+ current.innerHTML=`<header class="zi-head"><strong>Instagram</strong><button data-zi-close aria-label="닫기">×</button></header><div class="zi-scroll"><div class="zi-story-rail">${rows}</div>${timeline}<div class="zi-dm-title">메시지</div>${dms}</div>`;
+}
+function showStory(p,f){pause(); mode='story';person=p;frame=f;const s=stories[p],x=s.frames[f];
+ const themes=['diary','pop','notebook','broadcast','aesthetic','fragment'];
+ const theme=themes[p]||'diary', emergency=/^(⚠️|📍|🆘|😰|😢|🚨|📡|😨)/.test(x.kind);
+ const variant=(f+p*2)%3, mood=emergency?'distress':'casual';
+ const stickers={diary:['♡','✿','☆'],pop:['★','ㅋㅋ','✦'],notebook:['✎','☁','...'],broadcast:['● LIVE','속보','NEWS'],aesthetic:['☼','✳','⋆'],fragment:['?!','…','⚠']}[theme];
+ const sticker=stickers[variant];
+ const bars=s.frames.map((_,i)=>`<span class="${i<f?'past':i===f?'now':''}">${i===f?'<i></i>':''}</span>`).join('');
+ current.innerHTML=`<div class="zi-stager"><div class="zi-progress">${bars}</div><div class="zi-story-top"><div class="zi-face" style="background:${s.theme}">${esc(s.avatar)}</div><div><strong>${esc(s.id)}</strong><small>${esc(x.time)}</small></div><button data-zi-close aria-label="스토리 닫기">×</button></div><div class="zi-story-card zi-theme-${theme} zi-v${variant} zi-${mood}" style="background:${esc(x.bg)}"><div class="zi-card-decor"></div><div class="zi-story-sticker">${esc(sticker)}</div><button aria-label="이전 스토리" class="zi-touch-prev" data-zi-prev></button><button aria-label="다음 스토리" class="zi-touch-next" data-zi-next></button><div class="zi-card-center"><div class="zi-card-top">${esc(x.kind)}</div><div class="zi-card-title">${esc(x.title)}</div><div class="zi-card-text">${esc(x.msg)}</div></div></div><div class="zi-story-footer">메시지 보내기…</div></div>`;
+ timer=setTimeout(()=>next(),5200);
+}
+function next(){let p=person, f=frame+1;if(f>=stories[p].frames.length){p++;f=0}if(p>=stories.length){renderFeed();return}showStory(p,f)}
+function prev(){let p=person, f=frame-1;if(f<0){p--;if(p<0){showStory(0,0);return}f=stories[p].frames.length-1}showStory(p,f)}
+function close(){pause();if(current){current.remove();current=null}document.getElementById('statusbar')?.classList.remove('light');document.getElementById('homebar')?.classList.remove('light')}
+function open(){if(current)close();const screens=document.getElementById('screens');if(!screens)return;current=document.createElement('div');current.className='zi-shell';screens.appendChild(current);document.getElementById('statusbar')?.classList.remove('light');renderFeed()}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-app="insta"]');if(a){e.preventDefault();e.stopImmediatePropagation();open();return}
+if(!current)return;
+if(e.target.closest('#homebar')){e.preventDefault();e.stopImmediatePropagation();close();return}
+if(!current.contains(e.target))return;
+const b=e.target.closest('[data-zi-person],[data-zi-prev],[data-zi-next],[data-zi-close],[data-zi-dm]');if(!b)return;
+e.preventDefault();e.stopPropagation();
+if(b.hasAttribute('data-zi-close')){if(mode==='story')renderFeed();else close()}
+else if(b.hasAttribute('data-zi-prev'))prev();else if(b.hasAttribute('data-zi-next'))next();
+else if(b.hasAttribute('data-zi-person'))showStory(+b.dataset.ziPerson,0);
+else if(b.hasAttribute('data-zi-dm')){const d=window.PHONE?.insta?.dms?.[+b.dataset.ziDm];if(d){const label=document.createElement('div');label.style.cssText='padding:35px 22px;text-align:center;color:#555';label.textContent=(d.name||'상대')+'에게 전송이 지연되고 있습니다.';current.querySelector('.zi-scroll')?.prepend(label);setTimeout(()=>label.remove(),3000)}}
+},true);
+document.addEventListener('keydown',e=>{if(current&&e.key==='Escape'){e.stopImmediatePropagation();if(mode==='story')renderFeed();else close()}},true);
+})();</script>
+<script id="v7-system-guard">
+(()=>{'use strict';const isSystem=n=>window.ZOMBIE_INSTITUTIONS?.(n);
+ const guard=()=>{const box=document.getElementById('screens');if(!box)return;
+  box.querySelectorAll('.screen.white,.screen.chat-im,.kroom').forEach(room=>{
+   if(room.dataset.z7OneWay==='yes')return;
+   const name=room.dataset.exPerson||room.dataset.chat||room.querySelector('.chat-head .who b')?.textContent?.trim()||room.querySelector('.chat-native-head .chat-contact b,.chat-native-head b,.chat-kheader b,.nav strong')?.textContent?.trim()||'';
+   if(!isSystem(name))return;
+   const comp=room.querySelector('.composer,.chat-compose,.kcomp');if(!comp)return;
+   room.dataset.z7OneWay='yes';comp.style.display='none';
+   comp.insertAdjacentHTML('beforebegin','<div class="ex-oneway">재난·안전 안내 전용 번호입니다. 이 대화방에서는 답장을 보낼 수 없습니다.</div>');
+   room.querySelectorAll('[data-choices],.ex-options').forEach(p=>p.remove());
+  });
+  box.querySelectorAll('.kline.me .kb,.bubble-row.me .bubble').forEach(b=>{const old=b.textContent,newer=old?.replace(/^\s*(?:도현|김도현)\s*:\s*/,'');if(old!==newer)b.textContent=newer});
+ };
+ new MutationObserver(()=>{if(window.__z7GuardPending)return;window.__z7GuardPending=true;queueMicrotask(()=>{window.__z7GuardPending=false;guard()})}).observe(document.getElementById('screens'),{subtree:true,childList:true});
+ guard();
+})();
+</script>
+</body></html>
